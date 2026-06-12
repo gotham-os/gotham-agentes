@@ -1,6 +1,6 @@
 from .alfred import alfred_agent
-from .minerador import minerador_agent
-from .copywriter import copywriter_agent
-from .pesquisador import pesquisador_agent
+from .ras import ras_agent
+from .selina import selina_agent
+from .bruce import bruce_agent
 
-__all__ = ["alfred_agent", "minerador_agent", "copywriter_agent", "pesquisador_agent"]
+__all__ = ["alfred_agent", "ras_agent", "selina_agent", "bruce_agent"]

@@ -1,5 +1,6 @@
 """
-Minerador de Ofertas Escaladas — agente Agno que garante oportunidades reais.
+Bruce Wayne — CEO / Minerador de Oportunidades Escaladas.
+Domínio: ROI, estratégia de mercado, radar de apostas assimétricas.
 
 Fontes cobertas:
 - Meta Ads Library (browser via MCP)
@@ -24,7 +25,6 @@ from xml.etree import ElementTree
 
 from agno.agent import Agent
 from agno.models.groq import Groq
-from agno.models.anthropic import Claude
 from agno.tools import tool
 from agno.tools.tavily import TavilyTools
 from agno.tools.duckduckgo import DuckDuckGoTools
@@ -177,10 +177,10 @@ Seu trabalho não é gerar ideias bonitas; é encontrar apostas assimétricas qu
 Não pergunte "essa ideia é interessante?". Pergunte: "isso merece 72h de execução e R$300-R$1000 de teste?"
 """
 
-minerador_agent = Agent(
-    name="Minerador de Ofertas",
-    id="minerador",
-    model=Claude(id="claude-sonnet-4-6") if os.getenv("ANTHROPIC_API_KEY") else Groq(id="llama-3.3-70b-versatile"),
+bruce_agent = Agent(
+    name="🏛️ Bruce Wayne",
+    id="bruce",
+    model=Groq(id="llama-3.3-70b-versatile"),
     tools=[
         TavilyTools(),
         DuckDuckGoTools(),
@@ -192,8 +192,9 @@ minerador_agent = Agent(
     ],
     db=SqliteDb(db_file=DB_PATH),
     description=(
-        "Especialista em encontrar ofertas digitais escaladas no Brasil, mercados hispânicos e inglês. "
-        "Usa Meta Ads Library, TikTok, Reddit, ReclameAqui e Google Trends para confirmar o que está convertendo agora."
+        "Bruce Wayne é o CEO do GOTHAM OS — domínio ROI, estratégia e oportunidades de mercado. "
+        "Especialista em encontrar apostas assimétricas digitais escaláveis (BR, ES tier-1, EN). "
+        "Usa Meta Ads Library, TikTok, Reddit, ReclameAqui e Google Trends como fontes de evidência."
     ),
     instructions=[
         "Sempre pesquise em pelo menos 3 fontes antes de concluir sobre uma oportunidade.",
