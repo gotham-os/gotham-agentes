@@ -8,10 +8,10 @@ RUN pip install uv --quiet
 COPY pyproject.toml README.md ./
 
 # Instala só as deps (sem editable — não precisa de src code ainda)
-RUN uv pip install --system --no-build-isolation \
+RUN uv pip install --system \
     agno fastapi "uvicorn[standard]" pydantic pydantic-settings \
-    python-dotenv sqlalchemy "groq" "anthropic" "openai" \
-    "tavily-python" ddgs httpx beautifulsoup4 lxml feedparser
+    python-dotenv sqlalchemy groq anthropic openai \
+    tavily-python ddgs httpx beautifulsoup4 lxml feedparser
 
 # Copia o resto do código
 COPY . .
