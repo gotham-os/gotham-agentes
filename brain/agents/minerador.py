@@ -179,7 +179,7 @@ Não pergunte "essa ideia é interessante?". Pergunte: "isso merece 72h de execu
 
 minerador_agent = Agent(
     name="Minerador de Ofertas",
-    agent_id="minerador",
+    id="minerador",
     model=Claude(id="claude-sonnet-4-6") if os.getenv("ANTHROPIC_API_KEY") else Groq(id="llama-3.3-70b-versatile"),
     tools=[
         TavilyTools(),
@@ -206,6 +206,6 @@ minerador_agent = Agent(
     ],
     system_message=SYSTEM_PROMPT,
     markdown=True,
-    add_history_to_messages=True,
-    num_history_responses=5,
+    add_history_to_context=True,
+    num_history_runs=5,
 )

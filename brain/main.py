@@ -21,16 +21,17 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from agno.agent import Agent
-from agno.app.fastapi.app import FastAPIApp
+from agno.os.app import AgentOS
 from agents import alfred_agent, minerador_agent, copywriter_agent, pesquisador_agent
 
-app = FastAPIApp(
+app = AgentOS(
+    name="GOTHAM Brain",
     agents=[
         alfred_agent,
         pesquisador_agent,
         minerador_agent,
         copywriter_agent,
     ],
-    # Permite CORS do agent-ui rodando em qualquer origem local ou Coolify
-    add_cors_headers=True,
+    # Permite CORS do agent-ui rodando em qualquer origem
+    cors_allowed_origins=["*"],
 ).get_app()

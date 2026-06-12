@@ -9,7 +9,7 @@ DB_PATH = os.getenv("GOTHAM_DB_PATH", "./gotham_memory.db")
 
 copywriter_agent = Agent(
     name="Copywriter",
-    agent_id="copywriter",
+    id="copywriter",
     model=Claude(id="claude-sonnet-4-6") if os.getenv("ANTHROPIC_API_KEY") else Groq(id="llama-3.3-70b-versatile"),
     tools=[TavilyTools()],
     db=SqliteDb(db_file=DB_PATH),
@@ -27,6 +27,6 @@ copywriter_agent = Agent(
         "Quando pedido, gere variações A/B para teste.",
     ],
     markdown=True,
-    add_history_to_messages=True,
-    num_history_responses=5,
+    add_history_to_context=True,
+    num_history_runs=5,
 )

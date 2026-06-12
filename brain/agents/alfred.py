@@ -10,7 +10,7 @@ DB_PATH = os.getenv("GOTHAM_DB_PATH", "./gotham_memory.db")
 
 alfred_agent = Agent(
     name="Alfred",
-    agent_id="alfred",
+    id="alfred",
     model=Claude(id="claude-sonnet-4-6") if os.getenv("ANTHROPIC_API_KEY") else Groq(id="llama-3.3-70b-versatile"),
     tools=[TavilyTools(), DuckDuckGoTools()],
     db=SqliteDb(db_file=DB_PATH),
@@ -25,6 +25,6 @@ alfred_agent = Agent(
         "Separe fatos de opiniões. Cite fontes quando relevante.",
     ],
     markdown=True,
-    add_history_to_messages=True,
-    num_history_responses=10,
+    add_history_to_context=True,
+    num_history_runs=10,
 )

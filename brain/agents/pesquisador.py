@@ -8,7 +8,7 @@ DB_PATH = os.getenv("GOTHAM_DB_PATH", "./gotham_memory.db")
 
 pesquisador_agent = Agent(
     name="Pesquisador",
-    agent_id="pesquisador",
+    id="pesquisador",
     model=Groq(id="qwen/qwen3-32b"),
     tools=[TavilyTools()],
     db=SqliteDb(db_file=DB_PATH),
@@ -19,6 +19,6 @@ pesquisador_agent = Agent(
         "Prefira dados quantitativos a qualitativos quando possível.",
     ],
     markdown=True,
-    add_history_to_messages=True,
-    num_history_responses=10,
+    add_history_to_context=True,
+    num_history_runs=10,
 )
