@@ -95,7 +95,8 @@ Após subir o Manifest:
 
 ```bash
 # brain health
-curl https://brain.SEU_DOMINIO.com/v1/playground/agents
+curl https://brain.SEU_DOMINIO.com/health
+curl https://brain.SEU_DOMINIO.com/agents
 
 # ui
 curl -I https://agents.SEU_DOMINIO.com
