@@ -20,9 +20,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from agno.agent import Agent
+from fastapi.middleware.cors import CORSMiddleware
 from agno.os.app import AgentOS
 from agents import alfred_agent, minerador_agent, copywriter_agent, pesquisador_agent
+
+_cors_origins = os.getenv("CORS_ORIGINS", "https://agents.bmilimitada.com").split(",")
 
 app = AgentOS(
     name="GOTHAM Brain",
@@ -32,6 +34,13 @@ app = AgentOS(
         minerador_agent,
         copywriter_agent,
     ],
-    # Permite CORS do agent-ui rodando em qualquer origem
-    cors_allowed_origins=["*"],
 ).get_app()
+
+# Override CORS — AgentOS hardcodes allow_credentials=True que é incompatível com allow_origins=["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_cors_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)

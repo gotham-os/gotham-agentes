@@ -81,10 +81,10 @@ export const useStore = create<Store>()(
             typeof messages === 'function' ? messages(state.messages) : messages
         })),
       chatInputRef: { current: null },
-      selectedEndpoint: 'http://localhost:7777',
+      selectedEndpoint: process.env.NEXT_PUBLIC_AGNO_API_URL || 'http://localhost:7777',
       setSelectedEndpoint: (selectedEndpoint) =>
         set(() => ({ selectedEndpoint })),
-      authToken: '',
+      authToken: process.env.NEXT_PUBLIC_AGNO_AUTH_TOKEN || '',
       setAuthToken: (authToken) => set(() => ({ authToken })),
       agents: [],
       setAgents: (agents) => set({ agents }),
@@ -107,10 +107,11 @@ export const useStore = create<Store>()(
         set(() => ({ isSessionsLoading }))
     }),
     {
-      name: 'endpoint-storage',
+      name: 'endpoint-storage-v2',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
-        selectedEndpoint: state.selectedEndpoint
+        selectedEndpoint: state.selectedEndpoint,
+        authToken: state.authToken
       }),
       onRehydrateStorage: () => (state) => {
         state?.setHydrated?.()
