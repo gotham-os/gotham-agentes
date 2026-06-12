@@ -1,0 +1,56 @@
+{
+  "region": "GLOBAL",
+  "limit": 8,
+  "time": "year",
+  "sort": "relevance",
+  "queries": [
+    {
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "subreddits": ["FacebookAds", "DigitalMarketing", "PPC"],
+      "queries": ["meta ads no sales", "facebook ads no sales", "spending on ads no sales", "ads waste money small business"],
+      "tags": ["reddit", "paid_traffic", "meta_ads", "pain"],
+      "pain_terms": ["no sales", "wasting ad spend", "campaign not converting"],
+      "offer_terms": ["ad audit", "funnel diagnosis", "landing page audit"]
+    },
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "subreddits": ["FacebookAds", "marketing", "ecommerce"],
+      "queries": ["creative fatigue meta ads", "ugc ads hooks", "ad creative testing fatigue", "new creatives every week"],
+      "tags": ["reddit", "creative", "ugc", "pain"],
+      "pain_terms": ["creative fatigue", "ads stop working", "need new creatives"],
+      "offer_terms": ["hooks", "ugc scripts", "creative testing matrix"]
+    },
+    {
+      "cluster_key": "ai-search-geo-audit",
+      "subreddits": ["TechSEO", "SEO", "bigseo", "SaaS"],
+      "queries": ["AI overviews traffic drop", "Google AI overview lost traffic", "ChatGPT search SEO", "AI search visibility"],
+      "tags": ["reddit", "seo", "ai_search", "pain"],
+      "pain_terms": ["traffic drop", "AI overviews", "zero click", "not cited"],
+      "offer_terms": ["AI search audit", "GEO audit", "visibility report"]
+    },
+    {
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "subreddits": ["Entrepreneur", "smallbusiness", "sales"],
+      "queries": ["whatsapp leads follow up", "lost leads whatsapp", "lead qualification chatbot", "responding to leads manually"],
+      "tags": ["reddit", "whatsapp", "lead_qualification", "pain"],
+      "pain_terms": ["lost leads", "slow follow up", "manual qualification"],
+      "offer_terms": ["lead qualification", "whatsapp assistant", "follow up automation"]
+    },
+    {
+      "cluster_key": "n8n-automation-template-packs",
+      "subreddits": ["n8n", "automation", "nocode", "Entrepreneur"],
+      "queries": ["n8n templates", "n8n workflow automation business", "automate lead follow up n8n", "n8n AI workflow"],
+      "tags": ["reddit", "n8n", "automation", "template"],
+      "pain_terms": ["manual workflow", "automation setup", "n8n template"],
+      "offer_terms": ["workflow pack", "automation template", "setup guide"]
+    },
+    {
+      "cluster_key": "sales-call-followup-copilot",
+      "subreddits": ["sales", "CRM", "Entrepreneur", "SaaS"],
+      "queries": ["sales call follow up CRM", "forget to follow up sales calls", "meeting notes CRM automation", "AI sales call notes"],
+      "tags": ["reddit", "sales", "crm", "pain"],
+      "pain_terms": ["missed follow up", "manual CRM update", "sales notes"],
+      "offer_terms": ["follow up copilot", "CRM summary", "sales call notes"]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[project]
+name = "gotham-opportunity-researcher"
+version = "0.1.0"
+description = "Agente local para minerar oportunidades de oferta com evidencias, scoring e MVP rapido."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+gotham-radar = "opportunity_researcher.cli:main"
+
+[tool.gotham]
+default_region = "BR"
+default_channel = "Meta Ads"

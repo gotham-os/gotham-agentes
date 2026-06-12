@@ -1,0 +1,32 @@
+{
+  "country": "BR",
+  "max_ads_per_query": 12,
+  "scroll_rounds": 4,
+  "queries": [
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "query": "criativos ugc",
+      "tags": ["meta_ads", "creative", "ugc", "paid_traffic", "digital_delivery"]
+    },
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "query": "roteiros ugc",
+      "tags": ["meta_ads", "creative", "ugc", "scripts", "digital_delivery"]
+    },
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "query": "hooks para anuncios",
+      "tags": ["meta_ads", "creative", "hooks", "paid_traffic", "digital_delivery"]
+    },
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "query": "fadiga criativa",
+      "tags": ["meta_ads", "creative_fatigue", "paid_traffic", "digital_delivery"]
+    },
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "query": "criativos que vendem",
+      "tags": ["meta_ads", "creative", "paid_traffic", "direct_response", "digital_delivery"]
+    }
+  ]
+}

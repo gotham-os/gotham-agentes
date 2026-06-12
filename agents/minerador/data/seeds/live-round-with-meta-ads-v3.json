@@ -1,0 +1,1184 @@
+{
+  "run_name": "live-round-2026-05-13-digital-offers-with-meta-ads",
+  "notes": "Rodada de iniciacao do agente com foco em entregas digitais escalaveis. Inclui hipoteses, evidencias publicas e links para verificacao na Meta Ads Library.",
+  "opportunity_hypotheses": [
+    {
+      "cluster_key": "ai-search-geo-audit",
+      "title": "Auditoria GEO/AI Search para Sites que Perderam Trafego Organico",
+      "solution_type": "audit",
+      "offer_type": "auditoria digital / relatorio / micro-saas futuro",
+      "audience": "SaaS pequenos, agencias, blogs monetizados, creators com site e negocios digitais dependentes de SEO",
+      "promise": "Veja se seu site esta invisivel no ChatGPT, Gemini, Perplexity e AI Overviews, e receba um plano de correcao.",
+      "why_now": "AI Overviews e respostas de LLMs estao mudando CTR organico; ja existem produtos vendendo AI Search Optimization.",
+      "mvp_hours": 48,
+      "delivery_manual_possible": true,
+      "meta_ads_fit": 78,
+      "mvp": [
+        "Formulario com dominio, nicho, concorrentes e 10 consultas-alvo",
+        "Teste manual/assistido em buscadores IA e SERP para checar citacoes e gaps",
+        "Relatorio PDF com score de visibilidade IA, schema/checklist e plano de 7 dias"
+      ],
+      "meta_ads_test": {
+        "budget": "R$500-R$1000",
+        "creatives": 4,
+        "objective": "Lead magnet + venda de auditoria R$97-R$297",
+        "kill_rule": "Matar se os leads nao tiverem site ativo ou trafego organico relevante",
+        "scale_rule": "Continuar se gerar leads de agencias/SaaS ou vender 2 auditorias"
+      },
+      "red_team": [
+        "Termo GEO ainda exige educacao do mercado",
+        "Dificil prometer recuperacao de trafego; vender visibilidade e plano de acao",
+        "Precisa pedir dados do Search Console para validar dor real"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=SEO%20IA",
+        "Criar diagnostico gratuito: 'Seu site aparece nas respostas das IAs?'",
+        "Montar checklist de schema, entidades, paginas comerciais e mencoes externas"
+      ],
+      "tags": [
+        "digital_delivery",
+        "seo",
+        "ai_search",
+        "geo",
+        "b2b",
+        "agency",
+        "smb",
+        "direct_response"
+      ]
+    },
+    {
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "title": "Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes",
+      "solution_type": "audit",
+      "offer_type": "auditoria digital / servico productizado",
+      "audience": "donos de pequenos negocios digitais, creators, infoprodutores, SaaS pequenos e ecommerce digital que anunciam no Meta",
+      "promise": "Descubra em 24h por que seus anuncios recebem cliques mas nao geram venda, com um plano de correcao priorizado.",
+      "why_now": "Pequenos anunciantes reclamam de verba queimada, baixa conversao e confusao entre criativo, tracking, oferta e landing page.",
+      "mvp_hours": 24,
+      "delivery_manual_possible": true,
+      "meta_ads_fit": 92,
+      "mvp": [
+        "Formulario com URL da landing, prints/CSV do gerenciador e descricao da oferta",
+        "Checklist de 37 pontos: criativo, hook, oferta, tracking, evento, pagina e checkout",
+        "Relatorio PDF + Loom curto com 3 mudancas prioritarias"
+      ],
+      "meta_ads_test": {
+        "budget": "R$300-R$700",
+        "creatives": 5,
+        "objective": "Lead ou venda direta de auditoria R$47-R$197",
+        "kill_rule": "Matar se CPC ficar alto e nenhum lead qualificado aparecer apos R$150-R$250",
+        "scale_rule": "Continuar se gerar 5+ leads qualificados ou 1 venda com CPA aceitavel"
+      },
+      "red_team": [
+        "Pode virar consultoria trabalhosa se nao limitar escopo",
+        "Precisa prometer diagnostico, nao resultado garantido",
+        "Prova real so vem com venda/lead e qualidade dos dados enviados"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=gestao%20de%20trafego",
+        "Criar LP com headline de perda de verba",
+        "Vender primeiro como auditoria manual antes de automatizar"
+      ],
+      "tags": [
+        "digital_delivery",
+        "meta_ads",
+        "paid_traffic",
+        "direct_response",
+        "b2b",
+        "smb",
+        "creator"
+      ]
+    },
+    {
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "title": "Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico",
+      "solution_type": "automation",
+      "offer_type": "automacao / agente / servico productizado digital",
+      "audience": "negocios de servico, agencias, clinicas, consultores, escolas livres e prestadores que recebem leads pelo WhatsApp",
+      "promise": "Transforme conversas baguncadas do WhatsApp em lead qualificado, resumo, proximo passo e resposta pronta.",
+      "why_now": "WhatsApp segue como canal central de venda no Brasil; pequenos negocios querem responder rapido sem montar atendimento complexo.",
+      "mvp_hours": 72,
+      "delivery_manual_possible": true,
+      "meta_ads_fit": 84,
+      "mvp": [
+        "Formulario onde o cliente cola conversa ou exporta texto do WhatsApp",
+        "IA classifica lead, urgencia, objeções e proximo passo",
+        "Entrega resposta pronta + resumo CRM em PDF/planilha"
+      ],
+      "meta_ads_test": {
+        "budget": "R$400-R$900",
+        "creatives": 5,
+        "objective": "Lead para diagnostico ou venda de setup R$197-R$497",
+        "kill_rule": "Matar se leads nao usam WhatsApp como canal comercial",
+        "scale_rule": "Continuar se gerar calls/diagnosticos com negocios que recebem 20+ conversas por semana"
+      },
+      "red_team": [
+        "Automacao completa via WhatsApp API pode ter friccao; comecar por entrega semi-manual",
+        "Mercado cheio de chatbot generico; precisa verticalizar por dor de lead perdido",
+        "Nao prometer integracao oficial na V0"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=chatbot%20whatsapp",
+        "Criar teste: 'Quantos leads do WhatsApp voce perdeu esta semana?'",
+        "Criar template de resumo + resposta pronta por nicho"
+      ],
+      "tags": [
+        "digital_delivery",
+        "whatsapp",
+        "ai_agent",
+        "lead_qualification",
+        "smb",
+        "b2b",
+        "direct_response",
+        "meta_ads"
+      ]
+    },
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "title": "Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga",
+      "solution_type": "template",
+      "offer_type": "template / auditoria criativa / pacote de prompts e roteiros",
+      "audience": "infoprodutores, creators, SaaS pequenos, agencias e anunciantes que precisam renovar criativos toda semana",
+      "promise": "Receba 30 hooks, 10 roteiros UGC e uma matriz de testes para parar a fadiga criativa nos seus anuncios.",
+      "why_now": "Discussões recentes sobre Meta Ads mostram fadiga criativa, necessidade de hooks melhores e aumento da importancia de criativos.",
+      "mvp_hours": 24,
+      "delivery_manual_possible": true,
+      "meta_ads_fit": 95,
+      "mvp": [
+        "Formulario com oferta, avatar, dores e criativos atuais",
+        "Gerador manual/IA de 30 hooks + 10 roteiros UGC",
+        "Matriz de teste A/B por angulo, dor, prova e CTA"
+      ],
+      "meta_ads_test": {
+        "budget": "R$300-R$700",
+        "creatives": 6,
+        "objective": "Venda direta R$47-R$147 ou lead para pacote personalizado",
+        "kill_rule": "Matar se clientes pedirem criacao audiovisual completa e nao roteiro/template",
+        "scale_rule": "Continuar se vender pacotes para anunciantes ativos ou agencias"
+      },
+      "red_team": [
+        "Pode virar commodity se for so prompts genericos",
+        "Precisa usar exemplos da oferta do cliente para parecer personalizado",
+        "Nao prometer performance, vender volume de hipoteses criativas"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=criativos%20para%20anuncios",
+        "Criar LP: 'Seu anuncio morreu? gere a proxima bateria de criativos em 24h'",
+        "Criar amostra gratuita com 5 hooks"
+      ],
+      "tags": [
+        "digital_delivery",
+        "ugc",
+        "creative",
+        "meta_ads",
+        "paid_traffic",
+        "direct_response",
+        "creator",
+        "agency"
+      ]
+    },
+    {
+      "cluster_key": "n8n-automation-template-packs",
+      "title": "Packs Digitais de Automacoes n8n para Processos Comerciais",
+      "solution_type": "automation",
+      "offer_type": "template / automacao / servico productizado digital",
+      "audience": "agencias, freelancers, solopreneurs e pequenos negocios que querem automatizar tarefas repetitivas sem contratar dev full-time",
+      "promise": "Instale automacoes prontas de lead, proposta, follow-up, relatorio e CRM em horas, nao semanas.",
+      "why_now": "n8n e automacoes com IA estao populares; usuarios procuram templates e exemplos para transformar workflows em produto.",
+      "mvp_hours": 72,
+      "delivery_manual_possible": true,
+      "meta_ads_fit": 76,
+      "mvp": [
+        "3 workflows n8n exportaveis: captura lead, follow-up e relatorio",
+        "Guia PDF de instalacao + video curto",
+        "Setup assistido pago para os primeiros clientes"
+      ],
+      "meta_ads_test": {
+        "budget": "R$400-R$800",
+        "creatives": 4,
+        "objective": "Lead ou venda de pack R$97-R$297",
+        "kill_rule": "Matar se leads nao souberem o que e n8n/automacao ou exigirem projeto custom complexo",
+        "scale_rule": "Continuar se agencias/freelancers comprarem templates ou pedirem setup"
+      },
+      "red_team": [
+        "Publico pode ser tecnico demais para Meta Ads frio",
+        "Precisa empacotar por resultado, nao por ferramenta",
+        "Suporte pode crescer se templates quebrarem por credenciais/APIs"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=automacao%20n8n",
+        "Criar pack inicial: lead -> proposta -> follow-up",
+        "Vender como biblioteca de automacoes comerciais, nao curso generico"
+      ],
+      "tags": [
+        "digital_delivery",
+        "automation",
+        "n8n",
+        "ai_workflows",
+        "b2b",
+        "smb",
+        "template",
+        "direct_response"
+      ]
+    },
+    {
+      "cluster_key": "sales-call-followup-copilot",
+      "title": "Copiloto Digital de Reuniao Comercial para Follow-up e CRM",
+      "solution_type": "audit",
+      "offer_type": "relatorio / automacao / micro-saas futuro",
+      "audience": "founders, consultores, agencias e times pequenos que fazem calls de venda e perdem follow-up",
+      "promise": "Cole a transcricao da call e receba resumo, objeções, follow-up pronto, tarefas e campos de CRM.",
+      "why_now": "Produtos de meeting notes e sales AI crescem; times pequenos ainda falham no pos-call e nao querem CRM enterprise.",
+      "mvp_hours": 48,
+      "delivery_manual_possible": true,
+      "meta_ads_fit": 72,
+      "mvp": [
+        "Formulario para colar transcricao/audio transcrito",
+        "IA extrai dores, objeções, decisores, proximo passo e risco",
+        "Entrega email/WhatsApp follow-up + campos de CRM em CSV"
+      ],
+      "meta_ads_test": {
+        "budget": "R$400-R$800",
+        "creatives": 4,
+        "objective": "Lead com amostra gratuita ou venda R$47-R$197",
+        "kill_rule": "Matar se publico nao tiver calls recorrentes ou nao enxergar perda de follow-up",
+        "scale_rule": "Continuar se founders/agencias enviarem calls reais e pedirem recorrencia"
+      },
+      "red_team": [
+        "Categoria ja tem concorrentes fortes",
+        "Precisa nichar em pos-call comercial, nao notas genericas",
+        "Dados sensiveis exigem aviso de privacidade simples"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=crm%20ia",
+        "Criar exemplo antes/depois de uma call baguncada",
+        "Vender primeiro como relatorio pos-call manual"
+      ],
+      "tags": [
+        "digital_delivery",
+        "sales",
+        "crm",
+        "meeting_notes",
+        "ai_agent",
+        "b2b",
+        "direct_response"
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "id": "sig-ai-search-appsumo-001",
+      "cluster_key": "ai-search-geo-audit",
+      "source": "AppSumo",
+      "source_url": "https://appsumo.com/products/clickrank/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "revenue",
+      "strength": "high",
+      "title": "ClickRank sells AI search optimization with 480 reviews",
+      "summary": "Produto AppSumo vende auditoria/otimizacao para ChatGPT, Claude, Perplexity, Gemini e Google AI Overviews.",
+      "audience": "Bloggers, ecommerce, agencias de marketing",
+      "pain_terms": [
+        "SEO changing",
+        "AI search visibility",
+        "site not cited",
+        "need actionable recommendations"
+      ],
+      "offer_terms": [
+        "AI Search Optimization",
+        "SEO audit",
+        "AI Overview tracker",
+        "schema markup"
+      ],
+      "tags": [
+        "ai_search",
+        "seo",
+        "geo",
+        "appsumo",
+        "digital_delivery",
+        "b2b"
+      ],
+      "metrics": {
+        "reviews": 480,
+        "rating": 4.5,
+        "price_usd": 89
+      }
+    },
+    {
+      "id": "sig-ai-search-reddit-002",
+      "cluster_key": "ai-search-geo-audit",
+      "source": "Reddit r/TechSEO",
+      "source_url": "https://www.reddit.com/r/TechSEO/comments/1rvfjw9/search_traffic_still_dropping_how_are_you_dealing/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "high",
+      "title": "Search traffic still dropping? How are you dealing with it?",
+      "summary": "Discussao de queda de trafego, zero-click, AI Overviews e volatilidade afetando sites em 2026.",
+      "audience": "SEO, publishers, SaaS e sites com trafego organico",
+      "pain_terms": [
+        "search traffic dropping",
+        "zero-click",
+        "AI Overviews",
+        "CTR down",
+        "scary"
+      ],
+      "offer_terms": [
+        "AI visibility audit",
+        "SERP change check",
+        "GSC review"
+      ],
+      "tags": [
+        "ai_search",
+        "seo",
+        "geo",
+        "pain",
+        "digital_delivery"
+      ],
+      "metrics": {
+        "upvotes": 7,
+        "published": "2026-03-16"
+      }
+    },
+    {
+      "id": "sig-ai-search-reddit-003",
+      "cluster_key": "ai-search-geo-audit",
+      "source": "Reddit r/LegalMarketingTalk",
+      "source_url": "https://www.reddit.com/r/LegalMarketingTalk/comments/1rsi2qg/are_google_ai_overviews_decreasing_a_websites/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "medium",
+      "title": "Are Google AI Overviews decreasing a website's organic traffic?",
+      "summary": "Discussao aponta queda em queries informacionais e necessidade de checar se a marca aparece em respostas de LLMs.",
+      "audience": "Servicos profissionais com SEO local/comercial",
+      "pain_terms": [
+        "traffic drop",
+        "AI Overviews",
+        "invisible in LLM responses",
+        "AI Share of Voice"
+      ],
+      "offer_terms": [
+        "AI Share of Voice",
+        "citation tracking",
+        "entity data audit"
+      ],
+      "tags": [
+        "ai_search",
+        "seo",
+        "professional_services",
+        "digital_delivery"
+      ],
+      "metrics": {
+        "published": "2026-03-13"
+      }
+    },
+    {
+      "id": "sig-meta-reddit-001",
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "source": "Reddit r/FacebookAds",
+      "source_url": "https://www.reddit.com/r/FacebookAds/comments/1nqvcot/spending_30day_on_meta_ads_still_no_sales_is_this/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "high",
+      "title": "Spending $30/day on Meta ads, still no sales",
+      "summary": "Anunciante pequeno relata conversao perto de 0; respostas apontam tracking, criativo, landing page, oferta e budget.",
+      "audience": "Pequenos anunciantes digitais",
+      "pain_terms": [
+        "zero sales",
+        "low budget",
+        "tracking",
+        "creative",
+        "landing page",
+        "offer problem",
+        "burning cash"
+      ],
+      "offer_terms": [
+        "diagnostic",
+        "audit",
+        "creative analysis",
+        "landing page review"
+      ],
+      "tags": [
+        "meta_ads",
+        "paid_traffic",
+        "smb",
+        "digital_delivery"
+      ],
+      "metrics": {
+        "published": "2025-09-26"
+      }
+    },
+    {
+      "id": "sig-meta-reddit-002",
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "source": "Reddit r/DigitalMarketing",
+      "source_url": "https://www.reddit.com/r/DigitalMarketing/comments/1r6xuqn/are_paid_ads_becoming_a_waste_of_money_for_small/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "high",
+      "title": "Are paid ads becoming a waste of money for small businesses?",
+      "summary": "Pequenos negocios sentem paid ads como money pit quando faltam estrategia, mensuracao, oferta, landing e tracking.",
+      "audience": "Pequenos negocios e profissionais de marketing",
+      "pain_terms": [
+        "waste of money",
+        "small budgets",
+        "testing",
+        "ROI",
+        "bad strategy",
+        "landing page",
+        "tracking"
+      ],
+      "offer_terms": [
+        "ROI diagnostic",
+        "campaign audit",
+        "offer audit"
+      ],
+      "tags": [
+        "meta_ads",
+        "paid_traffic",
+        "direct_response",
+        "smb"
+      ],
+      "metrics": {
+        "published": "2026-02-17"
+      }
+    },
+    {
+      "id": "sig-meta-appsumo-003",
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "source": "AppSumo",
+      "source_url": "https://appsumo.com/products/adcreative-ai/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "revenue",
+      "strength": "medium",
+      "title": "AdCreative.ai sold as AI-powered ad creative generator",
+      "summary": "AppSumo positioning validates demand for faster ad creative generation and testing.",
+      "audience": "Startups, solopreneurs, marketers",
+      "pain_terms": [
+        "takes time and manpower to create creatives",
+        "need variations",
+        "save time and money"
+      ],
+      "offer_terms": [
+        "AI creative generator",
+        "high-converting creatives",
+        "ad variations"
+      ],
+      "tags": [
+        "creative",
+        "paid_traffic",
+        "appsumo",
+        "digital_delivery"
+      ],
+      "metrics": {
+        "reviews": 238,
+        "rating": 4.5
+      }
+    },
+    {
+      "id": "sig-whatsapp-official-001",
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "source": "WhatsApp Business",
+      "source_url": "https://business.whatsapp.com/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "demand",
+      "strength": "medium",
+      "title": "WhatsApp Business positions messaging as customer communication channel",
+      "summary": "WhatsApp Business promove comunicacao com clientes, catalogo, mensagens e ferramentas para negocios.",
+      "audience": "Negocios que atendem clientes por mensagem",
+      "pain_terms": [
+        "customer messages",
+        "fast replies",
+        "business communication"
+      ],
+      "offer_terms": [
+        "WhatsApp automation",
+        "lead qualification",
+        "reply templates"
+      ],
+      "tags": [
+        "whatsapp",
+        "smb",
+        "digital_delivery",
+        "b2b"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-whatsapp-reddit-002",
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "source": "Reddit r/smallbusiness",
+      "source_url": "https://www.reddit.com/r/smallbusiness/search/?q=AI%20chatbot%20customer%20support%20leads&restrict_sr=1",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "medium",
+      "title": "Small businesses search for AI chatbot/customer support lead handling",
+      "summary": "Busca de comunidades mostra dor recorrente em atendimento, leads e automacao de respostas para pequenos negocios.",
+      "audience": "Pequenos negocios com atendimento por mensagem",
+      "pain_terms": [
+        "missed leads",
+        "slow replies",
+        "customer support",
+        "manual qualification"
+      ],
+      "offer_terms": [
+        "lead qualification bot",
+        "support assistant",
+        "reply automation"
+      ],
+      "tags": [
+        "whatsapp",
+        "ai_agent",
+        "customer_support",
+        "smb",
+        "digital_delivery"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-whatsapp-appsumo-003",
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "source": "AppSumo search",
+      "source_url": "https://appsumo.com/search/?query=chatbot",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "revenue",
+      "strength": "medium",
+      "title": "AppSumo has chatbot/support automation offers",
+      "summary": "Marketplace de deals mostra oferta recorrente de chatbots, suporte e automacao conversacional.",
+      "audience": "SMBs, marketers e solopreneurs",
+      "pain_terms": [
+        "support automation",
+        "chatbot setup",
+        "customer replies"
+      ],
+      "offer_terms": [
+        "AI chatbot",
+        "support automation",
+        "lead capture"
+      ],
+      "tags": [
+        "appsumo",
+        "customer_support",
+        "ai_agent",
+        "digital_delivery"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-ugc-reddit-001",
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "source": "Reddit r/FacebookAds",
+      "source_url": "https://www.reddit.com/r/FacebookAds/search/?q=creative%20fatigue%20UGC%20hooks&restrict_sr=1",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "high",
+      "title": "Meta advertisers discuss creative fatigue, UGC and hooks",
+      "summary": "Busca em comunidade de Facebook Ads aponta dor recorrente em fadiga criativa, hooks e necessidade de novas variacoes.",
+      "audience": "Anunciantes de Meta Ads",
+      "pain_terms": [
+        "creative fatigue",
+        "UGC",
+        "hooks",
+        "ads stopped working",
+        "need new creatives"
+      ],
+      "offer_terms": [
+        "UGC scripts",
+        "ad hooks",
+        "creative testing matrix"
+      ],
+      "tags": [
+        "meta_ads",
+        "paid_traffic",
+        "ugc",
+        "creative",
+        "digital_delivery"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-ugc-appsumo-002",
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "source": "AppSumo",
+      "source_url": "https://appsumo.com/products/adcreative-ai/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "revenue",
+      "strength": "medium",
+      "title": "AdCreative.ai validates demand for ad creative generation",
+      "summary": "Produto com centenas de reviews em marketplace valida compra de ferramentas para gerar criativos mais rapido.",
+      "audience": "Marketers, founders, solopreneurs",
+      "pain_terms": [
+        "creative production time",
+        "need ad variations",
+        "conversion-focused creatives"
+      ],
+      "offer_terms": [
+        "ad creative generator",
+        "hooks",
+        "creative variations"
+      ],
+      "tags": [
+        "appsumo",
+        "creative",
+        "paid_traffic",
+        "digital_delivery"
+      ],
+      "metrics": {
+        "reviews": 238,
+        "rating": 4.5
+      }
+    },
+    {
+      "id": "sig-ugc-tiktok-003",
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "source": "TikTok Creative Center",
+      "source_url": "https://ads.tiktok.com/business/creativecenter/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "distribution",
+      "strength": "medium",
+      "title": "TikTok Creative Center provides trends, hashtags and creative inspiration",
+      "summary": "Fonte oficial usada para pesquisar hooks, formatos criativos e tendencias de anuncios/videos.",
+      "audience": "Anunciantes e criadores",
+      "pain_terms": [
+        "creative inspiration",
+        "trending formats",
+        "ad ideas"
+      ],
+      "offer_terms": [
+        "creative research",
+        "UGC script pack",
+        "trend-based hooks"
+      ],
+      "tags": [
+        "tiktok",
+        "creative",
+        "distribution",
+        "digital_delivery"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-n8n-reddit-001",
+      "cluster_key": "n8n-automation-template-packs",
+      "source": "Reddit r/n8n",
+      "source_url": "https://www.reddit.com/r/n8n/search/?q=workflow%20templates%20small%20business&restrict_sr=1",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "medium",
+      "title": "n8n community searches for workflow templates and examples",
+      "summary": "Comunidade mostra demanda por exemplos, templates, automacoes e resolucao de problemas de workflow.",
+      "audience": "Automatizadores, freelancers e pequenos negocios",
+      "pain_terms": [
+        "workflow setup",
+        "template examples",
+        "API credentials",
+        "automation breaks"
+      ],
+      "offer_terms": [
+        "n8n templates",
+        "workflow pack",
+        "setup guide"
+      ],
+      "tags": [
+        "n8n",
+        "automation",
+        "template",
+        "digital_delivery"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-n8n-market-002",
+      "cluster_key": "n8n-automation-template-packs",
+      "source": "n8n templates",
+      "source_url": "https://n8n.io/workflows/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "demand",
+      "strength": "high",
+      "title": "n8n has public workflow template marketplace",
+      "summary": "A existencia de biblioteca publica de workflows valida o comportamento de procurar e reutilizar automacoes prontas.",
+      "audience": "Usuarios de automacao e integracao",
+      "pain_terms": [
+        "build workflows faster",
+        "automation templates",
+        "integration examples"
+      ],
+      "offer_terms": [
+        "workflow library",
+        "automation templates",
+        "ready-to-use workflows"
+      ],
+      "tags": [
+        "n8n",
+        "automation",
+        "template",
+        "digital_delivery",
+        "b2b"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-n8n-appsumo-003",
+      "cluster_key": "n8n-automation-template-packs",
+      "source": "AppSumo search",
+      "source_url": "https://appsumo.com/search/?query=automation",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "revenue",
+      "strength": "medium",
+      "title": "AppSumo has recurring automation/workflow products",
+      "summary": "Marketplace mostra demanda por produtos de automacao, workflow e produtividade para solopreneurs/SMBs.",
+      "audience": "Solopreneurs, agencias e SMBs",
+      "pain_terms": [
+        "manual work",
+        "workflow automation",
+        "repetitive tasks"
+      ],
+      "offer_terms": [
+        "automation tools",
+        "workflow packs",
+        "AI workflows"
+      ],
+      "tags": [
+        "appsumo",
+        "automation",
+        "digital_delivery",
+        "b2b"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-sales-call-appsumo-001",
+      "cluster_key": "sales-call-followup-copilot",
+      "source": "AppSumo search",
+      "source_url": "https://appsumo.com/search/?query=meeting%20notes",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "revenue",
+      "strength": "medium",
+      "title": "AppSumo has meeting notes/transcription products",
+      "summary": "Marketplace recorrente para ferramentas de transcricao, notas e produtividade pos-reuniao.",
+      "audience": "Founders, sales teams, consultants",
+      "pain_terms": [
+        "meeting notes",
+        "follow-up",
+        "manual CRM updates",
+        "missed action items"
+      ],
+      "offer_terms": [
+        "AI meeting notes",
+        "sales follow-up",
+        "CRM summary"
+      ],
+      "tags": [
+        "meeting_notes",
+        "sales",
+        "crm",
+        "digital_delivery",
+        "b2b"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-sales-call-reddit-002",
+      "cluster_key": "sales-call-followup-copilot",
+      "source": "Reddit r/SaaS",
+      "source_url": "https://www.reddit.com/r/SaaS/search/?q=sales%20call%20follow%20up%20CRM%20AI&restrict_sr=1",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "pain",
+      "strength": "medium",
+      "title": "SaaS founders discuss sales follow-up, CRM and AI summaries",
+      "summary": "Busca em SaaS mostra dor em follow-up comercial, organizacao de calls e atualizacao de CRM.",
+      "audience": "Founders e times pequenos de venda",
+      "pain_terms": [
+        "missed follow-up",
+        "CRM updates",
+        "sales call notes",
+        "lost deals"
+      ],
+      "offer_terms": [
+        "follow-up generator",
+        "CRM updater",
+        "call summary"
+      ],
+      "tags": [
+        "sales",
+        "crm",
+        "meeting_notes",
+        "ai_agent",
+        "digital_delivery"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "sig-sales-call-market-003",
+      "cluster_key": "sales-call-followup-copilot",
+      "source": "Otter.ai",
+      "source_url": "https://otter.ai/",
+      "captured_at": "2026-05-13T13:30:00Z",
+      "region": "GLOBAL",
+      "evidence_type": "competitor",
+      "strength": "medium",
+      "title": "Otter.ai validates AI meeting notes category",
+      "summary": "Categoria madura de notas de reuniao por IA, com oportunidade de nichar em pos-call comercial leve.",
+      "audience": "Profissionais que fazem reunioes",
+      "pain_terms": [
+        "meeting notes",
+        "action items",
+        "summaries"
+      ],
+      "offer_terms": [
+        "AI meeting assistant",
+        "meeting summary",
+        "action items"
+      ],
+      "tags": [
+        "meeting_notes",
+        "ai_agent",
+        "competitor",
+        "digital_delivery"
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "meta-ads-ugc-creative-fatigue-pack-criativos-para-anuncios",
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "source": "Meta Ads Library via Playwright",
+      "source_url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=criativos+para+anuncios&search_type=keyword_unordered&media_type=all",
+      "captured_at": "2026-05-13T13:48:50.539Z",
+      "region": "BR",
+      "evidence_type": "distribution",
+      "strength": "high",
+      "title": "Meta Ads Library: \"criativos para anuncios\" retornou 8 cards",
+      "summary": "Coleta encontrou 8 cards, 8 ativos e 7 paginas unicas. Amostras: Por que escolher a Tropa Mídias pra escalar o seu negócio? | Aqui, você não contrata uma agência. | Você ganha um time completo cuidando do seu crescimento: | 🚀 Tráfego pago estratégico | 🎯 Criativos e copy que vendem | 📲 Social media com plano de conteúdo e captação | 📈 Entregamos CRM e relatórios semanais | Se você quer mais vendas, mais resultado e menos achismo, comenta aqui embaixo “TROPA” 👇 / QUER VENDER MAIS NAS REDES SEM CONTRATAR DESIGNER? | Se você sente que tá perdendo tempo com conteúdos, ficando sem ideias e vendo seus concorrentes engajar mais, tá na hora de mudar o jogo. | Com o pacote da BestContent, você gera posts completos — com design, legenda e identidade visual — em segundos. | É como ter um time de social media 24h no seu bolso. | E tem mais: Nessa black Friday você garante 7 produtos pelo preço de 1 | ✅ IA Geradora de Conteúdos para Redes Sociais | ✅ Agendador e posts para as redes sociais | ✅ Gerador de artigos para blog com IA / Agora, todas as vantagens, os recursos criativos e as ferramentas personalizadas da sua agência estão em um só lugar na Central de Sucesso para Agências. | META.COM/BUSINESS | Descubra vantagens para agências | Learn More",
+      "audience": "Anunciantes e compradores alcançados por Meta Ads",
+      "pain_terms": [
+        "criativos para anuncios",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "Por que escolher a Tropa Mídias pra escalar o seu negócio? | Aqui, você não contrata uma agência. | Você ganha um time completo cuidando do seu crescimento: | 🚀 Tráfego pago estratégico | 🎯 Criativos e copy que vendem | 📲 Social media com plano de conteúdo e captação | 📈 Entregamos CRM e relatórios semanais | Se você quer mais vendas, mais resultado e menos achismo, comenta aqui embaixo “TROPA” 👇",
+        "QUER VENDER MAIS NAS REDES SEM CONTRATAR DESIGNER? | Se você sente que tá perdendo tempo com conteúdos, ficando sem ideias e vendo seus concorrentes engajar mais, tá na hora de mudar o jogo. | Com o pacote da BestContent, você gera posts completos — com design, legenda e identidade visual — em segundos. | É como ter um time de social media 24h no seu bolso. | E tem mais: Nessa black Friday você garante 7 produtos pelo preço de 1 | ✅ IA Geradora de Conteúdos para Redes Sociais | ✅ Agendador e posts para as redes sociais | ✅ Gerador de artigos para blog com IA",
+        "Agora, todas as vantagens, os recursos criativos e as ferramentas personalizadas da sua agência estão em um só lugar na Central de Sucesso para Agências. | META.COM/BUSINESS | Descubra vantagens para agências | Learn More"
+      ],
+      "tags": [
+        "meta_ads",
+        "distribution",
+        "digital_delivery",
+        "creative",
+        "paid_traffic"
+      ],
+      "metrics": {
+        "query": "criativos para anuncios",
+        "cards_found": 8,
+        "active_ads": 8,
+        "unique_pages": 7,
+        "sample_pages": [
+          "Tropa Midias com zk.ads",
+          "BestContent Autopilot com BestContent AI Brasil",
+          "Meta for Business",
+          "Avanço Digital",
+          "DashCortex",
+          "Ázara Digital",
+          "Gui Ecomm - Tráfego Pago"
+        ],
+        "sample_library_ids": [
+          "1623517882340621",
+          "751973891278425",
+          "894441393084869",
+          "3413983712102066",
+          "722780383526945",
+          "1496824295819799",
+          "933163169085567",
+          "1376805181166233"
+        ]
+      }
+    },
+    {
+      "id": "meta-ads-meta-ads-offer-diagnostic-gestao-de-trafego",
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "source": "Meta Ads Library via Playwright",
+      "source_url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=gestao+de+trafego&search_type=keyword_unordered&media_type=all",
+      "captured_at": "2026-05-13T13:49:04.273Z",
+      "region": "BR",
+      "evidence_type": "distribution",
+      "strength": "high",
+      "title": "Meta Ads Library: \"gestao de trafego\" retornou 8 cards",
+      "summary": "Coleta encontrou 8 cards, 8 ativos e 8 paginas unicas. Amostras: A TMB desenvolveu uma solução aprovada por milhares de infoprodutores, para você vender mais sem investir R$1 a mais em tráfego, somente adicionando a opção do boleto parcelado aos seus produtos. | Você foca em alcançar mais clientes, enquanto nós cuidamos de toda gestão dos pagamentos e cobranças para que você receba em dia sem nenhuma burocracia. | Clique em \"Saiba mais\" e preencha o formulário / Por que escolher a Tropa Mídias pra escalar o seu negócio? | Aqui, você não contrata uma agência. | Você ganha um time completo cuidando do seu crescimento: | 🚀 Tráfego pago estratégico | 🎯 Criativos e copy que vendem | 📲 Social media com plano de conteúdo e captação | 📈 Entregamos CRM e relatórios semanais | Se você quer mais vendas, mais resultado e menos achismo, comenta aqui embaixo “TROPA” 👇 / 🚀 Transforme sua paixão por redes sociais em uma carreira de sucesso! 💻✨ | No curso online de Social Media Marketing da EBAC, você aprenderá a criar conteúdos que engajam, planejar campanhas poderosas e impulsionar marcas no digital.📱 | 🔥 Aproveite 50% OFF! | Inscreva-se agora e comece sua jornada rumo ao sucesso! 🙌 | Curso online de Social Media Marketing | Sign Up",
+      "audience": "Anunciantes e compradores alcançados por Meta Ads",
+      "pain_terms": [
+        "gestao de trafego",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "A TMB desenvolveu uma solução aprovada por milhares de infoprodutores, para você vender mais sem investir R$1 a mais em tráfego, somente adicionando a opção do boleto parcelado aos seus produtos. | Você foca em alcançar mais clientes, enquanto nós cuidamos de toda gestão dos pagamentos e cobranças para que você receba em dia sem nenhuma burocracia. | Clique em \"Saiba mais\" e preencha o formulário",
+        "Por que escolher a Tropa Mídias pra escalar o seu negócio? | Aqui, você não contrata uma agência. | Você ganha um time completo cuidando do seu crescimento: | 🚀 Tráfego pago estratégico | 🎯 Criativos e copy que vendem | 📲 Social media com plano de conteúdo e captação | 📈 Entregamos CRM e relatórios semanais | Se você quer mais vendas, mais resultado e menos achismo, comenta aqui embaixo “TROPA” 👇",
+        "🚀 Transforme sua paixão por redes sociais em uma carreira de sucesso! 💻✨ | No curso online de Social Media Marketing da EBAC, você aprenderá a criar conteúdos que engajam, planejar campanhas poderosas e impulsionar marcas no digital.📱 | 🔥 Aproveite 50% OFF! | Inscreva-se agora e comece sua jornada rumo ao sucesso! 🙌 | Curso online de Social Media Marketing | Sign Up"
+      ],
+      "tags": [
+        "meta_ads",
+        "distribution",
+        "digital_delivery",
+        "paid_traffic",
+        "audit"
+      ],
+      "metrics": {
+        "query": "gestao de trafego",
+        "cards_found": 8,
+        "active_ads": 8,
+        "unique_pages": 8,
+        "sample_pages": [
+          "TMB",
+          "Tropa Midias com zk.ads",
+          "EBAC",
+          "Melhor Comunicação",
+          "Spar",
+          "Via Rapida Edu",
+          "Buffet Mais",
+          "Haxia"
+        ],
+        "sample_library_ids": [
+          "786951930745920",
+          "1623517882340621",
+          "4474369826220480",
+          "1657886374897192",
+          "937248421528207",
+          "716517954865209",
+          "1146098507360334",
+          "524521800380096"
+        ]
+      }
+    },
+    {
+      "id": "meta-ads-whatsapp-ai-lead-qualification-chatbot-whatsapp",
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "source": "Meta Ads Library via Playwright",
+      "source_url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=chatbot+whatsapp&search_type=keyword_unordered&media_type=all",
+      "captured_at": "2026-05-13T13:49:18.485Z",
+      "region": "BR",
+      "evidence_type": "distribution",
+      "strength": "high",
+      "title": "Meta Ads Library: \"chatbot whatsapp\" retornou 8 cards",
+      "summary": "Coleta encontrou 8 cards, 8 ativos e 2 paginas unicas. Amostras: Looking to send personalised bulk messages on WhatsApp without getting banned? | Use the official WhatsApp API with WhatChimp, the 🏆 #1 Official WhatsApp Marketing Platform and a Verified Meta Business Partner. | Trusted by thousands of businesses in 90+ countries, WhatChimp is built for everyone from small startups to large enterprises. | 🚨 Lock in Early Bird Pricing for Life starting at just $12/month | With WhatChimp, you can | ✅ Send personalised bulk messages safely using the official WhatsApp API | ✅ Add multiple team members with roles, permissions, and manager monitoring | ✅ Manage all customer chats through a multi-agent shared inbox / ¿Quieres enviar mensajes personalizados en masa por WhatsApp sin correr el riesgo de que te bloqueen? | Usa la API oficial de WhatsApp con WhatChimp, 🏆 la plataforma oficial número 1 de marketing por WhatsApp y socio verificado de Meta. | Con la confianza de miles de empresas en más de 90 países, WhatChimp está diseñada para todos, desde pequeños negocios hasta grandes empresas. | 🚨 Asegura el precio Early Bird de por vida desde solo 12 USD al mes | Con WhatChimp puedes | ✅ Enviar mensajes personalizados de forma segura usando la API oficial de WhatsApp | ✅ Agregar varios miembros de tu equipo con roles, permisos y supervisión de gerentes | ✅ Gestionar todos los chats de tus clientes desde una bandeja compartida para múltiples agentes / Looking to send personalised bulk messages on WhatsApp without getting banned? | Use the official WhatsApp API and never get banned for sending thousands of messages. While WATI charges a steep 35% markup on Meta API fees and starts at $99/month for their Growth plan, WhatChimp offers the lowest cost with 0% markup fees - saving you thousands in the long run. | Lock-In Early-Bird Pricing for Lifetime: $12/mo | WATI's Growth plan costs $99/mo with 35% markup | With WhatChimp, you get: | 👉 Never get banned for sending bulk WhatsApp Messages | 👉 No markup fees on WhatsApp API, unlike WATI that adds 35% | 👉 Send personalised bulk messages to contacts in one click",
+      "audience": "Anunciantes e compradores alcançados por Meta Ads",
+      "pain_terms": [
+        "chatbot whatsapp",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "Looking to send personalised bulk messages on WhatsApp without getting banned? | Use the official WhatsApp API with WhatChimp, the 🏆 #1 Official WhatsApp Marketing Platform and a Verified Meta Business Partner. | Trusted by thousands of businesses in 90+ countries, WhatChimp is built for everyone from small startups to large enterprises. | 🚨 Lock in Early Bird Pricing for Life starting at just $12/month | With WhatChimp, you can | ✅ Send personalised bulk messages safely using the official WhatsApp API | ✅ Add multiple team members with roles, permissions, and manager monitoring | ✅ Manage all customer chats through a multi-agent shared inbox",
+        "¿Quieres enviar mensajes personalizados en masa por WhatsApp sin correr el riesgo de que te bloqueen? | Usa la API oficial de WhatsApp con WhatChimp, 🏆 la plataforma oficial número 1 de marketing por WhatsApp y socio verificado de Meta. | Con la confianza de miles de empresas en más de 90 países, WhatChimp está diseñada para todos, desde pequeños negocios hasta grandes empresas. | 🚨 Asegura el precio Early Bird de por vida desde solo 12 USD al mes | Con WhatChimp puedes | ✅ Enviar mensajes personalizados de forma segura usando la API oficial de WhatsApp | ✅ Agregar varios miembros de tu equipo con roles, permisos y supervisión de gerentes | ✅ Gestionar todos los chats de tus clientes desde una bandeja compartida para múltiples agentes",
+        "Looking to send personalised bulk messages on WhatsApp without getting banned? | Use the official WhatsApp API and never get banned for sending thousands of messages. While WATI charges a steep 35% markup on Meta API fees and starts at $99/month for their Growth plan, WhatChimp offers the lowest cost with 0% markup fees - saving you thousands in the long run. | Lock-In Early-Bird Pricing for Lifetime: $12/mo | WATI's Growth plan costs $99/mo with 35% markup | With WhatChimp, you get: | 👉 Never get banned for sending bulk WhatsApp Messages | 👉 No markup fees on WhatsApp API, unlike WATI that adds 35% | 👉 Send personalised bulk messages to contacts in one click"
+      ],
+      "tags": [
+        "meta_ads",
+        "distribution",
+        "digital_delivery",
+        "whatsapp",
+        "lead_qualification"
+      ],
+      "metrics": {
+        "query": "chatbot whatsapp",
+        "cards_found": 8,
+        "active_ads": 8,
+        "unique_pages": 2,
+        "sample_pages": [
+          "WhatChimp",
+          "Transparência da UE"
+        ],
+        "sample_library_ids": [
+          "1576835113754964",
+          "1620234495661391",
+          "2089536218569470",
+          "1568636627903290",
+          "927720320210584",
+          "856782060209135",
+          "2238499803339223",
+          "1353167469780676"
+        ]
+      }
+    },
+    {
+      "id": "meta-ads-ai-search-geo-audit-seo-ia",
+      "cluster_key": "ai-search-geo-audit",
+      "source": "Meta Ads Library via Playwright",
+      "source_url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=SEO+IA&search_type=keyword_unordered&media_type=all",
+      "captured_at": "2026-05-13T13:49:31.820Z",
+      "region": "BR",
+      "evidence_type": "distribution",
+      "strength": "high",
+      "title": "Meta Ads Library: \"SEO IA\" retornou 8 cards",
+      "summary": "Coleta encontrou 8 cards, 8 ativos e 8 paginas unicas. Amostras: Você está perdendo tempo criando tudo do zero? | Essas IAs podem virar o jogo no seu processo de criação. | (Principalmente se você é web designer 👀) | Quer mais sugestões de IA para otimizar seu trabalho? Comenta PARTE 3 👇 | #WebDesign #CriaçãoDeSites #DicasDeDesign #SEO #PerformanceWeb #DesignResponsivo #DicaDeDesigner #DesignGráfico #designer #designergrafico #ecommerce #landingpage #lojasvirtuais #webdesigner #vendersites | INSTAGRAM.COM | Visit Instagram Profile / 2026 pede marcas com voz, profundidade e inteligência. | Sai o excesso. | Sai o discurso bonito. | Sai o alcance vazio. | Entra clareza, microcomunidade e branding pensado pra gente (e também pra máquinas). | Confere aí os 3 insights que mais vão impactar sua marca neste ano. | #branding #ınsıght #tendencia / Jornalismo de dados, IA e SEO é o novo básico do Jornalismo. Para se destacar, você precisa dominar a tecnologia da distribuição e a gestão da reputação. Atualize suas competências na Cásper. | Conheça o curso e faça sua matrícula! | CASPERLIBERO.EDU.BR | Inscrever-se agora",
+      "audience": "Anunciantes e compradores alcançados por Meta Ads",
+      "pain_terms": [
+        "SEO IA",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "Você está perdendo tempo criando tudo do zero? | Essas IAs podem virar o jogo no seu processo de criação. | (Principalmente se você é web designer 👀) | Quer mais sugestões de IA para otimizar seu trabalho? Comenta PARTE 3 👇 | #WebDesign #CriaçãoDeSites #DicasDeDesign #SEO #PerformanceWeb #DesignResponsivo #DicaDeDesigner #DesignGráfico #designer #designergrafico #ecommerce #landingpage #lojasvirtuais #webdesigner #vendersites | INSTAGRAM.COM | Visit Instagram Profile",
+        "2026 pede marcas com voz, profundidade e inteligência. | Sai o excesso. | Sai o discurso bonito. | Sai o alcance vazio. | Entra clareza, microcomunidade e branding pensado pra gente (e também pra máquinas). | Confere aí os 3 insights que mais vão impactar sua marca neste ano. | #branding #ınsıght #tendencia",
+        "Jornalismo de dados, IA e SEO é o novo básico do Jornalismo. Para se destacar, você precisa dominar a tecnologia da distribuição e a gestão da reputação. Atualize suas competências na Cásper. | Conheça o curso e faça sua matrícula! | CASPERLIBERO.EDU.BR | Inscrever-se agora"
+      ],
+      "tags": [
+        "meta_ads",
+        "distribution",
+        "digital_delivery",
+        "seo",
+        "ai_search"
+      ],
+      "metrics": {
+        "query": "SEO IA",
+        "cards_found": 8,
+        "active_ads": 8,
+        "unique_pages": 8,
+        "sample_pages": [
+          "Descomplicando Sites",
+          "Setesete com brunobardella",
+          "Faculdade Cásper Líbero",
+          "RP-Travel Education",
+          "Dr Luiz Koiti Hoshino - Ortopedista em Curitiba",
+          "Transparência da UE",
+          "Jus Dinâmico",
+          "Adriano Couto"
+        ],
+        "sample_library_ids": [
+          "1031597845752727",
+          "1366807141794699",
+          "771236676038017",
+          "1268959707999628",
+          "1484371409982816",
+          "1712535826792879",
+          "1003983286127041",
+          "1475121667438096"
+        ]
+      }
+    },
+    {
+      "id": "meta-ads-n8n-automation-template-packs-automacao-n8n",
+      "cluster_key": "n8n-automation-template-packs",
+      "source": "Meta Ads Library via Playwright",
+      "source_url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=automacao+n8n&search_type=keyword_unordered&media_type=all",
+      "captured_at": "2026-05-13T13:49:45.373Z",
+      "region": "BR",
+      "evidence_type": "distribution",
+      "strength": "high",
+      "title": "Meta Ads Library: \"automacao n8n\" retornou 8 cards",
+      "summary": "Coleta encontrou 8 cards, 8 ativos e 7 paginas unicas. Amostras: Agente de IA no WhatsApp com n8n | Construí uma automação que responde os clientes em tempo real, usando o ChatGPT e uma API não oficial do WhatsApp. | E o melhor: não precisei escrever nada de código, porque o projeto foi feito dentro do n8n, a ferramenta de automação mais famosa do mundo hoje. | E aí, qual processo você automatizaria? | WWW.INSTAGRAM.COM / Se você quer começar no mundo da automação e inteligência artificial de forma prática e gratuita, esse curso é pra você. | Em apenas 1 hora, você aprende os fundamentos do n8n, desde a instalação até a criação dos primeiros fluxos de automação e Agentes de IA. | O conteúdo é direto ao ponto e totalmente prático, feito pra quem nunca mexeu na ferramenta, quer aprender rápido e aplicar no dia a dia. | Ideal pra quem quer automatizar o seu trabalho, criar integrações com diversos serviços como: WhatsApp, Google Sheets, e-mails, APIs e inserir Inteligência Artificial nas automações. | As vagas são limitadas, garanta já a sua matricula. | Clique em saiba mais e bora aprender n8n! | Curso Gratuito de N8N 🧠 | Learn More / Automatize tudo em poucos minutos. | Aqui eu mostro 3 fluxos prontos pra negócio usando n8n + WhatsApp: | Captura e categorização de leads: todo mundo que chama no WhatsApp de vendas é salvo automaticamente, enriquecido com IA (produto de interesse, etapa do funil) e organizado em planilhas/CRM. | Atendente virtual com IA: um bot no WhatsApp que entende texto e áudio, consulta sua base de produtos/serviços e responde de forma consistente, 24/7. | Agendamento inteligente: o fluxo conversa com o cliente, valida horários disponíveis no Google Calendar, cria o evento e ainda dispara lembretes automáticos. | #n8n #chatbots #ia | WWW.INSTAGRAM.COM",
+      "audience": "Anunciantes e compradores alcançados por Meta Ads",
+      "pain_terms": [
+        "automacao n8n",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "Agente de IA no WhatsApp com n8n | Construí uma automação que responde os clientes em tempo real, usando o ChatGPT e uma API não oficial do WhatsApp. | E o melhor: não precisei escrever nada de código, porque o projeto foi feito dentro do n8n, a ferramenta de automação mais famosa do mundo hoje. | E aí, qual processo você automatizaria? | WWW.INSTAGRAM.COM",
+        "Se você quer começar no mundo da automação e inteligência artificial de forma prática e gratuita, esse curso é pra você. | Em apenas 1 hora, você aprende os fundamentos do n8n, desde a instalação até a criação dos primeiros fluxos de automação e Agentes de IA. | O conteúdo é direto ao ponto e totalmente prático, feito pra quem nunca mexeu na ferramenta, quer aprender rápido e aplicar no dia a dia. | Ideal pra quem quer automatizar o seu trabalho, criar integrações com diversos serviços como: WhatsApp, Google Sheets, e-mails, APIs e inserir Inteligência Artificial nas automações. | As vagas são limitadas, garanta já a sua matricula. | Clique em saiba mais e bora aprender n8n! | Curso Gratuito de N8N 🧠 | Learn More",
+        "Automatize tudo em poucos minutos. | Aqui eu mostro 3 fluxos prontos pra negócio usando n8n + WhatsApp: | Captura e categorização de leads: todo mundo que chama no WhatsApp de vendas é salvo automaticamente, enriquecido com IA (produto de interesse, etapa do funil) e organizado em planilhas/CRM. | Atendente virtual com IA: um bot no WhatsApp que entende texto e áudio, consulta sua base de produtos/serviços e responde de forma consistente, 24/7. | Agendamento inteligente: o fluxo conversa com o cliente, valida horários disponíveis no Google Calendar, cria o evento e ainda dispara lembretes automáticos. | #n8n #chatbots #ia | WWW.INSTAGRAM.COM"
+      ],
+      "tags": [
+        "meta_ads",
+        "distribution",
+        "digital_delivery",
+        "automation",
+        "n8n"
+      ],
+      "metrics": {
+        "query": "automacao n8n",
+        "cards_found": 8,
+        "active_ads": 8,
+        "unique_pages": 7,
+        "sample_pages": [
+          "Asimov Academy",
+          "Matheus Battisti - Hora de Codar",
+          "Samuel Sublate",
+          "BotPlugin",
+          "HostGator",
+          "ValueHost",
+          "Hostinger"
+        ],
+        "sample_library_ids": [
+          "1337386744494656",
+          "2465424553893388",
+          "874181448335473",
+          "1226685748644893",
+          "1220809856719409",
+          "1236109675061664",
+          "25656315243994757",
+          "2767827333599030"
+        ]
+      }
+    },
+    {
+      "id": "meta-ads-sales-call-followup-copilot-crm-ia",
+      "cluster_key": "sales-call-followup-copilot",
+      "source": "Meta Ads Library via Playwright",
+      "source_url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=crm+ia&search_type=keyword_unordered&media_type=all",
+      "captured_at": "2026-05-13T13:49:58.798Z",
+      "region": "BR",
+      "evidence_type": "distribution",
+      "strength": "high",
+      "title": "Meta Ads Library: \"crm ia\" retornou 8 cards",
+      "summary": "Coleta encontrou 8 cards, 8 ativos e 7 paginas unicas. Amostras: 🚀 Ultrapassamos 10.000 usuários e 1.000 clientes! | O que poderia ser apenas uma métrica, para nós é a prova viva de que o Marketing Conversacional Integrado (MCI) está se consolidando como o novo padrão de mercado. | 🔹 Transformamos atendimento em encantamento. | 🔹 Elevamos o marketing à relevância real. | 🔹 Convertendo dados em decisões estratégicas, com IA Generativa + metodologia própria + foco em resultados. | Mais do que números, estamos construindo um movimento. | E você faz parte dessa revolução: clientes, parceiros e nosso time, todos juntos escrevendo a nova era do marketing, das vendas e do atendimento. | Porque 10.000 é só o começo. Os próximos 100.000 já estão no horizonte. / Estamos sempre nos atualizando com relação às novas tecnologias e IA é um assunto recorrente por aqui. Sempre discutimos os possíveis usos nos episódios do CV na Prática porque gostamos de entender os diferentes pontos de vista dos nossos convidados. | Todos os dias vemos novas aplicabilidades e a tendência é que isso se intensifique nos próximos anos. 🏗 | Alguns exemplos da aplicabilidade na Construção Civil e Mercado Imobiliário são: | - Atendimento; | - Aprovação de crédito; | - Digitalização de documentos; | - Assistentes virtuais | - Como um estímulo ao uso do CRM. / 🇧🇷Venha nos conhecer! Será um prazer te receber! | 🇺🇸 Come meet us! It will be a pleasure to welcome you! | 🇪🇸 ¡Ven a conocernos! Será un placer recibirte. | Agende sua consulta / book your consultation / agenda tu consulta: +55-61-99824-1100 (WhatsApp) | www.marcotuliorinoplastia.com.br | Dr Marco Túlio Soares Andrade | —————————————————- | - Médico (Univ. de São Paulo - USP)",
+      "audience": "Anunciantes e compradores alcançados por Meta Ads",
+      "pain_terms": [
+        "crm ia",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "🚀 Ultrapassamos 10.000 usuários e 1.000 clientes! | O que poderia ser apenas uma métrica, para nós é a prova viva de que o Marketing Conversacional Integrado (MCI) está se consolidando como o novo padrão de mercado. | 🔹 Transformamos atendimento em encantamento. | 🔹 Elevamos o marketing à relevância real. | 🔹 Convertendo dados em decisões estratégicas, com IA Generativa + metodologia própria + foco em resultados. | Mais do que números, estamos construindo um movimento. | E você faz parte dessa revolução: clientes, parceiros e nosso time, todos juntos escrevendo a nova era do marketing, das vendas e do atendimento. | Porque 10.000 é só o começo. Os próximos 100.000 já estão no horizonte.",
+        "Estamos sempre nos atualizando com relação às novas tecnologias e IA é um assunto recorrente por aqui. Sempre discutimos os possíveis usos nos episódios do CV na Prática porque gostamos de entender os diferentes pontos de vista dos nossos convidados. | Todos os dias vemos novas aplicabilidades e a tendência é que isso se intensifique nos próximos anos. 🏗 | Alguns exemplos da aplicabilidade na Construção Civil e Mercado Imobiliário são: | - Atendimento; | - Aprovação de crédito; | - Digitalização de documentos; | - Assistentes virtuais | - Como um estímulo ao uso do CRM.",
+        "🇧🇷Venha nos conhecer! Será um prazer te receber! | 🇺🇸 Come meet us! It will be a pleasure to welcome you! | 🇪🇸 ¡Ven a conocernos! Será un placer recibirte. | Agende sua consulta / book your consultation / agenda tu consulta: +55-61-99824-1100 (WhatsApp) | www.marcotuliorinoplastia.com.br | Dr Marco Túlio Soares Andrade | —————————————————- | - Médico (Univ. de São Paulo - USP)"
+      ],
+      "tags": [
+        "meta_ads",
+        "distribution",
+        "digital_delivery",
+        "sales",
+        "crm"
+      ],
+      "metrics": {
+        "query": "crm ia",
+        "cards_found": 8,
+        "active_ads": 8,
+        "unique_pages": 7,
+        "sample_pages": [
+          "Hablla",
+          "Construtor de Vendas",
+          "Dr Marco Túlio",
+          "RD Station CRM",
+          "Microsoft",
+          "drvictorcutait",
+          "monday CRM"
+        ],
+        "sample_library_ids": [
+          "1525140198841597",
+          "1370488950867577",
+          "2069772620544831",
+          "2233091593848730",
+          "944757155109305",
+          "834563581977880",
+          "1508205717322404",
+          "1678166833367979"
+        ]
+      }
+    }
+  ]
+}

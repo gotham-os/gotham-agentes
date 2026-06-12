@@ -1,0 +1,14 @@
+# O Framework de Agentes (O Cérebro)
+agno
+
+# O Servidor de API (O Encanamento)
+fastapi
+uvicorn
+
+# Validação e Variáveis de Ambiente
+pydantic
+python-dotenv
+
+# Bancos de Dados (Memória e RAG)
+sqlalchemy
+chromadb

@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Secrets
+.env
+brain/.env
+ui/.env.local
+
+# Node
+node_modules/
+ui/node_modules/
+ui/.next/
+ui/out/
+
+# Database / storage
+*.db
+*.db-shm
+*.db-wal
+brain-data/
+agents/minerador/data/raw/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tooling
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# Playwright
+agents/minerador/.runtime/

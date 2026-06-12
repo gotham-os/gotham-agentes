@@ -1,0 +1,14 @@
+{
+  "name": "gotham-opportunity-researcher-browser-tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright collectors for Gotham Opportunity Researcher.",
+  "scripts": {
+    "meta:test": "node scripts/meta_ads_playwright.mjs --from-fixture tests/fixtures/meta_ads_library_sample.txt --queries-file data/meta_ads_queries.json --out data/raw/meta-ads-fixture.json",
+    "meta:collect": "node scripts/meta_ads_playwright.mjs --queries-file data/meta_ads_queries.json --out data/raw/meta-ads-live.json"
+  },
+  "dependencies": {
+    "playwright-core": "^1.56.1"
+  }
+}

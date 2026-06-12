@@ -1,0 +1,1346 @@
+{
+  "run_name": "live-round-2026-05-13-digital-offers-super-run-v2",
+  "generated_at": "2026-05-13T15:10:54.414461+00:00",
+  "source_count": 14,
+  "signal_count": 24,
+  "opportunity_count": 6,
+  "returned_opportunity_count": 6,
+  "promising_count": 0,
+  "min_promising_target": 5,
+  "round_status": "NEEDS_MORE_EVIDENCE",
+  "round_note": "Rodada abaixo do alvo: 0/5 oportunidades promissoras. Coletar mais sinais antes de montar muitos MVPs.",
+  "quality_summary": {
+    "strong_sources": 0,
+    "weak_or_noise_sources": 21,
+    "core_evidence": 3
+  },
+  "opportunities": [
+    {
+      "cluster_key": "ai-search-geo-audit",
+      "title": "Auditoria GEO/AI Search para Sites que Perderam Trafego Organico",
+      "solution_type": "audit",
+      "offer_type": "auditoria digital / relatorio / micro-saas futuro",
+      "audience": "SaaS pequenos, agencias, blogs monetizados, creators com site e negocios digitais dependentes de SEO",
+      "promise": "Veja se seu site esta invisivel no ChatGPT, Gemini, Perplexity e AI Overviews, e receba um plano de correcao.",
+      "why_now": "AI Overviews e respostas de LLMs estao mudando CTR organico; ja existem produtos vendendo AI Search Optimization.",
+      "mvp": [
+        "Formulario com dominio, nicho, concorrentes e 10 consultas-alvo",
+        "Teste manual/assistido em buscadores IA e SERP para checar citacoes e gaps",
+        "Relatorio PDF com score de visibilidade IA, schema/checklist e plano de 7 dias"
+      ],
+      "mvp_hours": 48,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$500-R$1000",
+        "creatives": 4,
+        "objective": "Lead magnet + venda de auditoria R$97-R$297",
+        "kill_rule": "Matar se os leads nao tiverem site ativo ou trafego organico relevante",
+        "scale_rule": "Continuar se gerar leads de agencias/SaaS ou vender 2 auditorias"
+      },
+      "red_team": [
+        "Termo GEO ainda exige educacao do mercado",
+        "Dificil prometer recuperacao de trafego; vender visibilidade e plano de acao",
+        "Precisa pedir dados do Search Console para validar dor real"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=SEO%20IA",
+        "Criar diagnostico gratuito: 'Seu site aparece nas respostas das IAs?'",
+        "Montar checklist de schema, entidades, paginas comerciais e mencoes externas"
+      ],
+      "flags": [],
+      "tags": [
+        "ai_search",
+        "seo",
+        "geo",
+        "appsumo",
+        "digital_delivery",
+        "b2b",
+        "pain",
+        "weak_signal",
+        "professional_services",
+        "noise_signal",
+        "meta_ads",
+        "distribution",
+        "low_precision_query",
+        "agency",
+        "smb",
+        "direct_response"
+      ],
+      "pain_terms": [
+        "SEO changing",
+        "AI search visibility",
+        "site not cited",
+        "need actionable recommendations",
+        "search traffic dropping",
+        "zero-click",
+        "AI Overviews",
+        "CTR down",
+        "scary",
+        "traffic drop",
+        "invisible in LLM responses",
+        "AI Share of Voice",
+        "SEO IA",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "AI Search Optimization",
+        "SEO audit",
+        "AI Overview tracker",
+        "schema markup",
+        "AI visibility audit",
+        "SERP change check",
+        "GSC review",
+        "AI Share of Voice",
+        "citation tracking",
+        "entity data audit"
+      ],
+      "scores": {
+        "overall": 40,
+        "market": 22,
+        "pain": 65,
+        "distribution": 0,
+        "mvp": 92,
+        "confidence": 6,
+        "meta_ads_fit": 78,
+        "evidence_quality": 46,
+        "source_quality": 66,
+        "proof_density": 32,
+        "decision": "DESCARTAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-ai-search-appsumo-001",
+          "type": "revenue",
+          "source": "AppSumo",
+          "strength": "high",
+          "title": "ClickRank sells AI search optimization with 480 reviews",
+          "url": "https://appsumo.com/products/clickrank/",
+          "metrics": {
+            "reviews": 480,
+            "rating": 4.5,
+            "price_usd": 89,
+            "quality_score": 73,
+            "source_tier": 78,
+            "quality_verdict": "usable",
+            "core_evidence": true,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel",
+              "tem metrica de receita/preco/reviews"
+            ]
+          }
+        },
+        {
+          "id": "sig-ai-search-reddit-002",
+          "type": "pain",
+          "source": "Reddit r/TechSEO",
+          "strength": "high",
+          "title": "Search traffic still dropping? How are you dealing with it?",
+          "url": "https://www.reddit.com/r/TechSEO/comments/1rvfjw9/search_traffic_still_dropping_how_are_you_dealing/",
+          "metrics": {
+            "upvotes": 7,
+            "published": "2026-03-16",
+            "quality_score": 58,
+            "source_tier": 58,
+            "quality_verdict": "weak",
+            "core_evidence": false,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel",
+              "dor com metrica de comunidade/review"
+            ]
+          }
+        },
+        {
+          "id": "sig-ai-search-reddit-003",
+          "type": "pain",
+          "source": "Reddit r/LegalMarketingTalk",
+          "strength": "medium",
+          "title": "Are Google AI Overviews decreasing a website's organic traffic?",
+          "url": "https://www.reddit.com/r/LegalMarketingTalk/comments/1rsi2qg/are_google_ai_overviews_decreasing_a_websites/",
+          "metrics": {
+            "published": "2026-03-13",
+            "quality_score": 24,
+            "source_tier": 58,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "dor sem volume ou exemplos mensurados"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "meta-ads-ai-search-geo-audit-seo-ia",
+          "type": "benchmark",
+          "source": "Meta Ads Library via Playwright",
+          "strength": "low",
+          "title": "Meta Ads Library: \"SEO IA\" retornou 4 cards (0 relevantes)",
+          "url": "fixture://tests\\fixtures\\meta_ads_scaled_duplicate_sample.txt",
+          "metrics": {
+            "query": "SEO IA",
+            "cards_found": 4,
+            "relevant_cards": 0,
+            "irrelevant_cards": 4,
+            "relevance_rate": 0,
+            "active_ads": 0,
+            "unique_pages": 0,
+            "sample_pages": [],
+            "sample_library_ids": [],
+            "scale_signal": "low",
+            "scaled_duplicate_groups": 0,
+            "scaled_duplicate_ads_estimate": 0,
+            "max_duplicate_variants": 1,
+            "same_page_duplicate_groups": 0,
+            "cross_source_duplicate_groups": 0,
+            "cross_page_duplicate_groups": 0,
+            "cross_domain_duplicate_groups": 0,
+            "repeated_copy_groups": 0,
+            "duplicate_examples": [],
+            "quality_score": 30,
+            "source_tier": 72,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "title": "Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes",
+      "solution_type": "audit",
+      "offer_type": "auditoria digital / servico productizado",
+      "audience": "donos de pequenos negocios digitais, creators, infoprodutores, SaaS pequenos e ecommerce digital que anunciam no Meta",
+      "promise": "Descubra em 24h por que seus anuncios recebem cliques mas nao geram venda, com um plano de correcao priorizado.",
+      "why_now": "Pequenos anunciantes reclamam de verba queimada, baixa conversao e confusao entre criativo, tracking, oferta e landing page.",
+      "mvp": [
+        "Formulario com URL da landing, prints/CSV do gerenciador e descricao da oferta",
+        "Checklist de 37 pontos: criativo, hook, oferta, tracking, evento, pagina e checkout",
+        "Relatorio PDF + Loom curto com 3 mudancas prioritarias"
+      ],
+      "mvp_hours": 24,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$300-R$700",
+        "creatives": 5,
+        "objective": "Lead ou venda direta de auditoria R$47-R$197",
+        "kill_rule": "Matar se CPC ficar alto e nenhum lead qualificado aparecer apos R$150-R$250",
+        "scale_rule": "Continuar se gerar 5+ leads qualificados ou 1 venda com CPA aceitavel"
+      },
+      "red_team": [
+        "Pode virar consultoria trabalhosa se nao limitar escopo",
+        "Precisa prometer diagnostico, nao resultado garantido",
+        "Prova real so vem com venda/lead e qualidade dos dados enviados"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=gestao%20de%20trafego",
+        "Criar LP com headline de perda de verba",
+        "Vender primeiro como auditoria manual antes de automatizar"
+      ],
+      "flags": [],
+      "tags": [
+        "meta_ads",
+        "paid_traffic",
+        "smb",
+        "digital_delivery",
+        "noise_signal",
+        "direct_response",
+        "creative",
+        "appsumo",
+        "distribution",
+        "low_precision_query",
+        "audit",
+        "b2b",
+        "creator"
+      ],
+      "pain_terms": [
+        "zero sales",
+        "low budget",
+        "tracking",
+        "creative",
+        "landing page",
+        "offer problem",
+        "burning cash",
+        "waste of money",
+        "small budgets",
+        "testing",
+        "ROI",
+        "bad strategy",
+        "takes time and manpower to create creatives",
+        "need variations",
+        "save time and money",
+        "gestao de trafego",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "diagnostic",
+        "audit",
+        "creative analysis",
+        "landing page review",
+        "ROI diagnostic",
+        "campaign audit",
+        "offer audit",
+        "AI creative generator",
+        "high-converting creatives",
+        "ad variations"
+      ],
+      "scores": {
+        "overall": 40,
+        "market": 16,
+        "pain": 77,
+        "distribution": 0,
+        "mvp": 97,
+        "confidence": 2,
+        "meta_ads_fit": 92,
+        "evidence_quality": 40,
+        "source_quality": 66,
+        "proof_density": 32,
+        "decision": "DESCARTAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-meta-reddit-001",
+          "type": "pain",
+          "source": "Reddit r/FacebookAds",
+          "strength": "high",
+          "title": "Spending $30/day on Meta ads, still no sales",
+          "url": "https://www.reddit.com/r/FacebookAds/comments/1nqvcot/spending_30day_on_meta_ads_still_no_sales_is_this/",
+          "metrics": {
+            "published": "2025-09-26",
+            "quality_score": 32,
+            "source_tier": 58,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "dor sem volume ou exemplos mensurados"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-meta-reddit-002",
+          "type": "pain",
+          "source": "Reddit r/DigitalMarketing",
+          "strength": "high",
+          "title": "Are paid ads becoming a waste of money for small businesses?",
+          "url": "https://www.reddit.com/r/DigitalMarketing/comments/1r6xuqn/are_paid_ads_becoming_a_waste_of_money_for_small/",
+          "metrics": {
+            "published": "2026-02-17",
+            "quality_score": 32,
+            "source_tier": 58,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "dor sem volume ou exemplos mensurados"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-meta-appsumo-003",
+          "type": "revenue",
+          "source": "AppSumo",
+          "strength": "medium",
+          "title": "AdCreative.ai sold as AI-powered ad creative generator",
+          "url": "https://appsumo.com/products/adcreative-ai/",
+          "metrics": {
+            "reviews": 238,
+            "rating": 4.5,
+            "quality_score": 65,
+            "source_tier": 78,
+            "quality_verdict": "usable",
+            "core_evidence": true,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel",
+              "tem metrica de receita/preco/reviews"
+            ]
+          }
+        },
+        {
+          "id": "meta-ads-meta-ads-offer-diagnostic-gestao-de-trafego",
+          "type": "benchmark",
+          "source": "Meta Ads Library via Playwright",
+          "strength": "low",
+          "title": "Meta Ads Library: \"gestao de trafego\" retornou 4 cards (0 relevantes)",
+          "url": "fixture://tests\\fixtures\\meta_ads_scaled_duplicate_sample.txt",
+          "metrics": {
+            "query": "gestao de trafego",
+            "cards_found": 4,
+            "relevant_cards": 0,
+            "irrelevant_cards": 4,
+            "relevance_rate": 0,
+            "active_ads": 0,
+            "unique_pages": 0,
+            "sample_pages": [],
+            "sample_library_ids": [],
+            "scale_signal": "low",
+            "scaled_duplicate_groups": 0,
+            "scaled_duplicate_ads_estimate": 0,
+            "max_duplicate_variants": 1,
+            "same_page_duplicate_groups": 0,
+            "cross_source_duplicate_groups": 0,
+            "cross_page_duplicate_groups": 0,
+            "cross_domain_duplicate_groups": 0,
+            "repeated_copy_groups": 0,
+            "duplicate_examples": [],
+            "quality_score": 30,
+            "source_tier": 72,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "title": "Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga",
+      "solution_type": "template",
+      "offer_type": "template / auditoria criativa / pacote de prompts e roteiros",
+      "audience": "infoprodutores, creators, SaaS pequenos, agencias e anunciantes que precisam renovar criativos toda semana",
+      "promise": "Receba 30 hooks, 10 roteiros UGC e uma matriz de testes para parar a fadiga criativa nos seus anuncios.",
+      "why_now": "Discussões recentes sobre Meta Ads mostram fadiga criativa, necessidade de hooks melhores e aumento da importancia de criativos.",
+      "mvp": [
+        "Formulario com oferta, avatar, dores e criativos atuais",
+        "Gerador manual/IA de 30 hooks + 10 roteiros UGC",
+        "Matriz de teste A/B por angulo, dor, prova e CTA"
+      ],
+      "mvp_hours": 24,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$300-R$700",
+        "creatives": 6,
+        "objective": "Venda direta R$47-R$147 ou lead para pacote personalizado",
+        "kill_rule": "Matar se clientes pedirem criacao audiovisual completa e nao roteiro/template",
+        "scale_rule": "Continuar se vender pacotes para anunciantes ativos ou agencias"
+      },
+      "red_team": [
+        "Pode virar commodity se for so prompts genericos",
+        "Precisa usar exemplos da oferta do cliente para parecer personalizado",
+        "Nao prometer performance, vender volume de hipoteses criativas"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=criativos%20para%20anuncios",
+        "Criar LP: 'Seu anuncio morreu? gere a proxima bateria de criativos em 24h'",
+        "Criar amostra gratuita com 5 hooks"
+      ],
+      "flags": [],
+      "tags": [
+        "meta_ads",
+        "paid_traffic",
+        "ugc",
+        "creative",
+        "digital_delivery",
+        "noise_signal",
+        "appsumo",
+        "tiktok",
+        "distribution",
+        "scaled_ads_signal",
+        "low_precision_query",
+        "direct_response",
+        "creator",
+        "agency"
+      ],
+      "pain_terms": [
+        "creative fatigue",
+        "UGC",
+        "hooks",
+        "ads stopped working",
+        "need new creatives",
+        "creative production time",
+        "need ad variations",
+        "conversion-focused creatives",
+        "creative inspiration",
+        "trending formats",
+        "ad ideas",
+        "criativos ugc",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "UGC scripts",
+        "ad hooks",
+        "creative testing matrix",
+        "ad creative generator",
+        "hooks",
+        "creative variations",
+        "creative research",
+        "UGC script pack",
+        "trend-based hooks",
+        "Receba 30 hooks e 10 roteiros UGC para renovar seus criativos de Meta Ads esta semana. | hooksprontos.com | Facebook"
+      ],
+      "scores": {
+        "overall": 36,
+        "market": 16,
+        "pain": 56,
+        "distribution": 0,
+        "mvp": 97,
+        "confidence": 2,
+        "meta_ads_fit": 95,
+        "evidence_quality": 32,
+        "source_quality": 68,
+        "proof_density": 32,
+        "decision": "DESCARTAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-ugc-reddit-001",
+          "type": "pain",
+          "source": "Reddit r/FacebookAds",
+          "strength": "high",
+          "title": "Meta advertisers discuss creative fatigue, UGC and hooks",
+          "url": "https://www.reddit.com/r/FacebookAds/search/?q=creative%20fatigue%20UGC%20hooks&restrict_sr=1",
+          "metrics": {
+            "quality_score": 12,
+            "source_tier": 58,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-ugc-appsumo-002",
+          "type": "revenue",
+          "source": "AppSumo",
+          "strength": "medium",
+          "title": "AdCreative.ai validates demand for ad creative generation",
+          "url": "https://appsumo.com/products/adcreative-ai/",
+          "metrics": {
+            "reviews": 238,
+            "rating": 4.5,
+            "quality_score": 65,
+            "source_tier": 78,
+            "quality_verdict": "usable",
+            "core_evidence": true,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel",
+              "tem metrica de receita/preco/reviews"
+            ]
+          }
+        },
+        {
+          "id": "sig-ugc-tiktok-003",
+          "type": "distribution",
+          "source": "TikTok Creative Center",
+          "strength": "medium",
+          "title": "TikTok Creative Center provides trends, hashtags and creative inspiration",
+          "url": "https://ads.tiktok.com/business/creativecenter/",
+          "metrics": {
+            "quality_score": 36,
+            "source_tier": 66,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "meta-ads-ugc-creative-fatigue-pack-criativos-ugc",
+          "type": "distribution",
+          "source": "Meta Ads Library via Playwright",
+          "strength": "medium",
+          "title": "Meta Ads Library: \"criativos ugc\" retornou 4 cards (1 relevantes)",
+          "url": "fixture://tests\\fixtures\\meta_ads_scaled_duplicate_sample.txt",
+          "metrics": {
+            "query": "criativos ugc",
+            "cards_found": 4,
+            "relevant_cards": 1,
+            "irrelevant_cards": 3,
+            "relevance_rate": 0.25,
+            "active_ads": 1,
+            "unique_pages": 1,
+            "sample_pages": [
+              "Hook Lab"
+            ],
+            "sample_library_ids": [
+              "900000004"
+            ],
+            "scale_signal": "medium",
+            "scaled_duplicate_groups": 1,
+            "scaled_duplicate_ads_estimate": 2,
+            "max_duplicate_variants": 2,
+            "same_page_duplicate_groups": 0,
+            "cross_source_duplicate_groups": 0,
+            "cross_page_duplicate_groups": 0,
+            "cross_domain_duplicate_groups": 0,
+            "repeated_copy_groups": 0,
+            "duplicate_examples": [
+              {
+                "type": "meta_declared_same_creative_text",
+                "page_name": "Hook Lab",
+                "library_id": "900000004",
+                "variants": 2,
+                "copy_preview": "Receba 30 hooks e 10 roteiros UGC para renovar seus criativos de Meta Ads esta semana. | hooksprontos.com | Facebook"
+              }
+            ],
+            "quality_score": 17,
+            "source_tier": 72,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "baixa precisao da query (25% relevante)"
+            ],
+            "quality_strengths": [
+              "tem link auditavel",
+              "1/4 anuncios relevantes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "title": "Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico",
+      "solution_type": "automation",
+      "offer_type": "automacao / agente / servico productizado digital",
+      "audience": "negocios de servico, agencias, clinicas, consultores, escolas livres e prestadores que recebem leads pelo WhatsApp",
+      "promise": "Transforme conversas baguncadas do WhatsApp em lead qualificado, resumo, proximo passo e resposta pronta.",
+      "why_now": "WhatsApp segue como canal central de venda no Brasil; pequenos negocios querem responder rapido sem montar atendimento complexo.",
+      "mvp": [
+        "Formulario onde o cliente cola conversa ou exporta texto do WhatsApp",
+        "IA classifica lead, urgencia, objeções e proximo passo",
+        "Entrega resposta pronta + resumo CRM em PDF/planilha"
+      ],
+      "mvp_hours": 72,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$400-R$900",
+        "creatives": 5,
+        "objective": "Lead para diagnostico ou venda de setup R$197-R$497",
+        "kill_rule": "Matar se leads nao usam WhatsApp como canal comercial",
+        "scale_rule": "Continuar se gerar calls/diagnosticos com negocios que recebem 20+ conversas por semana"
+      },
+      "red_team": [
+        "Automacao completa via WhatsApp API pode ter friccao; comecar por entrega semi-manual",
+        "Mercado cheio de chatbot generico; precisa verticalizar por dor de lead perdido",
+        "Nao prometer integracao oficial na V0"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=chatbot%20whatsapp",
+        "Criar teste: 'Quantos leads do WhatsApp voce perdeu esta semana?'",
+        "Criar template de resumo + resposta pronta por nicho"
+      ],
+      "flags": [],
+      "tags": [
+        "whatsapp",
+        "smb",
+        "digital_delivery",
+        "b2b",
+        "noise_signal",
+        "ai_agent",
+        "customer_support",
+        "appsumo",
+        "meta_ads",
+        "distribution",
+        "low_precision_query",
+        "lead_qualification",
+        "direct_response"
+      ],
+      "pain_terms": [
+        "customer messages",
+        "fast replies",
+        "business communication",
+        "missed leads",
+        "slow replies",
+        "customer support",
+        "manual qualification",
+        "support automation",
+        "chatbot setup",
+        "customer replies",
+        "chatbot whatsapp",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "WhatsApp automation",
+        "lead qualification",
+        "reply templates",
+        "lead qualification bot",
+        "support assistant",
+        "reply automation",
+        "AI chatbot",
+        "support automation",
+        "lead capture"
+      ],
+      "scores": {
+        "overall": 26,
+        "market": 0,
+        "pain": 57,
+        "distribution": 0,
+        "mvp": 92,
+        "confidence": 0,
+        "meta_ads_fit": 84,
+        "evidence_quality": 18,
+        "source_quality": 63,
+        "proof_density": 0,
+        "decision": "DESCARTAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-whatsapp-official-001",
+          "type": "demand",
+          "source": "WhatsApp Business",
+          "strength": "medium",
+          "title": "WhatsApp Business positions messaging as customer communication channel",
+          "url": "https://business.whatsapp.com/",
+          "metrics": {
+            "quality_score": 16,
+            "source_tier": 45,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "trend/demanda sem volume numerico"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-whatsapp-reddit-002",
+          "type": "pain",
+          "source": "Reddit r/smallbusiness",
+          "strength": "medium",
+          "title": "Small businesses search for AI chatbot/customer support lead handling",
+          "url": "https://www.reddit.com/r/smallbusiness/search/?q=AI%20chatbot%20customer%20support%20leads&restrict_sr=1",
+          "metrics": {
+            "quality_score": 4,
+            "source_tier": 58,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-whatsapp-appsumo-003",
+          "type": "revenue",
+          "source": "AppSumo search",
+          "strength": "medium",
+          "title": "AppSumo has chatbot/support automation offers",
+          "url": "https://appsumo.com/search/?query=chatbot",
+          "metrics": {
+            "quality_score": 23,
+            "source_tier": 78,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "receita sem metrica verificavel"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "meta-ads-whatsapp-ai-lead-qualification-chatbot-whatsapp",
+          "type": "benchmark",
+          "source": "Meta Ads Library via Playwright",
+          "strength": "low",
+          "title": "Meta Ads Library: \"chatbot whatsapp\" retornou 4 cards (0 relevantes)",
+          "url": "fixture://tests\\fixtures\\meta_ads_scaled_duplicate_sample.txt",
+          "metrics": {
+            "query": "chatbot whatsapp",
+            "cards_found": 4,
+            "relevant_cards": 0,
+            "irrelevant_cards": 4,
+            "relevance_rate": 0,
+            "active_ads": 0,
+            "unique_pages": 0,
+            "sample_pages": [],
+            "sample_library_ids": [],
+            "scale_signal": "low",
+            "scaled_duplicate_groups": 0,
+            "scaled_duplicate_ads_estimate": 0,
+            "max_duplicate_variants": 1,
+            "same_page_duplicate_groups": 0,
+            "cross_source_duplicate_groups": 0,
+            "cross_page_duplicate_groups": 0,
+            "cross_domain_duplicate_groups": 0,
+            "repeated_copy_groups": 0,
+            "duplicate_examples": [],
+            "quality_score": 30,
+            "source_tier": 72,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cluster_key": "n8n-automation-template-packs",
+      "title": "Packs Digitais de Automacoes n8n para Processos Comerciais",
+      "solution_type": "automation",
+      "offer_type": "template / automacao / servico productizado digital",
+      "audience": "agencias, freelancers, solopreneurs e pequenos negocios que querem automatizar tarefas repetitivas sem contratar dev full-time",
+      "promise": "Instale automacoes prontas de lead, proposta, follow-up, relatorio e CRM em horas, nao semanas.",
+      "why_now": "n8n e automacoes com IA estao populares; usuarios procuram templates e exemplos para transformar workflows em produto.",
+      "mvp": [
+        "3 workflows n8n exportaveis: captura lead, follow-up e relatorio",
+        "Guia PDF de instalacao + video curto",
+        "Setup assistido pago para os primeiros clientes"
+      ],
+      "mvp_hours": 72,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$400-R$800",
+        "creatives": 4,
+        "objective": "Lead ou venda de pack R$97-R$297",
+        "kill_rule": "Matar se leads nao souberem o que e n8n/automacao ou exigirem projeto custom complexo",
+        "scale_rule": "Continuar se agencias/freelancers comprarem templates ou pedirem setup"
+      },
+      "red_team": [
+        "Publico pode ser tecnico demais para Meta Ads frio",
+        "Precisa empacotar por resultado, nao por ferramenta",
+        "Suporte pode crescer se templates quebrarem por credenciais/APIs"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=automacao%20n8n",
+        "Criar pack inicial: lead -> proposta -> follow-up",
+        "Vender como biblioteca de automacoes comerciais, nao curso generico"
+      ],
+      "flags": [],
+      "tags": [
+        "n8n",
+        "automation",
+        "template",
+        "digital_delivery",
+        "noise_signal",
+        "b2b",
+        "appsumo",
+        "meta_ads",
+        "distribution",
+        "low_precision_query",
+        "ai_workflows",
+        "smb",
+        "direct_response"
+      ],
+      "pain_terms": [
+        "workflow setup",
+        "template examples",
+        "API credentials",
+        "automation breaks",
+        "build workflows faster",
+        "automation templates",
+        "integration examples",
+        "manual work",
+        "workflow automation",
+        "repetitive tasks",
+        "automacao n8n",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "n8n templates",
+        "workflow pack",
+        "setup guide",
+        "workflow library",
+        "automation templates",
+        "ready-to-use workflows",
+        "automation tools",
+        "workflow packs",
+        "AI workflows"
+      ],
+      "scores": {
+        "overall": 26,
+        "market": 0,
+        "pain": 57,
+        "distribution": 0,
+        "mvp": 92,
+        "confidence": 0,
+        "meta_ads_fit": 76,
+        "evidence_quality": 20,
+        "source_quality": 63,
+        "proof_density": 0,
+        "decision": "DESCARTAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-n8n-reddit-001",
+          "type": "pain",
+          "source": "Reddit r/n8n",
+          "strength": "medium",
+          "title": "n8n community searches for workflow templates and examples",
+          "url": "https://www.reddit.com/r/n8n/search/?q=workflow%20templates%20small%20business&restrict_sr=1",
+          "metrics": {
+            "quality_score": 4,
+            "source_tier": 58,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-n8n-market-002",
+          "type": "demand",
+          "source": "n8n templates",
+          "strength": "high",
+          "title": "n8n has public workflow template marketplace",
+          "url": "https://n8n.io/workflows/",
+          "metrics": {
+            "quality_score": 24,
+            "source_tier": 45,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "trend/demanda sem volume numerico"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-n8n-appsumo-003",
+          "type": "revenue",
+          "source": "AppSumo search",
+          "strength": "medium",
+          "title": "AppSumo has recurring automation/workflow products",
+          "url": "https://appsumo.com/search/?query=automation",
+          "metrics": {
+            "quality_score": 23,
+            "source_tier": 78,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "receita sem metrica verificavel"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "meta-ads-n8n-automation-template-packs-automacao-n8n",
+          "type": "benchmark",
+          "source": "Meta Ads Library via Playwright",
+          "strength": "low",
+          "title": "Meta Ads Library: \"automacao n8n\" retornou 4 cards (0 relevantes)",
+          "url": "fixture://tests\\fixtures\\meta_ads_scaled_duplicate_sample.txt",
+          "metrics": {
+            "query": "automacao n8n",
+            "cards_found": 4,
+            "relevant_cards": 0,
+            "irrelevant_cards": 4,
+            "relevance_rate": 0,
+            "active_ads": 0,
+            "unique_pages": 0,
+            "sample_pages": [],
+            "sample_library_ids": [],
+            "scale_signal": "low",
+            "scaled_duplicate_groups": 0,
+            "scaled_duplicate_ads_estimate": 0,
+            "max_duplicate_variants": 1,
+            "same_page_duplicate_groups": 0,
+            "cross_source_duplicate_groups": 0,
+            "cross_page_duplicate_groups": 0,
+            "cross_domain_duplicate_groups": 0,
+            "repeated_copy_groups": 0,
+            "duplicate_examples": [],
+            "quality_score": 30,
+            "source_tier": 72,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cluster_key": "sales-call-followup-copilot",
+      "title": "Copiloto Digital de Reuniao Comercial para Follow-up e CRM",
+      "solution_type": "audit",
+      "offer_type": "relatorio / automacao / micro-saas futuro",
+      "audience": "founders, consultores, agencias e times pequenos que fazem calls de venda e perdem follow-up",
+      "promise": "Cole a transcricao da call e receba resumo, objeções, follow-up pronto, tarefas e campos de CRM.",
+      "why_now": "Produtos de meeting notes e sales AI crescem; times pequenos ainda falham no pos-call e nao querem CRM enterprise.",
+      "mvp": [
+        "Formulario para colar transcricao/audio transcrito",
+        "IA extrai dores, objeções, decisores, proximo passo e risco",
+        "Entrega email/WhatsApp follow-up + campos de CRM em CSV"
+      ],
+      "mvp_hours": 48,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$400-R$800",
+        "creatives": 4,
+        "objective": "Lead com amostra gratuita ou venda R$47-R$197",
+        "kill_rule": "Matar se publico nao tiver calls recorrentes ou nao enxergar perda de follow-up",
+        "scale_rule": "Continuar se founders/agencias enviarem calls reais e pedirem recorrencia"
+      },
+      "red_team": [
+        "Categoria ja tem concorrentes fortes",
+        "Precisa nichar em pos-call comercial, nao notas genericas",
+        "Dados sensiveis exigem aviso de privacidade simples"
+      ],
+      "next_actions": [
+        "Verificar Meta Ads Library: https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=crm%20ia",
+        "Criar exemplo antes/depois de uma call baguncada",
+        "Vender primeiro como relatorio pos-call manual"
+      ],
+      "flags": [],
+      "tags": [
+        "meeting_notes",
+        "sales",
+        "crm",
+        "digital_delivery",
+        "b2b",
+        "noise_signal",
+        "ai_agent",
+        "competitor",
+        "meta_ads",
+        "distribution",
+        "low_precision_query",
+        "direct_response"
+      ],
+      "pain_terms": [
+        "meeting notes",
+        "follow-up",
+        "manual CRM updates",
+        "missed action items",
+        "missed follow-up",
+        "CRM updates",
+        "sales call notes",
+        "lost deals",
+        "action items",
+        "summaries",
+        "crm ia",
+        "ads ativos",
+        "concorrentes anunciando"
+      ],
+      "offer_terms": [
+        "AI meeting notes",
+        "sales follow-up",
+        "CRM summary",
+        "follow-up generator",
+        "CRM updater",
+        "call summary",
+        "AI meeting assistant",
+        "meeting summary",
+        "action items"
+      ],
+      "scores": {
+        "overall": 26,
+        "market": 0,
+        "pain": 57,
+        "distribution": 0,
+        "mvp": 92,
+        "confidence": 0,
+        "meta_ads_fit": 72,
+        "evidence_quality": 19,
+        "source_quality": 63,
+        "proof_density": 0,
+        "decision": "DESCARTAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-sales-call-appsumo-001",
+          "type": "revenue",
+          "source": "AppSumo search",
+          "strength": "medium",
+          "title": "AppSumo has meeting notes/transcription products",
+          "url": "https://appsumo.com/search/?query=meeting%20notes",
+          "metrics": {
+            "quality_score": 23,
+            "source_tier": 78,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "receita sem metrica verificavel"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-sales-call-reddit-002",
+          "type": "pain",
+          "source": "Reddit r/SaaS",
+          "strength": "medium",
+          "title": "SaaS founders discuss sales follow-up, CRM and AI summaries",
+          "url": "https://www.reddit.com/r/SaaS/search/?q=sales%20call%20follow%20up%20CRM%20AI&restrict_sr=1",
+          "metrics": {
+            "quality_score": 4,
+            "source_tier": 58,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "sig-sales-call-market-003",
+          "type": "competitor",
+          "source": "Otter.ai",
+          "strength": "medium",
+          "title": "Otter.ai validates AI meeting notes category",
+          "url": "https://otter.ai/",
+          "metrics": {
+            "quality_score": 18,
+            "source_tier": 45,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [
+              "concorrente sem metrica"
+            ],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        },
+        {
+          "id": "meta-ads-sales-call-followup-copilot-crm-ia",
+          "type": "benchmark",
+          "source": "Meta Ads Library via Playwright",
+          "strength": "low",
+          "title": "Meta Ads Library: \"crm ia\" retornou 4 cards (0 relevantes)",
+          "url": "fixture://tests\\fixtures\\meta_ads_scaled_duplicate_sample.txt",
+          "metrics": {
+            "query": "crm ia",
+            "cards_found": 4,
+            "relevant_cards": 0,
+            "irrelevant_cards": 4,
+            "relevance_rate": 0,
+            "active_ads": 0,
+            "unique_pages": 0,
+            "sample_pages": [],
+            "sample_library_ids": [],
+            "scale_signal": "low",
+            "scaled_duplicate_groups": 0,
+            "scaled_duplicate_ads_estimate": 0,
+            "max_duplicate_variants": 1,
+            "same_page_duplicate_groups": 0,
+            "cross_source_duplicate_groups": 0,
+            "cross_page_duplicate_groups": 0,
+            "cross_domain_duplicate_groups": 0,
+            "repeated_copy_groups": 0,
+            "duplicate_examples": [],
+            "quality_score": 30,
+            "source_tier": 72,
+            "quality_verdict": "noise",
+            "core_evidence": false,
+            "quality_problems": [],
+            "quality_strengths": [
+              "tem link auditavel"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "opportunity_quality": {
+    "ai-search-geo-audit": {
+      "average_quality": 46,
+      "source_quality": 66,
+      "proof_density": 26,
+      "core_evidence_count": 1,
+      "usable_evidence_count": 1,
+      "strong_evidence_count": 0,
+      "usable_source_count": 1,
+      "core_by_type": {
+        "pain": 0,
+        "competitor": 0,
+        "demand": 0,
+        "distribution": 0,
+        "revenue": 1
+      },
+      "has_revenue_proof": true,
+      "has_pain_proof": false,
+      "has_distribution_proof": false,
+      "has_demand_proof": false,
+      "problems": [
+        "dor sem volume ou exemplos mensurados"
+      ],
+      "strengths": [
+        "tem link auditavel",
+        "tem metrica de receita/preco/reviews",
+        "dor com metrica de comunidade/review"
+      ]
+    },
+    "meta-ads-offer-diagnostic": {
+      "average_quality": 40,
+      "source_quality": 66,
+      "proof_density": 26,
+      "core_evidence_count": 1,
+      "usable_evidence_count": 1,
+      "strong_evidence_count": 0,
+      "usable_source_count": 1,
+      "core_by_type": {
+        "pain": 0,
+        "competitor": 0,
+        "demand": 0,
+        "distribution": 0,
+        "revenue": 1
+      },
+      "has_revenue_proof": true,
+      "has_pain_proof": false,
+      "has_distribution_proof": false,
+      "has_demand_proof": false,
+      "problems": [
+        "dor sem volume ou exemplos mensurados"
+      ],
+      "strengths": [
+        "tem link auditavel",
+        "tem metrica de receita/preco/reviews"
+      ]
+    },
+    "whatsapp-ai-lead-qualification": {
+      "average_quality": 18,
+      "source_quality": 63,
+      "proof_density": 0,
+      "core_evidence_count": 0,
+      "usable_evidence_count": 0,
+      "strong_evidence_count": 0,
+      "usable_source_count": 0,
+      "core_by_type": {
+        "pain": 0,
+        "competitor": 0,
+        "demand": 0,
+        "distribution": 0,
+        "revenue": 0
+      },
+      "has_revenue_proof": false,
+      "has_pain_proof": false,
+      "has_distribution_proof": false,
+      "has_demand_proof": false,
+      "problems": [
+        "trend/demanda sem volume numerico",
+        "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos",
+        "receita sem metrica verificavel"
+      ],
+      "strengths": [
+        "tem link auditavel"
+      ]
+    },
+    "ugc-creative-fatigue-pack": {
+      "average_quality": 32,
+      "source_quality": 68,
+      "proof_density": 26,
+      "core_evidence_count": 1,
+      "usable_evidence_count": 1,
+      "strong_evidence_count": 0,
+      "usable_source_count": 1,
+      "core_by_type": {
+        "pain": 0,
+        "competitor": 0,
+        "demand": 0,
+        "distribution": 0,
+        "revenue": 1
+      },
+      "has_revenue_proof": true,
+      "has_pain_proof": false,
+      "has_distribution_proof": false,
+      "has_demand_proof": false,
+      "problems": [
+        "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos",
+        "baixa precisao da query (25% relevante)"
+      ],
+      "strengths": [
+        "tem link auditavel",
+        "tem metrica de receita/preco/reviews",
+        "1/4 anuncios relevantes"
+      ]
+    },
+    "n8n-automation-template-packs": {
+      "average_quality": 20,
+      "source_quality": 63,
+      "proof_density": 0,
+      "core_evidence_count": 0,
+      "usable_evidence_count": 0,
+      "strong_evidence_count": 0,
+      "usable_source_count": 0,
+      "core_by_type": {
+        "pain": 0,
+        "competitor": 0,
+        "demand": 0,
+        "distribution": 0,
+        "revenue": 0
+      },
+      "has_revenue_proof": false,
+      "has_pain_proof": false,
+      "has_distribution_proof": false,
+      "has_demand_proof": false,
+      "problems": [
+        "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos",
+        "trend/demanda sem volume numerico",
+        "receita sem metrica verificavel"
+      ],
+      "strengths": [
+        "tem link auditavel"
+      ]
+    },
+    "sales-call-followup-copilot": {
+      "average_quality": 19,
+      "source_quality": 63,
+      "proof_density": 0,
+      "core_evidence_count": 0,
+      "usable_evidence_count": 0,
+      "strong_evidence_count": 0,
+      "usable_source_count": 0,
+      "core_by_type": {
+        "pain": 0,
+        "competitor": 0,
+        "demand": 0,
+        "distribution": 0,
+        "revenue": 0
+      },
+      "has_revenue_proof": false,
+      "has_pain_proof": false,
+      "has_distribution_proof": false,
+      "has_demand_proof": false,
+      "problems": [
+        "receita sem metrica verificavel",
+        "dor baseada apenas em pagina de busca, nao em posts/reviews extraidos",
+        "concorrente sem metrica"
+      ],
+      "strengths": [
+        "tem link auditavel"
+      ]
+    }
+  }
+}

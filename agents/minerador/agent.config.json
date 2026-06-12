@@ -1,0 +1,63 @@
+{
+  "agent_name": "Gotham Opportunity Researcher",
+  "default_region": "BR",
+  "default_channel": "Meta Ads",
+  "decision_thresholds": {
+    "test_now": 78,
+    "deepdive": 65,
+    "radar": 50
+  },
+  "round_output": {
+    "min_promising": 5,
+    "max_ranked": 12,
+    "promising_decisions": ["TESTAR AGORA", "DEEPDIVE", "RADAR"],
+    "daily_target": "Trazer no minimo 5 oportunidades promissoras por rodada quando houver evidencia suficiente; se nao houver, declarar deficit de evidencias em vez de inventar oportunidade."
+  },
+  "market_score_weights": {
+    "revenue": 22,
+    "pain": 20,
+    "distribution": 18,
+    "demand": 15,
+    "competitor": 10,
+    "gap": 8,
+    "trend": 7,
+    "benchmark": 8
+  },
+  "mvp_rules": {
+    "max_hours_priority": 72,
+    "manual_delivery_bonus": 12,
+    "api_dependency_penalty": 15,
+    "regulated_market_penalty": 20
+  },
+  "accepted_offer_types": [
+    "saas",
+    "micro_saas",
+    "audit",
+    "template",
+    "ebook",
+    "course",
+    "productized_service",
+    "chrome_extension",
+    "api",
+    "community",
+    "automation",
+    "spreadsheet",
+    "newsletter",
+    "data_product"
+  ],
+  "delivery_constraints": {
+    "digital_only": true,
+    "physical_products_allowed": false,
+    "priority": "digital scalable delivery: software, automations, audits, templates, reports, info products, data products, communities, APIs, productized digital services"
+  },
+  "fatal_flags": [
+    "no_clear_buyer",
+    "illegal_or_policy_risk",
+    "requires_large_team",
+    "cannot_test_with_meta_ads",
+    "no_minimum_deliverable",
+    "physical_product",
+    "physical_inventory",
+    "offline_delivery_only"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gotham Opportunity Researcher Input",
+  "type": "object",
+  "required": ["signals"],
+  "properties": {
+    "run_name": {"type": "string"},
+    "notes": {"type": "string"},
+    "opportunity_hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_key", "title", "solution_type", "audience", "promise"],
+        "properties": {
+          "cluster_key": {"type": "string"},
+          "title": {"type": "string"},
+          "solution_type": {"type": "string"},
+          "offer_type": {"type": "string"},
+          "audience": {"type": "string"},
+          "promise": {"type": "string"},
+          "why_now": {"type": "string"},
+          "mvp_hours": {"type": "number"},
+          "delivery_manual_possible": {"type": "boolean"},
+          "meta_ads_fit": {"type": "number"},
+          "mvp": {"type": "array", "items": {"type": "string"}},
+          "meta_ads_test": {"type": "object"},
+          "red_team": {"type": "array", "items": {"type": "string"}},
+          "next_actions": {"type": "array", "items": {"type": "string"}},
+          "flags": {"type": "array", "items": {"type": "string"}},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_key", "source", "evidence_type", "title"],
+        "properties": {
+          "id": {"type": "string"},
+          "cluster_key": {"type": "string"},
+          "source": {"type": "string"},
+          "source_url": {"type": "string"},
+          "captured_at": {"type": "string"},
+          "region": {"type": "string"},
+          "evidence_type": {
+            "type": "string",
+            "enum": ["revenue", "pain", "distribution", "demand", "trend", "competitor", "gap", "benchmark"]
+          },
+          "strength": {"type": "string", "enum": ["low", "medium", "high", "verified"]},
+          "title": {"type": "string"},
+          "summary": {"type": "string"},
+          "audience": {"type": "string"},
+          "market": {"type": "string"},
+          "pain_terms": {"type": "array", "items": {"type": "string"}},
+          "offer_terms": {"type": "array", "items": {"type": "string"}},
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "metrics": {"type": "object"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "country": "BR",
+  "max_ads_per_query": 12,
+  "scroll_rounds": 5,
+  "queries": [
+    {
+      "cluster_key": "ugc-creative-fatigue-pack",
+      "query": "criativos ugc",
+      "tags": ["meta_ads", "creative", "ugc", "paid_traffic", "digital_delivery"],
+      "relevance": {
+        "required_all": ["ugc"],
+        "required_any": ["criativo", "criativos", "roteiro", "roteiros", "video", "creator"],
+        "exclude_any": ["fadiga mental", "omega", "resort"],
+        "min_query_terms": 2
+      }
+    },
+    {
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "query": "gestao de trafego",
+      "tags": ["meta_ads", "paid_traffic", "audit", "digital_delivery"],
+      "relevance": {
+        "required_any": ["trafego", "meta ads", "campanha", "anuncio", "anuncios", "gestao de trafego"],
+        "exclude_any": ["transito", "trafego urbano"],
+        "min_query_terms": 2
+      }
+    },
+    {
+      "cluster_key": "whatsapp-ai-lead-qualification",
+      "query": "chatbot whatsapp",
+      "tags": ["meta_ads", "whatsapp", "lead_qualification", "digital_delivery"],
+      "relevance": {
+        "required_all": ["whatsapp"],
+        "required_any": ["chatbot", "atendimento", "automacao", "ia", "bot"],
+        "min_query_terms": 2
+      }
+    },
+    {
+      "cluster_key": "ai-search-geo-audit",
+      "query": "SEO IA",
+      "tags": ["meta_ads", "seo", "ai_search", "digital_delivery"],
+      "relevance": {
+        "required_any": ["seo", "ia", "google", "chatgpt", "busca", "search"],
+        "exclude_any": ["advogado previdenciario"],
+        "min_query_terms": 1
+      }
+    },
+    {
+      "cluster_key": "n8n-automation-template-packs",
+      "query": "automacao n8n",
+      "tags": ["meta_ads", "automation", "n8n", "digital_delivery"],
+      "relevance": {
+        "required_all": ["n8n"],
+        "required_any": ["automacao", "workflow", "ia", "agente"],
+        "min_query_terms": 2
+      }
+    },
+    {
+      "cluster_key": "sales-call-followup-copilot",
+      "query": "crm ia",
+      "tags": ["meta_ads", "sales", "crm", "digital_delivery"],
+      "relevance": {
+        "required_all": ["crm"],
+        "required_any": ["ia", "vendas", "lead", "comercial", "atendimento"],
+        "min_query_terms": 2
+      }
+    }
+  ]
+}

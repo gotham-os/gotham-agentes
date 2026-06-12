@@ -1,0 +1,1803 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gotham Opportunity War Room</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f6f8;
+      --panel: #ffffff;
+      --ink: #15181d;
+      --muted: #626b78;
+      --line: #d9dee7;
+      --line-strong: #bdc6d3;
+      --green: #16834f;
+      --blue: #2459c9;
+      --amber: #a15f00;
+      --red: #b3323a;
+      --violet: #6941c6;
+      --teal: #08736b;
+      --soft-green: #eaf7ef;
+      --soft-blue: #edf3ff;
+      --soft-amber: #fff5df;
+      --soft-red: #fff0f1;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    a { color: #164aa8; text-decoration: none; overflow-wrap: anywhere; }
+    a:hover { text-decoration: underline; }
+    .shell { min-height: 100vh; }
+    .hero {
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+      padding: 22px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .hero-main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    h1 { margin: 0; font-size: 26px; line-height: 1.15; letter-spacing: 0; }
+    .subtitle { margin: 8px 0 0; color: var(--muted); font-size: 14px; max-width: 880px; line-height: 1.45; }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      border: 1px solid #c9d8ff;
+      font-weight: 800;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap: 10px;
+      max-width: 1600px;
+      margin: 18px auto 0;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      background: #fafbfc;
+      border-radius: 8px;
+      padding: 10px 12px;
+      min-height: 66px;
+    }
+    .stat strong { display: block; font-size: 22px; line-height: 1; }
+    .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 12px; }
+    .stat.green { background: var(--soft-green); border-color: #c6e8d2; }
+    .stat.blue { background: var(--soft-blue); border-color: #c9d8ff; }
+    .stat.amber { background: var(--soft-amber); border-color: #f1d69c; }
+    .tabs {
+      max-width: 1600px;
+      margin: 14px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab-button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #2b313b;
+      min-height: 38px;
+      padding: 6px 11px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .tab-button span {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: #eef1f5;
+      color: var(--blue);
+      font-size: 12px;
+    }
+    .tab-button.active { border-color: #9bb6ef; background: var(--soft-blue); color: var(--blue); }
+    .content { max-width: 1600px; margin: 0 auto; padding: 18px 28px 32px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .panel-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+    .panel-head h2 { margin: 0; font-size: 17px; letter-spacing: 0; }
+    .panel-head p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 1040px; }
+    th, td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 13px; }
+    th { background: #f7f8fa; color: #46505d; font-size: 12px; text-transform: uppercase; letter-spacing: .02em; }
+    td small { display: block; color: var(--muted); margin-top: 3px; }
+    .rank { color: var(--muted); font-weight: 800; width: 52px; }
+    .big-score { display: inline-block; font-size: 22px; font-weight: 900; min-width: 34px; }
+    .score-strong { color: var(--green); }
+    .score-good { color: var(--blue); }
+    .score-watch { color: var(--amber); }
+    .score-weak { color: var(--red); }
+    .bar { display: block; height: 7px; width: 86px; background: #eef1f5; border-radius: 999px; overflow: hidden; margin-top: 5px; }
+    .bar span { display: block; height: 100%; background: currentColor; border-radius: inherit; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .badge.test-now { background: var(--soft-green); color: var(--green); border: 1px solid #b8dfc6; }
+    .badge.deepdive { background: var(--soft-blue); color: var(--blue); border: 1px solid #c9d8ff; }
+    .badge.radar { background: var(--soft-amber); color: var(--amber); border: 1px solid #f1d69c; }
+    .badge.discard { background: var(--soft-red); color: var(--red); border: 1px solid #f0c2c6; }
+    .scale-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      margin-right: 7px;
+      background: var(--line-strong);
+    }
+    .scale-dot.high { background: var(--green); }
+    .scale-dot.medium { background: var(--blue); }
+    .scale-dot.low { background: var(--amber); }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(260px, 1fr));
+      gap: 12px;
+      align-items: start;
+    }
+    .kanban-col {
+      background: #eef1f5;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 360px;
+    }
+    .kanban-col header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .kanban-col h3 { margin: 0; font-size: 14px; letter-spacing: 0; }
+    .kanban-col header span {
+      min-width: 26px;
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .mini-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .mini-card.test-now { border-left-color: var(--green); }
+    .mini-card.deepdive { border-left-color: var(--blue); }
+    .mini-card.radar { border-left-color: var(--amber); }
+    .mini-card.discard { border-left-color: var(--red); }
+    .mini-head { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 12px; }
+    .mini-head strong { color: var(--ink); font-size: 18px; }
+    .mini-card h3 { margin: 8px 0 6px; font-size: 15px; line-height: 1.25; }
+    .mini-card p { margin: 0; font-size: 13px; color: #2e3440; line-height: 1.4; }
+    .mini-metrics { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+    .mini-metrics span, .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f7f8fa;
+      color: #4b5563;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .chip.muted { color: var(--muted); }
+    .dossier {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .dossier > header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+    .eyebrow { color: var(--muted); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .03em; }
+    .dossier h3 { margin: 4px 0 0; font-size: 20px; line-height: 1.25; }
+    .score-stack { display: flex; gap: 10px; align-items: center; }
+    .score-stack strong { font-size: 30px; }
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 0;
+    }
+    .dossier-grid section { padding: 15px 16px; border-bottom: 1px solid var(--line); }
+    .dossier-grid section:nth-child(odd) { border-right: 1px solid var(--line); }
+    h4 { margin: 0 0 10px; font-size: 14px; letter-spacing: 0; }
+    p { font-size: 13px; line-height: 1.45; color: #2f3742; }
+    ul { margin: 0; padding-left: 18px; }
+    li { margin: 6px 0; font-size: 13px; line-height: 1.4; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .metric-list { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 8px; }
+    .metric-list span {
+      border: 1px solid var(--line);
+      background: #f7f8fa;
+      border-radius: 8px;
+      padding: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .metric-list b { display: block; color: var(--ink); font-size: 18px; margin-top: 3px; }
+    .evidence-list { padding-left: 0; list-style: none; }
+    .evidence-list li { border-bottom: 1px solid #eef1f5; padding-bottom: 8px; }
+    .evidence-kind {
+      display: inline-flex;
+      margin-right: 6px;
+      color: var(--violet);
+      font-weight: 900;
+      font-size: 12px;
+    }
+    .quality-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 20px;
+      padding: 2px 6px;
+      margin-right: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f7f8fa;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .quality-pill.strong { background: var(--soft-green); color: var(--green); border-color: #b8dfc6; }
+    .quality-pill.usable { background: var(--soft-blue); color: var(--blue); border-color: #c9d8ff; }
+    .quality-pill.weak { background: var(--soft-amber); color: var(--amber); border-color: #f1d69c; }
+    .quality-pill.noise { background: var(--soft-red); color: var(--red); border-color: #f0c2c6; }
+    .map-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) 28px minmax(180px, 1fr) 28px minmax(180px, 1fr) 28px minmax(160px, .8fr);
+      gap: 8px;
+      align-items: stretch;
+      margin-bottom: 10px;
+    }
+    .map-node {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 88px;
+    }
+    .map-node.main { border-left: 5px solid var(--teal); }
+    .map-node small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+    .map-node strong { display: block; font-size: 14px; line-height: 1.3; }
+    .map-node span { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .map-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-weight: 900;
+    }
+    .empty, .empty-row {
+      color: var(--muted);
+      background: #fafbfc;
+      border: 1px dashed #c7ced9;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 13px;
+    }
+    .empty-row { text-align: center; border-radius: 0; }
+    @media (max-width: 1180px) {
+      .stats { grid-template-columns: repeat(3, minmax(130px, 1fr)); }
+      .board { grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+      .map-row { grid-template-columns: 1fr; }
+      .map-arrow { display: none; }
+    }
+    @media (max-width: 760px) {
+      .hero { position: static; padding: 18px 14px; }
+      .hero-main { display: block; }
+      .status-pill { margin-top: 12px; }
+      .stats { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .content { padding: 14px; }
+      .board { grid-template-columns: 1fr; }
+      .dossier > header { display: block; }
+      .score-stack { margin-top: 12px; }
+      .dossier-grid { grid-template-columns: 1fr; }
+      .dossier-grid section:nth-child(odd) { border-right: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div class="hero-main">
+        <div>
+          <h1>Gotham Opportunity War Room</h1>
+          <p class="subtitle">
+            Run: live-round-2026-05-13-digital-offers-super-run-v2 · Gerado em 2026-05-13T15:10:54.414461+00:00.
+            Este painel separa decisão, evidência, escala e execução para acelerar testes sem perder rastreabilidade.
+          </p>
+        </div>
+        <span class="status-pill">NEEDS_MORE_EVIDENCE</span>
+      </div>
+      <div class="stats">
+        
+    <div class="stat ">
+      <strong>24</strong>
+      <span>sinais analisados</span>
+    </div>
+    
+        
+    <div class="stat ">
+      <strong>14</strong>
+      <span>fontes únicas</span>
+    </div>
+    
+        
+    <div class="stat ">
+      <strong>6</strong>
+      <span>oportunidades ranqueadas</span>
+    </div>
+    
+        
+    <div class="stat green">
+      <strong></strong>
+      <span>promissoras</span>
+    </div>
+    
+        
+    <div class="stat blue">
+      <strong>40</strong>
+      <span>maior score</span>
+    </div>
+    
+        
+    <div class="stat amber">
+      <strong>1/1</strong>
+      <span>ads ativos / com escala</span>
+    </div>
+    
+      </div>
+      <nav class="tabs" aria-label="War Room tabs">
+        <button class="tab-button active" data-tab="ranking"><span>R</span>Ranking</button><button class="tab-button" data-tab="kanban"><span>K</span>Kanban</button><button class="tab-button" data-tab="dossiers"><span>D</span>Dossiês</button><button class="tab-button" data-tab="sources"><span>F</span>Fontes</button><button class="tab-button" data-tab="proofs"><span>P</span>Provas</button><button class="tab-button" data-tab="map"><span>M</span>Mapa</button><button class="tab-button" data-tab="experiments"><span>E</span>Experimentos</button>
+      </nav>
+    </header>
+    <main class="content">
+      <section id="ranking" class="tab-panel active">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Ranking comparativo</h2>
+              <p>Use esta tabela para decidir onde colocar atenção, verba e produção de MVP.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th><th>Oportunidade</th><th>Decisão</th><th>Score</th>
+                  <th>Market</th><th>Dor</th><th>Distrib.</th><th>MVP</th><th>Qual.</th><th>Provas</th><th>Conf.</th>
+                  <th>Escala</th><th>Ads</th><th>Dup.</th>
+                </tr>
+              </thead>
+              <tbody>
+            <tr>
+              <td class="rank">#1</td>
+              <td>
+                <strong>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</strong>
+                <small>auditoria digital / relatorio / micro-saas futuro</small>
+              </td>
+              <td><span class="badge discard">Cortar</span></td>
+              <td><span class="big-score score-weak">40</span>
+    <span class="bar" aria-label="score 40">
+      <span style="width:40%"></span>
+    </span>
+    </td>
+              <td>22</td>
+              <td>65</td>
+              <td>0</td>
+              <td>92</td>
+              <td>46</td>
+              <td>32</td>
+              <td>6</td>
+              <td><span class="scale-dot low"></span>Escala fraca</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr>
+              <td class="rank">#2</td>
+              <td>
+                <strong>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</strong>
+                <small>auditoria digital / servico productizado</small>
+              </td>
+              <td><span class="badge discard">Cortar</span></td>
+              <td><span class="big-score score-weak">40</span>
+    <span class="bar" aria-label="score 40">
+      <span style="width:40%"></span>
+    </span>
+    </td>
+              <td>16</td>
+              <td>77</td>
+              <td>0</td>
+              <td>97</td>
+              <td>40</td>
+              <td>32</td>
+              <td>2</td>
+              <td><span class="scale-dot low"></span>Escala fraca</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr>
+              <td class="rank">#3</td>
+              <td>
+                <strong>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</strong>
+                <small>template / auditoria criativa / pacote de prompts e roteiros</small>
+              </td>
+              <td><span class="badge discard">Cortar</span></td>
+              <td><span class="big-score score-weak">36</span>
+    <span class="bar" aria-label="score 36">
+      <span style="width:36%"></span>
+    </span>
+    </td>
+              <td>16</td>
+              <td>56</td>
+              <td>0</td>
+              <td>97</td>
+              <td>32</td>
+              <td>32</td>
+              <td>2</td>
+              <td><span class="scale-dot medium"></span>Escala média</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            
+            <tr>
+              <td class="rank">#4</td>
+              <td>
+                <strong>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</strong>
+                <small>automacao / agente / servico productizado digital</small>
+              </td>
+              <td><span class="badge discard">Cortar</span></td>
+              <td><span class="big-score score-weak">26</span>
+    <span class="bar" aria-label="score 26">
+      <span style="width:26%"></span>
+    </span>
+    </td>
+              <td>0</td>
+              <td>57</td>
+              <td>0</td>
+              <td>92</td>
+              <td>18</td>
+              <td>0</td>
+              <td>0</td>
+              <td><span class="scale-dot low"></span>Escala fraca</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr>
+              <td class="rank">#5</td>
+              <td>
+                <strong>Packs Digitais de Automacoes n8n para Processos Comerciais</strong>
+                <small>template / automacao / servico productizado digital</small>
+              </td>
+              <td><span class="badge discard">Cortar</span></td>
+              <td><span class="big-score score-weak">26</span>
+    <span class="bar" aria-label="score 26">
+      <span style="width:26%"></span>
+    </span>
+    </td>
+              <td>0</td>
+              <td>57</td>
+              <td>0</td>
+              <td>92</td>
+              <td>20</td>
+              <td>0</td>
+              <td>0</td>
+              <td><span class="scale-dot low"></span>Escala fraca</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr>
+              <td class="rank">#6</td>
+              <td>
+                <strong>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</strong>
+                <small>relatorio / automacao / micro-saas futuro</small>
+              </td>
+              <td><span class="badge discard">Cortar</span></td>
+              <td><span class="big-score score-weak">26</span>
+    <span class="bar" aria-label="score 26">
+      <span style="width:26%"></span>
+    </span>
+    </td>
+              <td>0</td>
+              <td>57</td>
+              <td>0</td>
+              <td>92</td>
+              <td>19</td>
+              <td>0</td>
+              <td>0</td>
+              <td><span class="scale-dot low"></span>Escala fraca</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="kanban" class="tab-panel">
+        <div class="board">
+            <section class="kanban-col">
+              <header>
+                <h3>Pronto para teste</h3>
+                <span>0</span>
+              </header>
+              <div class="empty">Sem oportunidades aqui.</div>
+            </section>
+            
+            <section class="kanban-col">
+              <header>
+                <h3>Investigar mais</h3>
+                <span>0</span>
+              </header>
+              <div class="empty">Sem oportunidades aqui.</div>
+            </section>
+            
+            <section class="kanban-col">
+              <header>
+                <h3>Observar</h3>
+                <span>0</span>
+              </header>
+              <div class="empty">Sem oportunidades aqui.</div>
+            </section>
+            
+            <section class="kanban-col">
+              <header>
+                <h3>Cortar</h3>
+                <span>6</span>
+              </header>
+              
+            <article class="mini-card discard">
+              <div class="mini-head">
+                <span>auditoria digital / relatorio / micro-saas futuro</span>
+                <strong>40</strong>
+              </div>
+              <h3>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</h3>
+              <p>Veja se seu site esta invisivel no ChatGPT, Gemini, Perplexity e AI Overviews, e receba um plano de correcao.</p>
+              <div class="mini-metrics">
+                <span>MVP 92</span>
+                <span>Meta 78</span>
+                <span>Escala fraca</span>
+              </div>
+            </article>
+            
+            <article class="mini-card discard">
+              <div class="mini-head">
+                <span>auditoria digital / servico productizado</span>
+                <strong>40</strong>
+              </div>
+              <h3>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</h3>
+              <p>Descubra em 24h por que seus anuncios recebem cliques mas nao geram venda, com um plano de correcao priorizado.</p>
+              <div class="mini-metrics">
+                <span>MVP 97</span>
+                <span>Meta 92</span>
+                <span>Escala fraca</span>
+              </div>
+            </article>
+            
+            <article class="mini-card discard">
+              <div class="mini-head">
+                <span>template / auditoria criativa / pacote de prompts e roteiros</span>
+                <strong>36</strong>
+              </div>
+              <h3>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</h3>
+              <p>Receba 30 hooks, 10 roteiros UGC e uma matriz de testes para parar a fadiga criativa nos seus anuncios.</p>
+              <div class="mini-metrics">
+                <span>MVP 97</span>
+                <span>Meta 95</span>
+                <span>Escala média</span>
+              </div>
+            </article>
+            
+            <article class="mini-card discard">
+              <div class="mini-head">
+                <span>automacao / agente / servico productizado digital</span>
+                <strong>26</strong>
+              </div>
+              <h3>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</h3>
+              <p>Transforme conversas baguncadas do WhatsApp em lead qualificado, resumo, proximo passo e resposta pronta.</p>
+              <div class="mini-metrics">
+                <span>MVP 92</span>
+                <span>Meta 84</span>
+                <span>Escala fraca</span>
+              </div>
+            </article>
+            
+            <article class="mini-card discard">
+              <div class="mini-head">
+                <span>template / automacao / servico productizado digital</span>
+                <strong>26</strong>
+              </div>
+              <h3>Packs Digitais de Automacoes n8n para Processos Comerciais</h3>
+              <p>Instale automacoes prontas de lead, proposta, follow-up, relatorio e CRM em horas, nao semanas.</p>
+              <div class="mini-metrics">
+                <span>MVP 92</span>
+                <span>Meta 76</span>
+                <span>Escala fraca</span>
+              </div>
+            </article>
+            
+            <article class="mini-card discard">
+              <div class="mini-head">
+                <span>relatorio / automacao / micro-saas futuro</span>
+                <strong>26</strong>
+              </div>
+              <h3>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</h3>
+              <p>Cole a transcricao da call e receba resumo, objeções, follow-up pronto, tarefas e campos de CRM.</p>
+              <div class="mini-metrics">
+                <span>MVP 92</span>
+                <span>Meta 72</span>
+                <span>Escala fraca</span>
+              </div>
+            </article>
+            
+            </section>
+            </div>
+      </section>
+      <section id="dossiers" class="tab-panel">
+        
+            <article class="dossier">
+              <header>
+                <div>
+                  <span class="eyebrow">auditoria digital / relatorio / micro-saas futuro</span>
+                  <h3>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</h3>
+                </div>
+                <div class="score-stack">
+                  <span class="badge discard">Cortar</span>
+                  <strong>40</strong>
+                </div>
+              </header>
+              <div class="dossier-grid">
+                <section>
+                  <h4>Oferta</h4>
+                  <p><strong>Público:</strong> SaaS pequenos, agencias, blogs monetizados, creators com site e negocios digitais dependentes de SEO</p>
+                  <p><strong>Promessa:</strong> Veja se seu site esta invisivel no ChatGPT, Gemini, Perplexity e AI Overviews, e receba um plano de correcao.</p>
+                  <p><strong>Por que agora:</strong> AI Overviews e respostas de LLMs estao mudando CTR organico; ja existem produtos vendendo AI Search Optimization.</p>
+                  <div class="chips"><span class="chip">benchmark 1</span><span class="chip">pain 2</span><span class="chip">revenue 1</span></div>
+                  <div class="chips"><span class="chip">AppSumo</span><span class="chip">Reddit r/TechSEO</span><span class="chip">Reddit r/LegalMarketingTalk</span><span class="chip">Meta Ads Library via Playwright</span></div>
+                </section>
+                <section>
+                  <h4>Métricas</h4>
+                  <div class="metric-list">
+                    <span>Market <b>22</b></span>
+                    <span>Dor <b>65</b></span>
+                    <span>Distribuição <b>0</b></span>
+                    <span>MVP <b>92</b></span>
+                    <span>Qualidade <b>46</b></span>
+                    <span>Densidade <b>32</b></span>
+                    <span>Confiança <b>6</b></span>
+                    <span>Meta fit <b>78</b></span>
+                    <span>Escala fraca <b>0</b></span>
+                  </div>
+                </section>
+                <section>
+                  <h4>MVP mínimo</h4>
+                  <ul><li>Formulario com dominio, nicho, concorrentes e 10 consultas-alvo</li><li>Teste manual/assistido em buscadores IA e SERP para checar citacoes e gaps</li><li>Relatorio PDF com score de visibilidade IA, schema/checklist e plano de 7 dias</li></ul>
+                </section>
+                <section>
+                  <h4>Teste Meta Ads</h4>
+                  <ul>
+                    <li>Budget: R$500-R$1000</li>
+                    <li>Criativos: 4</li>
+                    <li>Objetivo: Lead magnet + venda de auditoria R$97-R$297</li>
+                    <li>Matar se: Matar se os leads nao tiverem site ativo ou trafego organico relevante</li>
+                    <li>Escalar se: Continuar se gerar leads de agencias/SaaS ou vender 2 auditorias</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>Evidências</h4>
+                  <ul class="evidence-list">
+            <li>
+              <span class="evidence-kind">revenue/high</span>
+              <span class="quality-pill usable">Q73</span>
+              <a href="https://appsumo.com/products/clickrank/" target="_blank" rel="noreferrer">ClickRank sells AI search optimization with 480 reviews</a>
+              <small>AppSumo</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">pain/high</span>
+              <span class="quality-pill weak">Q58</span>
+              <a href="https://www.reddit.com/r/TechSEO/comments/1rvfjw9/search_traffic_still_dropping_how_are_you_dealing/" target="_blank" rel="noreferrer">Search traffic still dropping? How are you dealing with it?</a>
+              <small>Reddit r/TechSEO</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">pain/medium</span>
+              <span class="quality-pill noise">Q24</span>
+              <a href="https://www.reddit.com/r/LegalMarketingTalk/comments/1rsi2qg/are_google_ai_overviews_decreasing_a_websites/" target="_blank" rel="noreferrer">Are Google AI Overviews decreasing a website&#x27;s organic traffic?</a>
+              <small>Reddit r/LegalMarketingTalk</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">benchmark/low</span>
+              <span class="quality-pill noise">Q30</span>
+              <a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;SEO IA&quot; retornou 4 cards (0 relevantes)</a>
+              <small>Meta Ads Library via Playwright</small>
+            </li>
+            </ul>
+                </section>
+                <section>
+                  <h4>Red team</h4>
+                  <ul><li>Termo GEO ainda exige educacao do mercado</li><li>Dificil prometer recuperacao de trafego; vender visibilidade e plano de acao</li><li>Precisa pedir dados do Search Console para validar dor real</li></ul>
+                </section>
+              </div>
+            </article>
+            
+            <article class="dossier">
+              <header>
+                <div>
+                  <span class="eyebrow">auditoria digital / servico productizado</span>
+                  <h3>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</h3>
+                </div>
+                <div class="score-stack">
+                  <span class="badge discard">Cortar</span>
+                  <strong>40</strong>
+                </div>
+              </header>
+              <div class="dossier-grid">
+                <section>
+                  <h4>Oferta</h4>
+                  <p><strong>Público:</strong> donos de pequenos negocios digitais, creators, infoprodutores, SaaS pequenos e ecommerce digital que anunciam no Meta</p>
+                  <p><strong>Promessa:</strong> Descubra em 24h por que seus anuncios recebem cliques mas nao geram venda, com um plano de correcao priorizado.</p>
+                  <p><strong>Por que agora:</strong> Pequenos anunciantes reclamam de verba queimada, baixa conversao e confusao entre criativo, tracking, oferta e landing page.</p>
+                  <div class="chips"><span class="chip">benchmark 1</span><span class="chip">pain 2</span><span class="chip">revenue 1</span></div>
+                  <div class="chips"><span class="chip">Reddit r/FacebookAds</span><span class="chip">Reddit r/DigitalMarketing</span><span class="chip">AppSumo</span><span class="chip">Meta Ads Library via Playwright</span></div>
+                </section>
+                <section>
+                  <h4>Métricas</h4>
+                  <div class="metric-list">
+                    <span>Market <b>16</b></span>
+                    <span>Dor <b>77</b></span>
+                    <span>Distribuição <b>0</b></span>
+                    <span>MVP <b>97</b></span>
+                    <span>Qualidade <b>40</b></span>
+                    <span>Densidade <b>32</b></span>
+                    <span>Confiança <b>2</b></span>
+                    <span>Meta fit <b>92</b></span>
+                    <span>Escala fraca <b>0</b></span>
+                  </div>
+                </section>
+                <section>
+                  <h4>MVP mínimo</h4>
+                  <ul><li>Formulario com URL da landing, prints/CSV do gerenciador e descricao da oferta</li><li>Checklist de 37 pontos: criativo, hook, oferta, tracking, evento, pagina e checkout</li><li>Relatorio PDF + Loom curto com 3 mudancas prioritarias</li></ul>
+                </section>
+                <section>
+                  <h4>Teste Meta Ads</h4>
+                  <ul>
+                    <li>Budget: R$300-R$700</li>
+                    <li>Criativos: 5</li>
+                    <li>Objetivo: Lead ou venda direta de auditoria R$47-R$197</li>
+                    <li>Matar se: Matar se CPC ficar alto e nenhum lead qualificado aparecer apos R$150-R$250</li>
+                    <li>Escalar se: Continuar se gerar 5+ leads qualificados ou 1 venda com CPA aceitavel</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>Evidências</h4>
+                  <ul class="evidence-list">
+            <li>
+              <span class="evidence-kind">pain/high</span>
+              <span class="quality-pill noise">Q32</span>
+              <a href="https://www.reddit.com/r/FacebookAds/comments/1nqvcot/spending_30day_on_meta_ads_still_no_sales_is_this/" target="_blank" rel="noreferrer">Spending $30/day on Meta ads, still no sales</a>
+              <small>Reddit r/FacebookAds</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">pain/high</span>
+              <span class="quality-pill noise">Q32</span>
+              <a href="https://www.reddit.com/r/DigitalMarketing/comments/1r6xuqn/are_paid_ads_becoming_a_waste_of_money_for_small/" target="_blank" rel="noreferrer">Are paid ads becoming a waste of money for small businesses?</a>
+              <small>Reddit r/DigitalMarketing</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">revenue/medium</span>
+              <span class="quality-pill usable">Q65</span>
+              <a href="https://appsumo.com/products/adcreative-ai/" target="_blank" rel="noreferrer">AdCreative.ai sold as AI-powered ad creative generator</a>
+              <small>AppSumo</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">benchmark/low</span>
+              <span class="quality-pill noise">Q30</span>
+              <a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;gestao de trafego&quot; retornou 4 cards (0 relevantes)</a>
+              <small>Meta Ads Library via Playwright</small>
+            </li>
+            </ul>
+                </section>
+                <section>
+                  <h4>Red team</h4>
+                  <ul><li>Pode virar consultoria trabalhosa se nao limitar escopo</li><li>Precisa prometer diagnostico, nao resultado garantido</li><li>Prova real so vem com venda/lead e qualidade dos dados enviados</li></ul>
+                </section>
+              </div>
+            </article>
+            
+            <article class="dossier">
+              <header>
+                <div>
+                  <span class="eyebrow">template / auditoria criativa / pacote de prompts e roteiros</span>
+                  <h3>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</h3>
+                </div>
+                <div class="score-stack">
+                  <span class="badge discard">Cortar</span>
+                  <strong>36</strong>
+                </div>
+              </header>
+              <div class="dossier-grid">
+                <section>
+                  <h4>Oferta</h4>
+                  <p><strong>Público:</strong> infoprodutores, creators, SaaS pequenos, agencias e anunciantes que precisam renovar criativos toda semana</p>
+                  <p><strong>Promessa:</strong> Receba 30 hooks, 10 roteiros UGC e uma matriz de testes para parar a fadiga criativa nos seus anuncios.</p>
+                  <p><strong>Por que agora:</strong> Discussões recentes sobre Meta Ads mostram fadiga criativa, necessidade de hooks melhores e aumento da importancia de criativos.</p>
+                  <div class="chips"><span class="chip">distribution 2</span><span class="chip">pain 1</span><span class="chip">revenue 1</span></div>
+                  <div class="chips"><span class="chip">Reddit r/FacebookAds</span><span class="chip">AppSumo</span><span class="chip">TikTok Creative Center</span><span class="chip">Meta Ads Library via Playwright</span></div>
+                </section>
+                <section>
+                  <h4>Métricas</h4>
+                  <div class="metric-list">
+                    <span>Market <b>16</b></span>
+                    <span>Dor <b>56</b></span>
+                    <span>Distribuição <b>0</b></span>
+                    <span>MVP <b>97</b></span>
+                    <span>Qualidade <b>32</b></span>
+                    <span>Densidade <b>32</b></span>
+                    <span>Confiança <b>2</b></span>
+                    <span>Meta fit <b>95</b></span>
+                    <span>Escala média <b>0</b></span>
+                  </div>
+                </section>
+                <section>
+                  <h4>MVP mínimo</h4>
+                  <ul><li>Formulario com oferta, avatar, dores e criativos atuais</li><li>Gerador manual/IA de 30 hooks + 10 roteiros UGC</li><li>Matriz de teste A/B por angulo, dor, prova e CTA</li></ul>
+                </section>
+                <section>
+                  <h4>Teste Meta Ads</h4>
+                  <ul>
+                    <li>Budget: R$300-R$700</li>
+                    <li>Criativos: 6</li>
+                    <li>Objetivo: Venda direta R$47-R$147 ou lead para pacote personalizado</li>
+                    <li>Matar se: Matar se clientes pedirem criacao audiovisual completa e nao roteiro/template</li>
+                    <li>Escalar se: Continuar se vender pacotes para anunciantes ativos ou agencias</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>Evidências</h4>
+                  <ul class="evidence-list">
+            <li>
+              <span class="evidence-kind">pain/high</span>
+              <span class="quality-pill noise">Q12</span>
+              <a href="https://www.reddit.com/r/FacebookAds/search/?q=creative%20fatigue%20UGC%20hooks&amp;restrict_sr=1" target="_blank" rel="noreferrer">Meta advertisers discuss creative fatigue, UGC and hooks</a>
+              <small>Reddit r/FacebookAds</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">revenue/medium</span>
+              <span class="quality-pill usable">Q65</span>
+              <a href="https://appsumo.com/products/adcreative-ai/" target="_blank" rel="noreferrer">AdCreative.ai validates demand for ad creative generation</a>
+              <small>AppSumo</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">distribution/medium</span>
+              <span class="quality-pill noise">Q36</span>
+              <a href="https://ads.tiktok.com/business/creativecenter/" target="_blank" rel="noreferrer">TikTok Creative Center provides trends, hashtags and creative inspiration</a>
+              <small>TikTok Creative Center</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">distribution/medium</span>
+              <span class="quality-pill noise">Q17</span>
+              <a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;criativos ugc&quot; retornou 4 cards (1 relevantes)</a>
+              <small>Meta Ads Library via Playwright</small>
+            </li>
+            </ul>
+                </section>
+                <section>
+                  <h4>Red team</h4>
+                  <ul><li>Pode virar commodity se for so prompts genericos</li><li>Precisa usar exemplos da oferta do cliente para parecer personalizado</li><li>Nao prometer performance, vender volume de hipoteses criativas</li></ul>
+                </section>
+              </div>
+            </article>
+            
+            <article class="dossier">
+              <header>
+                <div>
+                  <span class="eyebrow">automacao / agente / servico productizado digital</span>
+                  <h3>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</h3>
+                </div>
+                <div class="score-stack">
+                  <span class="badge discard">Cortar</span>
+                  <strong>26</strong>
+                </div>
+              </header>
+              <div class="dossier-grid">
+                <section>
+                  <h4>Oferta</h4>
+                  <p><strong>Público:</strong> negocios de servico, agencias, clinicas, consultores, escolas livres e prestadores que recebem leads pelo WhatsApp</p>
+                  <p><strong>Promessa:</strong> Transforme conversas baguncadas do WhatsApp em lead qualificado, resumo, proximo passo e resposta pronta.</p>
+                  <p><strong>Por que agora:</strong> WhatsApp segue como canal central de venda no Brasil; pequenos negocios querem responder rapido sem montar atendimento complexo.</p>
+                  <div class="chips"><span class="chip">benchmark 1</span><span class="chip">demand 1</span><span class="chip">pain 1</span><span class="chip">revenue 1</span></div>
+                  <div class="chips"><span class="chip">WhatsApp Business</span><span class="chip">Reddit r/smallbusiness</span><span class="chip">AppSumo search</span><span class="chip">Meta Ads Library via Playwright</span></div>
+                </section>
+                <section>
+                  <h4>Métricas</h4>
+                  <div class="metric-list">
+                    <span>Market <b>0</b></span>
+                    <span>Dor <b>57</b></span>
+                    <span>Distribuição <b>0</b></span>
+                    <span>MVP <b>92</b></span>
+                    <span>Qualidade <b>18</b></span>
+                    <span>Densidade <b>0</b></span>
+                    <span>Confiança <b>0</b></span>
+                    <span>Meta fit <b>84</b></span>
+                    <span>Escala fraca <b>0</b></span>
+                  </div>
+                </section>
+                <section>
+                  <h4>MVP mínimo</h4>
+                  <ul><li>Formulario onde o cliente cola conversa ou exporta texto do WhatsApp</li><li>IA classifica lead, urgencia, objeções e proximo passo</li><li>Entrega resposta pronta + resumo CRM em PDF/planilha</li></ul>
+                </section>
+                <section>
+                  <h4>Teste Meta Ads</h4>
+                  <ul>
+                    <li>Budget: R$400-R$900</li>
+                    <li>Criativos: 5</li>
+                    <li>Objetivo: Lead para diagnostico ou venda de setup R$197-R$497</li>
+                    <li>Matar se: Matar se leads nao usam WhatsApp como canal comercial</li>
+                    <li>Escalar se: Continuar se gerar calls/diagnosticos com negocios que recebem 20+ conversas por semana</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>Evidências</h4>
+                  <ul class="evidence-list">
+            <li>
+              <span class="evidence-kind">demand/medium</span>
+              <span class="quality-pill noise">Q16</span>
+              <a href="https://business.whatsapp.com/" target="_blank" rel="noreferrer">WhatsApp Business positions messaging as customer communication channel</a>
+              <small>WhatsApp Business</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">pain/medium</span>
+              <span class="quality-pill noise">Q4</span>
+              <a href="https://www.reddit.com/r/smallbusiness/search/?q=AI%20chatbot%20customer%20support%20leads&amp;restrict_sr=1" target="_blank" rel="noreferrer">Small businesses search for AI chatbot/customer support lead handling</a>
+              <small>Reddit r/smallbusiness</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">revenue/medium</span>
+              <span class="quality-pill noise">Q23</span>
+              <a href="https://appsumo.com/search/?query=chatbot" target="_blank" rel="noreferrer">AppSumo has chatbot/support automation offers</a>
+              <small>AppSumo search</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">benchmark/low</span>
+              <span class="quality-pill noise">Q30</span>
+              <a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;chatbot whatsapp&quot; retornou 4 cards (0 relevantes)</a>
+              <small>Meta Ads Library via Playwright</small>
+            </li>
+            </ul>
+                </section>
+                <section>
+                  <h4>Red team</h4>
+                  <ul><li>Automacao completa via WhatsApp API pode ter friccao; comecar por entrega semi-manual</li><li>Mercado cheio de chatbot generico; precisa verticalizar por dor de lead perdido</li><li>Nao prometer integracao oficial na V0</li></ul>
+                </section>
+              </div>
+            </article>
+            
+            <article class="dossier">
+              <header>
+                <div>
+                  <span class="eyebrow">template / automacao / servico productizado digital</span>
+                  <h3>Packs Digitais de Automacoes n8n para Processos Comerciais</h3>
+                </div>
+                <div class="score-stack">
+                  <span class="badge discard">Cortar</span>
+                  <strong>26</strong>
+                </div>
+              </header>
+              <div class="dossier-grid">
+                <section>
+                  <h4>Oferta</h4>
+                  <p><strong>Público:</strong> agencias, freelancers, solopreneurs e pequenos negocios que querem automatizar tarefas repetitivas sem contratar dev full-time</p>
+                  <p><strong>Promessa:</strong> Instale automacoes prontas de lead, proposta, follow-up, relatorio e CRM em horas, nao semanas.</p>
+                  <p><strong>Por que agora:</strong> n8n e automacoes com IA estao populares; usuarios procuram templates e exemplos para transformar workflows em produto.</p>
+                  <div class="chips"><span class="chip">benchmark 1</span><span class="chip">demand 1</span><span class="chip">pain 1</span><span class="chip">revenue 1</span></div>
+                  <div class="chips"><span class="chip">Reddit r/n8n</span><span class="chip">n8n templates</span><span class="chip">AppSumo search</span><span class="chip">Meta Ads Library via Playwright</span></div>
+                </section>
+                <section>
+                  <h4>Métricas</h4>
+                  <div class="metric-list">
+                    <span>Market <b>0</b></span>
+                    <span>Dor <b>57</b></span>
+                    <span>Distribuição <b>0</b></span>
+                    <span>MVP <b>92</b></span>
+                    <span>Qualidade <b>20</b></span>
+                    <span>Densidade <b>0</b></span>
+                    <span>Confiança <b>0</b></span>
+                    <span>Meta fit <b>76</b></span>
+                    <span>Escala fraca <b>0</b></span>
+                  </div>
+                </section>
+                <section>
+                  <h4>MVP mínimo</h4>
+                  <ul><li>3 workflows n8n exportaveis: captura lead, follow-up e relatorio</li><li>Guia PDF de instalacao + video curto</li><li>Setup assistido pago para os primeiros clientes</li></ul>
+                </section>
+                <section>
+                  <h4>Teste Meta Ads</h4>
+                  <ul>
+                    <li>Budget: R$400-R$800</li>
+                    <li>Criativos: 4</li>
+                    <li>Objetivo: Lead ou venda de pack R$97-R$297</li>
+                    <li>Matar se: Matar se leads nao souberem o que e n8n/automacao ou exigirem projeto custom complexo</li>
+                    <li>Escalar se: Continuar se agencias/freelancers comprarem templates ou pedirem setup</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>Evidências</h4>
+                  <ul class="evidence-list">
+            <li>
+              <span class="evidence-kind">pain/medium</span>
+              <span class="quality-pill noise">Q4</span>
+              <a href="https://www.reddit.com/r/n8n/search/?q=workflow%20templates%20small%20business&amp;restrict_sr=1" target="_blank" rel="noreferrer">n8n community searches for workflow templates and examples</a>
+              <small>Reddit r/n8n</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">demand/high</span>
+              <span class="quality-pill noise">Q24</span>
+              <a href="https://n8n.io/workflows/" target="_blank" rel="noreferrer">n8n has public workflow template marketplace</a>
+              <small>n8n templates</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">revenue/medium</span>
+              <span class="quality-pill noise">Q23</span>
+              <a href="https://appsumo.com/search/?query=automation" target="_blank" rel="noreferrer">AppSumo has recurring automation/workflow products</a>
+              <small>AppSumo search</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">benchmark/low</span>
+              <span class="quality-pill noise">Q30</span>
+              <a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;automacao n8n&quot; retornou 4 cards (0 relevantes)</a>
+              <small>Meta Ads Library via Playwright</small>
+            </li>
+            </ul>
+                </section>
+                <section>
+                  <h4>Red team</h4>
+                  <ul><li>Publico pode ser tecnico demais para Meta Ads frio</li><li>Precisa empacotar por resultado, nao por ferramenta</li><li>Suporte pode crescer se templates quebrarem por credenciais/APIs</li></ul>
+                </section>
+              </div>
+            </article>
+            
+            <article class="dossier">
+              <header>
+                <div>
+                  <span class="eyebrow">relatorio / automacao / micro-saas futuro</span>
+                  <h3>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</h3>
+                </div>
+                <div class="score-stack">
+                  <span class="badge discard">Cortar</span>
+                  <strong>26</strong>
+                </div>
+              </header>
+              <div class="dossier-grid">
+                <section>
+                  <h4>Oferta</h4>
+                  <p><strong>Público:</strong> founders, consultores, agencias e times pequenos que fazem calls de venda e perdem follow-up</p>
+                  <p><strong>Promessa:</strong> Cole a transcricao da call e receba resumo, objeções, follow-up pronto, tarefas e campos de CRM.</p>
+                  <p><strong>Por que agora:</strong> Produtos de meeting notes e sales AI crescem; times pequenos ainda falham no pos-call e nao querem CRM enterprise.</p>
+                  <div class="chips"><span class="chip">benchmark 1</span><span class="chip">competitor 1</span><span class="chip">pain 1</span><span class="chip">revenue 1</span></div>
+                  <div class="chips"><span class="chip">AppSumo search</span><span class="chip">Reddit r/SaaS</span><span class="chip">Otter.ai</span><span class="chip">Meta Ads Library via Playwright</span></div>
+                </section>
+                <section>
+                  <h4>Métricas</h4>
+                  <div class="metric-list">
+                    <span>Market <b>0</b></span>
+                    <span>Dor <b>57</b></span>
+                    <span>Distribuição <b>0</b></span>
+                    <span>MVP <b>92</b></span>
+                    <span>Qualidade <b>19</b></span>
+                    <span>Densidade <b>0</b></span>
+                    <span>Confiança <b>0</b></span>
+                    <span>Meta fit <b>72</b></span>
+                    <span>Escala fraca <b>0</b></span>
+                  </div>
+                </section>
+                <section>
+                  <h4>MVP mínimo</h4>
+                  <ul><li>Formulario para colar transcricao/audio transcrito</li><li>IA extrai dores, objeções, decisores, proximo passo e risco</li><li>Entrega email/WhatsApp follow-up + campos de CRM em CSV</li></ul>
+                </section>
+                <section>
+                  <h4>Teste Meta Ads</h4>
+                  <ul>
+                    <li>Budget: R$400-R$800</li>
+                    <li>Criativos: 4</li>
+                    <li>Objetivo: Lead com amostra gratuita ou venda R$47-R$197</li>
+                    <li>Matar se: Matar se publico nao tiver calls recorrentes ou nao enxergar perda de follow-up</li>
+                    <li>Escalar se: Continuar se founders/agencias enviarem calls reais e pedirem recorrencia</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>Evidências</h4>
+                  <ul class="evidence-list">
+            <li>
+              <span class="evidence-kind">revenue/medium</span>
+              <span class="quality-pill noise">Q23</span>
+              <a href="https://appsumo.com/search/?query=meeting%20notes" target="_blank" rel="noreferrer">AppSumo has meeting notes/transcription products</a>
+              <small>AppSumo search</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">pain/medium</span>
+              <span class="quality-pill noise">Q4</span>
+              <a href="https://www.reddit.com/r/SaaS/search/?q=sales%20call%20follow%20up%20CRM%20AI&amp;restrict_sr=1" target="_blank" rel="noreferrer">SaaS founders discuss sales follow-up, CRM and AI summaries</a>
+              <small>Reddit r/SaaS</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">competitor/medium</span>
+              <span class="quality-pill noise">Q18</span>
+              <a href="https://otter.ai/" target="_blank" rel="noreferrer">Otter.ai validates AI meeting notes category</a>
+              <small>Otter.ai</small>
+            </li>
+            
+            <li>
+              <span class="evidence-kind">benchmark/low</span>
+              <span class="quality-pill noise">Q30</span>
+              <a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;crm ia&quot; retornou 4 cards (0 relevantes)</a>
+              <small>Meta Ads Library via Playwright</small>
+            </li>
+            </ul>
+                </section>
+                <section>
+                  <h4>Red team</h4>
+                  <ul><li>Categoria ja tem concorrentes fortes</li><li>Precisa nichar em pos-call comercial, nao notas genericas</li><li>Dados sensiveis exigem aviso de privacidade simples</li></ul>
+                </section>
+              </div>
+            </article>
+            
+      </section>
+      <section id="sources" class="tab-panel">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Fontes auditáveis</h2>
+              <p>Cada linha mostra origem, tipo de prova, qualidade, pontos fortes e problemas. Fonte fraca não deve sustentar gasto.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oportunidade</th><th>Fonte</th><th>Tipo</th><th>Veredito</th><th>Q</th>
+                  <th>Tier</th><th>Prova</th><th>Forças</th><th>Problemas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</td>
+                  <td>AppSumo</td>
+                  <td>revenue</td>
+                  <td>usable</td>
+                  <td>73</td>
+                  <td>78</td>
+                  <td><a href="https://appsumo.com/products/clickrank/" target="_blank" rel="noreferrer">ClickRank sells AI search optimization with 480 reviews</a></td>
+                  <td>tem link auditavel; tem metrica de receita/preco/reviews</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</td>
+                  <td>Reddit r/TechSEO</td>
+                  <td>pain</td>
+                  <td>weak</td>
+                  <td>58</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/TechSEO/comments/1rvfjw9/search_traffic_still_dropping_how_are_you_dealing/" target="_blank" rel="noreferrer">Search traffic still dropping? How are you dealing with it?</a></td>
+                  <td>tem link auditavel; dor com metrica de comunidade/review</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</td>
+                  <td>Reddit r/LegalMarketingTalk</td>
+                  <td>pain</td>
+                  <td>noise</td>
+                  <td>24</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/LegalMarketingTalk/comments/1rsi2qg/are_google_ai_overviews_decreasing_a_websites/" target="_blank" rel="noreferrer">Are Google AI Overviews decreasing a website&#x27;s organic traffic?</a></td>
+                  <td>tem link auditavel</td>
+                  <td>dor sem volume ou exemplos mensurados</td>
+                </tr>
+                
+                <tr>
+                  <td>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</td>
+                  <td>Meta Ads Library via Playwright</td>
+                  <td>benchmark</td>
+                  <td>noise</td>
+                  <td>30</td>
+                  <td>72</td>
+                  <td><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;SEO IA&quot; retornou 4 cards (0 relevantes)</a></td>
+                  <td>tem link auditavel</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</td>
+                  <td>Reddit r/FacebookAds</td>
+                  <td>pain</td>
+                  <td>noise</td>
+                  <td>32</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/FacebookAds/comments/1nqvcot/spending_30day_on_meta_ads_still_no_sales_is_this/" target="_blank" rel="noreferrer">Spending $30/day on Meta ads, still no sales</a></td>
+                  <td>tem link auditavel</td>
+                  <td>dor sem volume ou exemplos mensurados</td>
+                </tr>
+                
+                <tr>
+                  <td>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</td>
+                  <td>Reddit r/DigitalMarketing</td>
+                  <td>pain</td>
+                  <td>noise</td>
+                  <td>32</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/DigitalMarketing/comments/1r6xuqn/are_paid_ads_becoming_a_waste_of_money_for_small/" target="_blank" rel="noreferrer">Are paid ads becoming a waste of money for small businesses?</a></td>
+                  <td>tem link auditavel</td>
+                  <td>dor sem volume ou exemplos mensurados</td>
+                </tr>
+                
+                <tr>
+                  <td>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</td>
+                  <td>AppSumo</td>
+                  <td>revenue</td>
+                  <td>usable</td>
+                  <td>65</td>
+                  <td>78</td>
+                  <td><a href="https://appsumo.com/products/adcreative-ai/" target="_blank" rel="noreferrer">AdCreative.ai sold as AI-powered ad creative generator</a></td>
+                  <td>tem link auditavel; tem metrica de receita/preco/reviews</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</td>
+                  <td>Meta Ads Library via Playwright</td>
+                  <td>benchmark</td>
+                  <td>noise</td>
+                  <td>30</td>
+                  <td>72</td>
+                  <td><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;gestao de trafego&quot; retornou 4 cards (0 relevantes)</a></td>
+                  <td>tem link auditavel</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</td>
+                  <td>Reddit r/FacebookAds</td>
+                  <td>pain</td>
+                  <td>noise</td>
+                  <td>12</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/FacebookAds/search/?q=creative%20fatigue%20UGC%20hooks&amp;restrict_sr=1" target="_blank" rel="noreferrer">Meta advertisers discuss creative fatigue, UGC and hooks</a></td>
+                  <td>tem link auditavel</td>
+                  <td>dor baseada apenas em pagina de busca, nao em posts/reviews extraidos</td>
+                </tr>
+                
+                <tr>
+                  <td>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</td>
+                  <td>AppSumo</td>
+                  <td>revenue</td>
+                  <td>usable</td>
+                  <td>65</td>
+                  <td>78</td>
+                  <td><a href="https://appsumo.com/products/adcreative-ai/" target="_blank" rel="noreferrer">AdCreative.ai validates demand for ad creative generation</a></td>
+                  <td>tem link auditavel; tem metrica de receita/preco/reviews</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</td>
+                  <td>TikTok Creative Center</td>
+                  <td>distribution</td>
+                  <td>noise</td>
+                  <td>36</td>
+                  <td>66</td>
+                  <td><a href="https://ads.tiktok.com/business/creativecenter/" target="_blank" rel="noreferrer">TikTok Creative Center provides trends, hashtags and creative inspiration</a></td>
+                  <td>tem link auditavel</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</td>
+                  <td>Meta Ads Library via Playwright</td>
+                  <td>distribution</td>
+                  <td>noise</td>
+                  <td>17</td>
+                  <td>72</td>
+                  <td><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;criativos ugc&quot; retornou 4 cards (1 relevantes)</a></td>
+                  <td>tem link auditavel; 1/4 anuncios relevantes</td>
+                  <td>baixa precisao da query (25% relevante)</td>
+                </tr>
+                
+                <tr>
+                  <td>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</td>
+                  <td>WhatsApp Business</td>
+                  <td>demand</td>
+                  <td>noise</td>
+                  <td>16</td>
+                  <td>45</td>
+                  <td><a href="https://business.whatsapp.com/" target="_blank" rel="noreferrer">WhatsApp Business positions messaging as customer communication channel</a></td>
+                  <td>tem link auditavel</td>
+                  <td>trend/demanda sem volume numerico</td>
+                </tr>
+                
+                <tr>
+                  <td>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</td>
+                  <td>Reddit r/smallbusiness</td>
+                  <td>pain</td>
+                  <td>noise</td>
+                  <td>4</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/smallbusiness/search/?q=AI%20chatbot%20customer%20support%20leads&amp;restrict_sr=1" target="_blank" rel="noreferrer">Small businesses search for AI chatbot/customer support lead handling</a></td>
+                  <td>tem link auditavel</td>
+                  <td>dor baseada apenas em pagina de busca, nao em posts/reviews extraidos</td>
+                </tr>
+                
+                <tr>
+                  <td>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</td>
+                  <td>AppSumo search</td>
+                  <td>revenue</td>
+                  <td>noise</td>
+                  <td>23</td>
+                  <td>78</td>
+                  <td><a href="https://appsumo.com/search/?query=chatbot" target="_blank" rel="noreferrer">AppSumo has chatbot/support automation offers</a></td>
+                  <td>tem link auditavel</td>
+                  <td>receita sem metrica verificavel</td>
+                </tr>
+                
+                <tr>
+                  <td>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</td>
+                  <td>Meta Ads Library via Playwright</td>
+                  <td>benchmark</td>
+                  <td>noise</td>
+                  <td>30</td>
+                  <td>72</td>
+                  <td><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;chatbot whatsapp&quot; retornou 4 cards (0 relevantes)</a></td>
+                  <td>tem link auditavel</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Packs Digitais de Automacoes n8n para Processos Comerciais</td>
+                  <td>Reddit r/n8n</td>
+                  <td>pain</td>
+                  <td>noise</td>
+                  <td>4</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/n8n/search/?q=workflow%20templates%20small%20business&amp;restrict_sr=1" target="_blank" rel="noreferrer">n8n community searches for workflow templates and examples</a></td>
+                  <td>tem link auditavel</td>
+                  <td>dor baseada apenas em pagina de busca, nao em posts/reviews extraidos</td>
+                </tr>
+                
+                <tr>
+                  <td>Packs Digitais de Automacoes n8n para Processos Comerciais</td>
+                  <td>n8n templates</td>
+                  <td>demand</td>
+                  <td>noise</td>
+                  <td>24</td>
+                  <td>45</td>
+                  <td><a href="https://n8n.io/workflows/" target="_blank" rel="noreferrer">n8n has public workflow template marketplace</a></td>
+                  <td>tem link auditavel</td>
+                  <td>trend/demanda sem volume numerico</td>
+                </tr>
+                
+                <tr>
+                  <td>Packs Digitais de Automacoes n8n para Processos Comerciais</td>
+                  <td>AppSumo search</td>
+                  <td>revenue</td>
+                  <td>noise</td>
+                  <td>23</td>
+                  <td>78</td>
+                  <td><a href="https://appsumo.com/search/?query=automation" target="_blank" rel="noreferrer">AppSumo has recurring automation/workflow products</a></td>
+                  <td>tem link auditavel</td>
+                  <td>receita sem metrica verificavel</td>
+                </tr>
+                
+                <tr>
+                  <td>Packs Digitais de Automacoes n8n para Processos Comerciais</td>
+                  <td>Meta Ads Library via Playwright</td>
+                  <td>benchmark</td>
+                  <td>noise</td>
+                  <td>30</td>
+                  <td>72</td>
+                  <td><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;automacao n8n&quot; retornou 4 cards (0 relevantes)</a></td>
+                  <td>tem link auditavel</td>
+                  <td>n/a</td>
+                </tr>
+                
+                <tr>
+                  <td>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</td>
+                  <td>AppSumo search</td>
+                  <td>revenue</td>
+                  <td>noise</td>
+                  <td>23</td>
+                  <td>78</td>
+                  <td><a href="https://appsumo.com/search/?query=meeting%20notes" target="_blank" rel="noreferrer">AppSumo has meeting notes/transcription products</a></td>
+                  <td>tem link auditavel</td>
+                  <td>receita sem metrica verificavel</td>
+                </tr>
+                
+                <tr>
+                  <td>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</td>
+                  <td>Reddit r/SaaS</td>
+                  <td>pain</td>
+                  <td>noise</td>
+                  <td>4</td>
+                  <td>58</td>
+                  <td><a href="https://www.reddit.com/r/SaaS/search/?q=sales%20call%20follow%20up%20CRM%20AI&amp;restrict_sr=1" target="_blank" rel="noreferrer">SaaS founders discuss sales follow-up, CRM and AI summaries</a></td>
+                  <td>tem link auditavel</td>
+                  <td>dor baseada apenas em pagina de busca, nao em posts/reviews extraidos</td>
+                </tr>
+                
+                <tr>
+                  <td>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</td>
+                  <td>Otter.ai</td>
+                  <td>competitor</td>
+                  <td>noise</td>
+                  <td>18</td>
+                  <td>45</td>
+                  <td><a href="https://otter.ai/" target="_blank" rel="noreferrer">Otter.ai validates AI meeting notes category</a></td>
+                  <td>tem link auditavel</td>
+                  <td>concorrente sem metrica</td>
+                </tr>
+                
+                <tr>
+                  <td>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</td>
+                  <td>Meta Ads Library via Playwright</td>
+                  <td>benchmark</td>
+                  <td>noise</td>
+                  <td>30</td>
+                  <td>72</td>
+                  <td><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library: &quot;crm ia&quot; retornou 4 cards (0 relevantes)</a></td>
+                  <td>tem link auditavel</td>
+                  <td>n/a</td>
+                </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="proofs" class="tab-panel">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Provas de escala e duplicação</h2>
+              <p>Páginas, domínios, queries e IDs usados para justificar sinais de anúncio escalado.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oportunidade</th><th>Tipo</th><th>Páginas</th><th>Domínios</th>
+                  <th>Queries</th><th>IDs</th><th>Prova</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</td>
+                  <td>meta_declared_same_creative_text</td>
+                  <td>Hook Lab</td>
+                  <td>n/a</td>
+                  <td>criativos ugc</td>
+                  <td>900000004</td>
+                  <td>fingerprint/copy normalizada</td>
+                </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="map" class="tab-panel">
+        
+            <article class="map-row">
+              <div class="map-node main">
+                <small>Oferta</small>
+                <strong>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</strong>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Dores</small>
+                <div class="chips"><span class="chip">SEO changing</span><span class="chip">AI search visibility</span><span class="chip">site not cited</span><span class="chip">need actionable recommendations</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Peças de venda</small>
+                <div class="chips"><span class="chip">AI Search Optimization</span><span class="chip">SEO audit</span><span class="chip">AI Overview tracker</span><span class="chip">schema markup</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Prova</small>
+                <strong>Escala fraca</strong>
+                <span>0 ads ativos</span>
+              </div>
+            </article>
+            
+            <article class="map-row">
+              <div class="map-node main">
+                <small>Oferta</small>
+                <strong>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</strong>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Dores</small>
+                <div class="chips"><span class="chip">zero sales</span><span class="chip">low budget</span><span class="chip">tracking</span><span class="chip">creative</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Peças de venda</small>
+                <div class="chips"><span class="chip">diagnostic</span><span class="chip">audit</span><span class="chip">creative analysis</span><span class="chip">landing page review</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Prova</small>
+                <strong>Escala fraca</strong>
+                <span>0 ads ativos</span>
+              </div>
+            </article>
+            
+            <article class="map-row">
+              <div class="map-node main">
+                <small>Oferta</small>
+                <strong>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</strong>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Dores</small>
+                <div class="chips"><span class="chip">creative fatigue</span><span class="chip">UGC</span><span class="chip">hooks</span><span class="chip">ads stopped working</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Peças de venda</small>
+                <div class="chips"><span class="chip">UGC scripts</span><span class="chip">ad hooks</span><span class="chip">creative testing matrix</span><span class="chip">ad creative generator</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Prova</small>
+                <strong>Escala média</strong>
+                <span>1 ads ativos</span>
+              </div>
+            </article>
+            
+            <article class="map-row">
+              <div class="map-node main">
+                <small>Oferta</small>
+                <strong>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</strong>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Dores</small>
+                <div class="chips"><span class="chip">customer messages</span><span class="chip">fast replies</span><span class="chip">business communication</span><span class="chip">missed leads</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Peças de venda</small>
+                <div class="chips"><span class="chip">WhatsApp automation</span><span class="chip">lead qualification</span><span class="chip">reply templates</span><span class="chip">lead qualification bot</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Prova</small>
+                <strong>Escala fraca</strong>
+                <span>0 ads ativos</span>
+              </div>
+            </article>
+            
+            <article class="map-row">
+              <div class="map-node main">
+                <small>Oferta</small>
+                <strong>Packs Digitais de Automacoes n8n para Processos Comerciais</strong>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Dores</small>
+                <div class="chips"><span class="chip">workflow setup</span><span class="chip">template examples</span><span class="chip">API credentials</span><span class="chip">automation breaks</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Peças de venda</small>
+                <div class="chips"><span class="chip">n8n templates</span><span class="chip">workflow pack</span><span class="chip">setup guide</span><span class="chip">workflow library</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Prova</small>
+                <strong>Escala fraca</strong>
+                <span>0 ads ativos</span>
+              </div>
+            </article>
+            
+            <article class="map-row">
+              <div class="map-node main">
+                <small>Oferta</small>
+                <strong>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</strong>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Dores</small>
+                <div class="chips"><span class="chip">meeting notes</span><span class="chip">follow-up</span><span class="chip">manual CRM updates</span><span class="chip">missed action items</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Peças de venda</small>
+                <div class="chips"><span class="chip">AI meeting notes</span><span class="chip">sales follow-up</span><span class="chip">CRM summary</span><span class="chip">follow-up generator</span></div>
+              </div>
+              <div class="map-arrow">-&gt;</div>
+              <div class="map-node">
+                <small>Prova</small>
+                <strong>Escala fraca</strong>
+                <span>0 ads ativos</span>
+              </div>
+            </article>
+            
+      </section>
+      <section id="experiments" class="tab-panel">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Fila de experimentos</h2>
+              <p>Resumo prático para transformar oportunidade em LP, criativos e teste Meta Ads.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oportunidade</th><th>Budget</th><th>Criativos</th><th>Objetivo</th>
+                  <th>Kill rule</th><th>Scale rule</th><th>MVP</th>
+                </tr>
+              </thead>
+              <tbody>
+            <tr>
+              <td><strong>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</strong></td>
+              <td>R$500-R$1000</td>
+              <td>4</td>
+              <td>Lead magnet + venda de auditoria R$97-R$297</td>
+              <td>Matar se os leads nao tiverem site ativo ou trafego organico relevante</td>
+              <td>Continuar se gerar leads de agencias/SaaS ou vender 2 auditorias</td>
+              <td>48h</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</strong></td>
+              <td>R$300-R$700</td>
+              <td>5</td>
+              <td>Lead ou venda direta de auditoria R$47-R$197</td>
+              <td>Matar se CPC ficar alto e nenhum lead qualificado aparecer apos R$150-R$250</td>
+              <td>Continuar se gerar 5+ leads qualificados ou 1 venda com CPA aceitavel</td>
+              <td>24h</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</strong></td>
+              <td>R$300-R$700</td>
+              <td>6</td>
+              <td>Venda direta R$47-R$147 ou lead para pacote personalizado</td>
+              <td>Matar se clientes pedirem criacao audiovisual completa e nao roteiro/template</td>
+              <td>Continuar se vender pacotes para anunciantes ativos ou agencias</td>
+              <td>24h</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</strong></td>
+              <td>R$400-R$900</td>
+              <td>5</td>
+              <td>Lead para diagnostico ou venda de setup R$197-R$497</td>
+              <td>Matar se leads nao usam WhatsApp como canal comercial</td>
+              <td>Continuar se gerar calls/diagnosticos com negocios que recebem 20+ conversas por semana</td>
+              <td>72h</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Packs Digitais de Automacoes n8n para Processos Comerciais</strong></td>
+              <td>R$400-R$800</td>
+              <td>4</td>
+              <td>Lead ou venda de pack R$97-R$297</td>
+              <td>Matar se leads nao souberem o que e n8n/automacao ou exigirem projeto custom complexo</td>
+              <td>Continuar se agencias/freelancers comprarem templates ou pedirem setup</td>
+              <td>72h</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</strong></td>
+              <td>R$400-R$800</td>
+              <td>4</td>
+              <td>Lead com amostra gratuita ou venda R$47-R$197</td>
+              <td>Matar se publico nao tiver calls recorrentes ou nao enxergar perda de follow-up</td>
+              <td>Continuar se founders/agencias enviarem calls reais e pedirem recorrencia</td>
+              <td>48h</td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const buttons = [...document.querySelectorAll('.tab-button')];
+    const panels = [...document.querySelectorAll('.tab-panel')];
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.tab;
+        buttons.forEach((item) => item.classList.toggle('active', item === button));
+        panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+      });
+    });
+  </script>
+</body>
+</html>

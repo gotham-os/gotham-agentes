@@ -1,0 +1,60 @@
+version: "3.9"
+
+# GOTHAM Agentes — stack completa
+#
+# Serviços:
+#   brain     → FastAPI + AgentOS (porta 8000)
+#   ui        → Next.js chat interface (porta 3000)
+#   roteador  → Manifest LLM router (porta 2099) — controla custos
+#
+# Para rodar local (desenvolvimento):
+#   docker compose up
+#
+# Para produção no Coolify: cada serviço é um app separado apontando para
+# este docker-compose.yml. Ver docs/COOLIFY_DEPLOY.md.
+
+services:
+
+  brain:
+    build:
+      context: ./brain
+      dockerfile: Dockerfile
+    container_name: gotham-brain
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./brain/.env
+    environment:
+      - GOTHAM_DB_PATH=/data/gotham_memory.db
+      - HOST=0.0.0.0
+      - PORT=8000
+    volumes:
+      - brain-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/playground/agents"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+      args:
+        # Aponta para o brain (usa variável de ambiente do host para URL pública)
+        NEXT_PUBLIC_AGNO_API_URL: ${BRAIN_PUBLIC_URL:-http://brain:8000}
+    container_name: gotham-ui
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      brain:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  brain-data:
+    driver: local

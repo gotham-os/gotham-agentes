@@ -1,0 +1,87 @@
+{
+  "version": "v2",
+  "principle": "Fonte so vira prova forte quando traz metrica auditavel, link claro e aderencia direta a tese. Fonte generica ou busca ampla entra como apoio, nao como motivo para gastar verba.",
+  "automated_now": [
+    {
+      "source": "Meta Ads Library",
+      "proves": ["distribuicao", "anuncios ativos", "duplicacao de criativo/copy", "angulo de oferta"],
+      "limitations": ["busca ampla traz ruído", "anuncio ativo nao prova lucro", "pode bloquear por captcha/login"],
+      "required_for_core": ["relevant_cards >= 5", "relevance_rate >= 0.5", "active_ads >= 5"]
+    },
+    {
+      "source": "Google Trends RSS",
+      "proves": ["demanda atual", "volume aproximado de interesse"],
+      "limitations": ["trend solta nao prova comprador", "precisa mapear trend para oferta monetizavel"],
+      "required_for_core": ["traffic_value presente", "termo conectado a comprador claro"]
+    },
+    {
+      "source": "Reddit JSON/Search",
+      "proves": ["dor real", "linguagem do publico", "objeções"],
+      "limitations": ["link de busca nao basta", "posts sem upvotes/comentarios sao fracos"],
+      "required_for_core": ["post real", "upvotes ou comentarios", "dor conectada a pagamento/urgencia"]
+    }
+  ],
+  "assisted_or_manual_sources": [
+    {
+      "source": "TrustMRR",
+      "proves": ["receita verificada", "categoria com MRR real"],
+      "how_to_use": "Adicionar links de startups/produtos com MRR/revenue ao seed ou integrar API/scraper permitido.",
+      "tier": 95
+    },
+    {
+      "source": "Acquire",
+      "proves": ["MRR", "multiplo", "modelo de aquisicao", "negocio vendavel"],
+      "how_to_use": "Coletar listagens SaaS/micro-SaaS com receita e canal.",
+      "tier": 88
+    },
+    {
+      "source": "Flippa",
+      "proves": ["ativo digital vendavel", "receita historica", "trafego"],
+      "how_to_use": "Coletar negocios digitais sem estoque/fisico e cruzar com oferta.",
+      "tier": 86
+    },
+    {
+      "source": "AppSumo",
+      "proves": ["demanda paga por software/template", "reviews", "ticket"],
+      "how_to_use": "Usar reviews, rating e posicionamento como prova auxiliar.",
+      "tier": 78
+    },
+    {
+      "source": "G2/Capterra",
+      "proves": ["dor em reviews", "concorrentes", "features reclamadas"],
+      "how_to_use": "Extrair reviews negativas e categorias com reclamações repetidas.",
+      "tier": 76
+    },
+    {
+      "source": "Similarweb",
+      "proves": ["trafego", "canais", "origem de audiencia"],
+      "how_to_use": "Adicionar visitas/canais quando houver acesso a dados.",
+      "tier": 74
+    },
+    {
+      "source": "Semrush",
+      "proves": ["keywords", "CPC", "concorrencia", "trafego organico/pago"],
+      "how_to_use": "Adicionar volume, CPC e concorrentes de keywords.",
+      "tier": 74
+    },
+    {
+      "source": "Google Keyword Planner",
+      "proves": ["volume de busca", "CPC", "intencao comercial"],
+      "how_to_use": "Adicionar palavras com volume/CPC para validar busca monetizavel.",
+      "tier": 72
+    },
+    {
+      "source": "TikTok Creative Center",
+      "proves": ["criativos e hashtags em alta", "angulo cultural"],
+      "how_to_use": "Usar como apoio de criativo, nao como prova de receita.",
+      "tier": 66
+    }
+  ],
+  "hard_rules": [
+    "Nao promover para TESTAR AGORA sem dor real e distribuicao relevante.",
+    "Nao usar link de busca como prova forte.",
+    "Nao contar anuncio irrelevante como distribuicao.",
+    "Nao confundir produto fisico, curso aleatorio ou conteudo generico com oferta digital escalavel.",
+    "Se uma fonte critica bloquear, perguntar antes de seguir ou marcar lacuna."
+  ]
+}

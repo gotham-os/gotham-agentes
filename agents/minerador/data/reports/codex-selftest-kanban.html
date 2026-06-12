@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gotham Opportunity Kanban</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --ink: #15171a;
+      --muted: #5c6570;
+      --line: #d8dde4;
+      --card: #ffffff;
+      --green: #137a45;
+      --blue: #2359c4;
+      --amber: #9a5b00;
+      --red: #ad2b2b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .topbar {
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+    h1 { margin: 0 0 8px; font-size: 24px; letter-spacing: 0; }
+    .summary { color: var(--muted); display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; }
+    .notice {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fafafa;
+      color: var(--muted);
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 18px;
+      align-items: start;
+      overflow-x: auto;
+    }
+    .column {
+      min-height: 420px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #eef1f5;
+      padding: 12px;
+    }
+    .column header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .column h2 { margin: 0; font-size: 14px; letter-spacing: 0; }
+    .column header span {
+      min-width: 28px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 13px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .card.test-now { border-left-color: var(--green); }
+    .card.deepdive { border-left-color: var(--blue); }
+    .card.radar { border-left-color: var(--amber); }
+    .card.discard { border-left-color: var(--red); }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f0f3f7;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .score {
+      font-size: 24px;
+      font-weight: 800;
+    }
+    h3 { margin: 12px 0 6px; font-size: 17px; line-height: 1.25; letter-spacing: 0; }
+    p { margin: 8px 0; color: #252a31; font-size: 14px; line-height: 1.45; }
+    .type { color: var(--muted); font-size: 13px; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin: 12px 0;
+    }
+    .metrics span {
+      background: #f7f8fa;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    details {
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+    summary { cursor: pointer; font-weight: 700; font-size: 13px; }
+    ul { padding-left: 18px; margin: 8px 0 0; }
+    li { margin: 6px 0; font-size: 13px; line-height: 1.35; }
+    a { color: #164aa8; text-decoration: none; overflow-wrap: anywhere; }
+    a:hover { text-decoration: underline; }
+    .empty {
+      border: 1px dashed #c3cad4;
+      border-radius: 8px;
+      padding: 16px;
+      color: var(--muted);
+      background: rgba(255,255,255,.5);
+      font-size: 14px;
+    }
+    @media (max-width: 1100px) {
+      .board { grid-template-columns: repeat(2, minmax(280px, 1fr)); }
+    }
+    @media (max-width: 700px) {
+      .board { grid-template-columns: 1fr; padding: 12px; }
+      .topbar { padding: 18px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Gotham Opportunity Kanban</h1>
+    <div class="summary">
+      <span>Run: live-round-2026-05-13-digital-offers-with-meta-ads</span>
+      <span>Gerado: 2026-05-13T14:25:58.313769+00:00</span>
+      <span>Sinais: 24</span>
+      <span>Promissoras: 6/5</span>
+      <span>Status: ENOUGH_PROMISING</span>
+    </div>
+    <div class="notice">Rodada atingiu o alvo: 6/5 oportunidades promissoras.</div>
+  </header>
+  <main class="board">
+    
+            <section class="column test-now">
+              <header>
+                <h2>TESTAR AGORA</h2>
+                <span>6</span>
+              </header>
+              
+    <article class="card test-now">
+      <div class="card-head">
+        <span class="pill">TESTAR AGORA</span>
+        <span class="score">86</span>
+      </div>
+      <h3>Auditoria GEO/AI Search para Sites que Perderam Trafego Organico</h3>
+      <p class="type">auditoria digital / relatorio / micro-saas futuro</p>
+      <p><strong>Publico:</strong> SaaS pequenos, agencias, blogs monetizados, creators com site e negocios digitais dependentes de SEO</p>
+      <p><strong>Promessa:</strong> Veja se seu site esta invisivel no ChatGPT, Gemini, Perplexity e AI Overviews, e receba um plano de correcao.</p>
+      <div class="metrics">
+        <span>Market 70</span>
+        <span>MVP 92</span>
+        <span>Conf 100</span>
+        <span>Meta 78</span>
+      </div>
+      <details>
+        <summary>MVP minimo</summary>
+        <ul><li>Formulario com dominio, nicho, concorrentes e 10 consultas-alvo</li><li>Teste manual/assistido em buscadores IA e SERP para checar citacoes e gaps</li><li>Relatorio PDF com score de visibilidade IA, schema/checklist e plano de 7 dias</li></ul>
+      </details>
+      <details>
+        <summary>Evidencias</summary>
+        <ul><li><a href="https://appsumo.com/products/clickrank/" target="_blank" rel="noreferrer">AppSumo: ClickRank sells AI search optimization with 480 reviews</a></li><li><a href="https://www.reddit.com/r/TechSEO/comments/1rvfjw9/search_traffic_still_dropping_how_are_you_dealing/" target="_blank" rel="noreferrer">Reddit r/TechSEO: Search traffic still dropping? How are you dealing with it?</a></li><li><a href="https://www.reddit.com/r/LegalMarketingTalk/comments/1rsi2qg/are_google_ai_overviews_decreasing_a_websites/" target="_blank" rel="noreferrer">Reddit r/LegalMarketingTalk: Are Google AI Overviews decreasing a website&#x27;s organic traffic?</a></li><li><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library via Playwright: Meta Ads Library: &quot;SEO IA&quot; retornou 4 cards</a></li></ul>
+      </details>
+      <details>
+        <summary>Escala/duplicados</summary>
+        <ul><li><strong>SEO IA</strong>: escala high, global high, cross-source 1, cross-domain 1, global cross-domain 1</li><li>Prova: global_cross_domain_same_ad | paginas: Growth Lab Brasil, Oferta Performance | dominios: diagnosticodigital.com.br, auditoriadeads.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000001, 900000002</li><li>Prova: global_cross_query_same_ad | paginas: Gotham Growth | dominios: diagnosticodigital.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000003</li></ul>
+      </details>
+      <details>
+        <summary>Red team</summary>
+        <ul><li>Termo GEO ainda exige educacao do mercado</li><li>Dificil prometer recuperacao de trafego; vender visibilidade e plano de acao</li><li>Precisa pedir dados do Search Console para validar dor real</li></ul>
+      </details>
+    </article>
+    
+
+    <article class="card test-now">
+      <div class="card-head">
+        <span class="pill">TESTAR AGORA</span>
+        <span class="score">86</span>
+      </div>
+      <h3>Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes</h3>
+      <p class="type">auditoria digital / servico productizado</p>
+      <p><strong>Publico:</strong> donos de pequenos negocios digitais, creators, infoprodutores, SaaS pequenos e ecommerce digital que anunciam no Meta</p>
+      <p><strong>Promessa:</strong> Descubra em 24h por que seus anuncios recebem cliques mas nao geram venda, com um plano de correcao priorizado.</p>
+      <div class="metrics">
+        <span>Market 64</span>
+        <span>MVP 97</span>
+        <span>Conf 100</span>
+        <span>Meta 92</span>
+      </div>
+      <details>
+        <summary>MVP minimo</summary>
+        <ul><li>Formulario com URL da landing, prints/CSV do gerenciador e descricao da oferta</li><li>Checklist de 37 pontos: criativo, hook, oferta, tracking, evento, pagina e checkout</li><li>Relatorio PDF + Loom curto com 3 mudancas prioritarias</li></ul>
+      </details>
+      <details>
+        <summary>Evidencias</summary>
+        <ul><li><a href="https://www.reddit.com/r/FacebookAds/comments/1nqvcot/spending_30day_on_meta_ads_still_no_sales_is_this/" target="_blank" rel="noreferrer">Reddit r/FacebookAds: Spending $30/day on Meta ads, still no sales</a></li><li><a href="https://www.reddit.com/r/DigitalMarketing/comments/1r6xuqn/are_paid_ads_becoming_a_waste_of_money_for_small/" target="_blank" rel="noreferrer">Reddit r/DigitalMarketing: Are paid ads becoming a waste of money for small businesses?</a></li><li><a href="https://appsumo.com/products/adcreative-ai/" target="_blank" rel="noreferrer">AppSumo: AdCreative.ai sold as AI-powered ad creative generator</a></li><li><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library via Playwright: Meta Ads Library: &quot;gestao de trafego&quot; retornou 4 cards</a></li></ul>
+      </details>
+      <details>
+        <summary>Escala/duplicados</summary>
+        <ul><li><strong>gestao de trafego</strong>: escala high, global high, cross-source 1, cross-domain 1, global cross-domain 1</li><li>Prova: global_cross_domain_same_ad | paginas: Growth Lab Brasil, Oferta Performance | dominios: diagnosticodigital.com.br, auditoriadeads.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000001, 900000002</li><li>Prova: global_cross_query_same_ad | paginas: Gotham Growth | dominios: diagnosticodigital.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000003</li></ul>
+      </details>
+      <details>
+        <summary>Red team</summary>
+        <ul><li>Pode virar consultoria trabalhosa se nao limitar escopo</li><li>Precisa prometer diagnostico, nao resultado garantido</li><li>Prova real so vem com venda/lead e qualidade dos dados enviados</li></ul>
+      </details>
+    </article>
+    
+
+    <article class="card test-now">
+      <div class="card-head">
+        <span class="pill">TESTAR AGORA</span>
+        <span class="score">84</span>
+      </div>
+      <h3>Packs Digitais de Automacoes n8n para Processos Comerciais</h3>
+      <p class="type">template / automacao / servico productizado digital</p>
+      <p><strong>Publico:</strong> agencias, freelancers, solopreneurs e pequenos negocios que querem automatizar tarefas repetitivas sem contratar dev full-time</p>
+      <p><strong>Promessa:</strong> Instale automacoes prontas de lead, proposta, follow-up, relatorio e CRM em horas, nao semanas.</p>
+      <div class="metrics">
+        <span>Market 73</span>
+        <span>MVP 92</span>
+        <span>Conf 100</span>
+        <span>Meta 76</span>
+      </div>
+      <details>
+        <summary>MVP minimo</summary>
+        <ul><li>3 workflows n8n exportaveis: captura lead, follow-up e relatorio</li><li>Guia PDF de instalacao + video curto</li><li>Setup assistido pago para os primeiros clientes</li></ul>
+      </details>
+      <details>
+        <summary>Evidencias</summary>
+        <ul><li><a href="https://www.reddit.com/r/n8n/search/?q=workflow%20templates%20small%20business&amp;restrict_sr=1" target="_blank" rel="noreferrer">Reddit r/n8n: n8n community searches for workflow templates and examples</a></li><li><a href="https://n8n.io/workflows/" target="_blank" rel="noreferrer">n8n templates: n8n has public workflow template marketplace</a></li><li><a href="https://appsumo.com/search/?query=automation" target="_blank" rel="noreferrer">AppSumo search: AppSumo has recurring automation/workflow products</a></li><li><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library via Playwright: Meta Ads Library: &quot;automacao n8n&quot; retornou 4 cards</a></li></ul>
+      </details>
+      <details>
+        <summary>Escala/duplicados</summary>
+        <ul><li><strong>automacao n8n</strong>: escala high, global high, cross-source 1, cross-domain 1, global cross-domain 1</li><li>Prova: global_cross_domain_same_ad | paginas: Growth Lab Brasil, Oferta Performance | dominios: diagnosticodigital.com.br, auditoriadeads.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000001, 900000002</li><li>Prova: global_cross_query_same_ad | paginas: Gotham Growth | dominios: diagnosticodigital.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000003</li></ul>
+      </details>
+      <details>
+        <summary>Red team</summary>
+        <ul><li>Publico pode ser tecnico demais para Meta Ads frio</li><li>Precisa empacotar por resultado, nao por ferramenta</li><li>Suporte pode crescer se templates quebrarem por credenciais/APIs</li></ul>
+      </details>
+    </article>
+    
+
+    <article class="card test-now">
+      <div class="card-head">
+        <span class="pill">TESTAR AGORA</span>
+        <span class="score">83</span>
+      </div>
+      <h3>Agente Digital de Qualificacao de Leads WhatsApp para Negocios de Servico</h3>
+      <p class="type">automacao / agente / servico productizado digital</p>
+      <p><strong>Publico:</strong> negocios de servico, agencias, clinicas, consultores, escolas livres e prestadores que recebem leads pelo WhatsApp</p>
+      <p><strong>Promessa:</strong> Transforme conversas baguncadas do WhatsApp em lead qualificado, resumo, proximo passo e resposta pronta.</p>
+      <div class="metrics">
+        <span>Market 69</span>
+        <span>MVP 92</span>
+        <span>Conf 100</span>
+        <span>Meta 84</span>
+      </div>
+      <details>
+        <summary>MVP minimo</summary>
+        <ul><li>Formulario onde o cliente cola conversa ou exporta texto do WhatsApp</li><li>IA classifica lead, urgencia, objeções e proximo passo</li><li>Entrega resposta pronta + resumo CRM em PDF/planilha</li></ul>
+      </details>
+      <details>
+        <summary>Evidencias</summary>
+        <ul><li><a href="https://business.whatsapp.com/" target="_blank" rel="noreferrer">WhatsApp Business: WhatsApp Business positions messaging as customer communication channel</a></li><li><a href="https://www.reddit.com/r/smallbusiness/search/?q=AI%20chatbot%20customer%20support%20leads&amp;restrict_sr=1" target="_blank" rel="noreferrer">Reddit r/smallbusiness: Small businesses search for AI chatbot/customer support lead handling</a></li><li><a href="https://appsumo.com/search/?query=chatbot" target="_blank" rel="noreferrer">AppSumo search: AppSumo has chatbot/support automation offers</a></li><li><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library via Playwright: Meta Ads Library: &quot;chatbot whatsapp&quot; retornou 4 cards</a></li></ul>
+      </details>
+      <details>
+        <summary>Escala/duplicados</summary>
+        <ul><li><strong>chatbot whatsapp</strong>: escala high, global high, cross-source 1, cross-domain 1, global cross-domain 1</li><li>Prova: global_cross_domain_same_ad | paginas: Growth Lab Brasil, Oferta Performance | dominios: diagnosticodigital.com.br, auditoriadeads.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000001, 900000002</li><li>Prova: global_cross_query_same_ad | paginas: Gotham Growth | dominios: diagnosticodigital.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000003</li></ul>
+      </details>
+      <details>
+        <summary>Red team</summary>
+        <ul><li>Automacao completa via WhatsApp API pode ter friccao; comecar por entrega semi-manual</li><li>Mercado cheio de chatbot generico; precisa verticalizar por dor de lead perdido</li><li>Nao prometer integracao oficial na V0</li></ul>
+      </details>
+    </article>
+    
+
+    <article class="card test-now">
+      <div class="card-head">
+        <span class="pill">TESTAR AGORA</span>
+        <span class="score">82</span>
+      </div>
+      <h3>Pacote Digital de Hooks e Criativos UGC para Meta Ads com Fadiga</h3>
+      <p class="type">template / auditoria criativa / pacote de prompts e roteiros</p>
+      <p><strong>Publico:</strong> infoprodutores, creators, SaaS pequenos, agencias e anunciantes que precisam renovar criativos toda semana</p>
+      <p><strong>Promessa:</strong> Receba 30 hooks, 10 roteiros UGC e uma matriz de testes para parar a fadiga criativa nos seus anuncios.</p>
+      <div class="metrics">
+        <span>Market 64</span>
+        <span>MVP 97</span>
+        <span>Conf 95</span>
+        <span>Meta 95</span>
+      </div>
+      <details>
+        <summary>MVP minimo</summary>
+        <ul><li>Formulario com oferta, avatar, dores e criativos atuais</li><li>Gerador manual/IA de 30 hooks + 10 roteiros UGC</li><li>Matriz de teste A/B por angulo, dor, prova e CTA</li></ul>
+      </details>
+      <details>
+        <summary>Evidencias</summary>
+        <ul><li><a href="https://www.reddit.com/r/FacebookAds/search/?q=creative%20fatigue%20UGC%20hooks&amp;restrict_sr=1" target="_blank" rel="noreferrer">Reddit r/FacebookAds: Meta advertisers discuss creative fatigue, UGC and hooks</a></li><li><a href="https://appsumo.com/products/adcreative-ai/" target="_blank" rel="noreferrer">AppSumo: AdCreative.ai validates demand for ad creative generation</a></li><li><a href="https://ads.tiktok.com/business/creativecenter/" target="_blank" rel="noreferrer">TikTok Creative Center: TikTok Creative Center provides trends, hashtags and creative inspiration</a></li><li><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library via Playwright: Meta Ads Library: &quot;criativos para anuncios&quot; retornou 4 cards</a></li></ul>
+      </details>
+      <details>
+        <summary>Escala/duplicados</summary>
+        <ul><li><strong>criativos para anuncios</strong>: escala high, global high, cross-source 1, cross-domain 1, global cross-domain 1</li><li>Prova: global_cross_domain_same_ad | paginas: Growth Lab Brasil, Oferta Performance | dominios: diagnosticodigital.com.br, auditoriadeads.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000001, 900000002</li><li>Prova: global_cross_query_same_ad | paginas: Gotham Growth | dominios: diagnosticodigital.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000003</li></ul>
+      </details>
+      <details>
+        <summary>Red team</summary>
+        <ul><li>Pode virar commodity se for so prompts genericos</li><li>Precisa usar exemplos da oferta do cliente para parecer personalizado</li><li>Nao prometer performance, vender volume de hipoteses criativas</li></ul>
+      </details>
+    </article>
+    
+
+    <article class="card test-now">
+      <div class="card-head">
+        <span class="pill">TESTAR AGORA</span>
+        <span class="score">81</span>
+      </div>
+      <h3>Copiloto Digital de Reuniao Comercial para Follow-up e CRM</h3>
+      <p class="type">relatorio / automacao / micro-saas futuro</p>
+      <p><strong>Publico:</strong> founders, consultores, agencias e times pequenos que fazem calls de venda e perdem follow-up</p>
+      <p><strong>Promessa:</strong> Cole a transcricao da call e receba resumo, objeções, follow-up pronto, tarefas e campos de CRM.</p>
+      <div class="metrics">
+        <span>Market 65</span>
+        <span>MVP 92</span>
+        <span>Conf 100</span>
+        <span>Meta 72</span>
+      </div>
+      <details>
+        <summary>MVP minimo</summary>
+        <ul><li>Formulario para colar transcricao/audio transcrito</li><li>IA extrai dores, objeções, decisores, proximo passo e risco</li><li>Entrega email/WhatsApp follow-up + campos de CRM em CSV</li></ul>
+      </details>
+      <details>
+        <summary>Evidencias</summary>
+        <ul><li><a href="https://appsumo.com/search/?query=meeting%20notes" target="_blank" rel="noreferrer">AppSumo search: AppSumo has meeting notes/transcription products</a></li><li><a href="https://www.reddit.com/r/SaaS/search/?q=sales%20call%20follow%20up%20CRM%20AI&amp;restrict_sr=1" target="_blank" rel="noreferrer">Reddit r/SaaS: SaaS founders discuss sales follow-up, CRM and AI summaries</a></li><li><a href="https://otter.ai/" target="_blank" rel="noreferrer">Otter.ai: Otter.ai validates AI meeting notes category</a></li><li><a href="fixture://tests\fixtures\meta_ads_scaled_duplicate_sample.txt" target="_blank" rel="noreferrer">Meta Ads Library via Playwright: Meta Ads Library: &quot;crm ia&quot; retornou 4 cards</a></li></ul>
+      </details>
+      <details>
+        <summary>Escala/duplicados</summary>
+        <ul><li><strong>crm ia</strong>: escala high, global high, cross-source 1, cross-domain 1, global cross-domain 1</li><li>Prova: global_cross_domain_same_ad | paginas: Growth Lab Brasil, Oferta Performance | dominios: diagnosticodigital.com.br, auditoriadeads.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000001, 900000002</li><li>Prova: global_cross_query_same_ad | paginas: Gotham Growth | dominios: diagnosticodigital.com.br | queries: criativos para anuncios, gestao de trafego, chatbot whatsapp, SEO IA, automacao n8n, crm ia | IDs: 900000003</li></ul>
+      </details>
+      <details>
+        <summary>Red team</summary>
+        <ul><li>Categoria ja tem concorrentes fortes</li><li>Precisa nichar em pos-call comercial, nao notas genericas</li><li>Dados sensiveis exigem aviso de privacidade simples</li></ul>
+      </details>
+    </article>
+    
+            </section>
+            
+            <section class="column deepdive">
+              <header>
+                <h2>DEEPDIVE</h2>
+                <span>0</span>
+              </header>
+              <div class="empty">Sem cards nesta coluna.</div>
+            </section>
+            
+            <section class="column radar">
+              <header>
+                <h2>RADAR</h2>
+                <span>0</span>
+              </header>
+              <div class="empty">Sem cards nesta coluna.</div>
+            </section>
+            
+            <section class="column discard">
+              <header>
+                <h2>DESCARTAR</h2>
+                <span>0</span>
+              </header>
+              <div class="empty">Sem cards nesta coluna.</div>
+            </section>
+            
+  </main>
+</body>
+</html>

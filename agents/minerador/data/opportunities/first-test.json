@@ -1,0 +1,409 @@
+{
+  "run_name": "first-real-test-2026-05-13",
+  "generated_at": "2026-05-13T13:21:54.275107+00:00",
+  "source_count": 10,
+  "signal_count": 11,
+  "opportunity_count": 3,
+  "returned_opportunity_count": 3,
+  "promising_count": 2,
+  "min_promising_target": 5,
+  "round_status": "NEEDS_MORE_EVIDENCE",
+  "round_note": "Rodada abaixo do alvo: 2/5 oportunidades promissoras. Coletar mais sinais antes de montar muitos MVPs.",
+  "opportunities": [
+    {
+      "cluster_key": "ai-search-geo-audit",
+      "title": "Auditoria GEO/AI Search para Sites que Perderam Trafego Organico",
+      "solution_type": "audit",
+      "offer_type": "auditoria digital / relatorio / micro-saas futuro",
+      "audience": "SaaS pequenos, agencias, blogs monetizados, creators com site e negocios digitais dependentes de SEO",
+      "promise": "Veja se seu site esta invisivel no ChatGPT, Gemini, Perplexity e AI Overviews, e receba um plano de correcao.",
+      "why_now": "Busca por IA e AI Overviews estao mudando cliques organicos; ferramentas em AppSumo ja vendem a tese de AI Search Optimization.",
+      "mvp": [
+        "Formulario com dominio, nicho, concorrentes e 10 consultas-alvo",
+        "Teste manual/assistido em buscadores IA e SERP para checar citacoes e gaps",
+        "Relatorio PDF com score de visibilidade IA, schema/checklist e plano de 7 dias"
+      ],
+      "mvp_hours": 48,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$500-R$1000",
+        "creatives": 4,
+        "objective": "Lead magnet + venda de auditoria R$97-R$297",
+        "kill_rule": "Matar se os leads nao tiverem site ativo ou trafego organico relevante",
+        "scale_rule": "Continuar se gerar leads de agencias/SaaS ou vender 2 auditorias"
+      },
+      "red_team": [
+        "Termo GEO ainda e novo e pode exigir educacao do mercado",
+        "Dificil prometer recuperacao de trafego; vender visibilidade e plano de acao",
+        "Precisa separar hype de dor real com dados do Search Console do cliente"
+      ],
+      "next_actions": [
+        "Criar diagnostico gratuito: 'Seu site aparece nas respostas das IAs?'",
+        "Montar checklist de schema, entidades, paginas comerciais e mencoes externas",
+        "Fazer landing com comparacao SEO antigo vs AI Search"
+      ],
+      "flags": [],
+      "tags": [
+        "ai_search",
+        "seo",
+        "geo",
+        "appsumo",
+        "digital_delivery",
+        "b2b",
+        "pain",
+        "professional_services",
+        "trend",
+        "agency",
+        "smb",
+        "direct_response"
+      ],
+      "pain_terms": [
+        "SEO changing",
+        "AI search visibility",
+        "site not cited",
+        "need actionable recommendations",
+        "search traffic dropping",
+        "zero-click",
+        "AI Overviews",
+        "CTR down",
+        "scary",
+        "traffic drop",
+        "invisible in LLM responses",
+        "AI Share of Voice",
+        "CTR decline",
+        "informational traffic down",
+        "AI Overviews query coverage"
+      ],
+      "offer_terms": [
+        "AI Search Optimization",
+        "SEO audit",
+        "AI Overview tracker",
+        "schema markup",
+        "AI visibility audit",
+        "SERP change check",
+        "GSC review",
+        "AI Share of Voice",
+        "citation tracking",
+        "entity data audit",
+        "AI Overview audit",
+        "SEO traffic recovery plan"
+      ],
+      "scores": {
+        "overall": 70,
+        "market": 51,
+        "pain": 100,
+        "distribution": 32,
+        "mvp": 92,
+        "confidence": 100,
+        "meta_ads_fit": 78,
+        "decision": "DEEPDIVE"
+      },
+      "evidence": [
+        {
+          "id": "sig-ai-search-appsumo-001",
+          "type": "revenue",
+          "source": "AppSumo",
+          "strength": "high",
+          "title": "ClickRank sells AI search optimization with 480 reviews",
+          "url": "https://appsumo.com/products/clickrank/",
+          "metrics": {
+            "reviews": 480,
+            "rating": 4.5,
+            "price_usd": 89
+          }
+        },
+        {
+          "id": "sig-ai-search-reddit-002",
+          "type": "pain",
+          "source": "Reddit r/TechSEO",
+          "strength": "high",
+          "title": "Search traffic still dropping? How are you dealing with it?",
+          "url": "https://www.reddit.com/r/TechSEO/comments/1rvfjw9/search_traffic_still_dropping_how_are_you_dealing/",
+          "metrics": {
+            "upvotes": 7,
+            "published": "2026-03-16"
+          }
+        },
+        {
+          "id": "sig-ai-search-reddit-003",
+          "type": "pain",
+          "source": "Reddit r/LegalMarketingTalk",
+          "strength": "medium",
+          "title": "Are Google AI Overviews decreasing a website's organic traffic?",
+          "url": "https://www.reddit.com/r/LegalMarketingTalk/comments/1rsi2qg/are_google_ai_overviews_decreasing_a_websites/",
+          "metrics": {
+            "published": "2026-03-13"
+          }
+        },
+        {
+          "id": "sig-ai-search-market-004",
+          "type": "trend",
+          "source": "Digital Applied",
+          "strength": "medium",
+          "title": "AI Overviews in 13% of queries and CTR impact",
+          "url": "https://www.digitalapplied.com/blog/ai-overviews-13-percent-queries-seo-traffic-impact",
+          "metrics": {
+            "ai_overview_query_coverage_percent": 13,
+            "position_1_ctr_decline_percent": 18
+          }
+        }
+      ]
+    },
+    {
+      "cluster_key": "meta-ads-offer-diagnostic",
+      "title": "Diagnostico Digital de Oferta e Meta Ads para Pequenos Anunciantes",
+      "solution_type": "audit",
+      "offer_type": "auditoria digital / servico productizado",
+      "audience": "donos de pequenos negocios digitais, creators, infoprodutores, SaaS pequenos e ecommerce digital que anunciam no Meta",
+      "promise": "Descubra em 24h por que seus anuncios recebem cliques mas nao geram venda, com um plano de correcao priorizado.",
+      "why_now": "Pequenos anunciantes reclamam de verba queimada, baixa conversao e confusao entre criativo, tracking, oferta e landing page.",
+      "mvp": [
+        "Formulario com URL da landing, prints/CSV do gerenciador e descricao da oferta",
+        "Checklist de 37 pontos: criativo, hook, oferta, tracking, evento, pagina e checkout",
+        "Relatorio PDF + Loom curto com 3 mudancas prioritarias"
+      ],
+      "mvp_hours": 24,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$300-R$700",
+        "creatives": 5,
+        "objective": "Lead ou venda direta de auditoria R$47-R$197",
+        "kill_rule": "Matar se CPC ficar alto e nenhum lead qualificado aparecer apos R$150-R$250",
+        "scale_rule": "Continuar se gerar 5+ leads qualificados ou 1 venda com CPA aceitavel"
+      },
+      "red_team": [
+        "Pode virar consultoria trabalhosa se nao limitar escopo",
+        "Precisa prometer diagnostico, nao resultado garantido",
+        "Prova real so vem com venda/lead e qualidade dos dados enviados"
+      ],
+      "next_actions": [
+        "Criar LP Astro com headline de perda de verba",
+        "Criar 5 criativos: dinheiro queimando, antes/depois de hook, checklist, caso anonimo, promessa de 24h",
+        "Vender primeiro como auditoria manual antes de automatizar"
+      ],
+      "flags": [],
+      "tags": [
+        "meta_ads",
+        "paid_traffic",
+        "smb",
+        "digital_delivery",
+        "direct_response",
+        "copy",
+        "creative",
+        "appsumo",
+        "b2b",
+        "creator"
+      ],
+      "pain_terms": [
+        "zero sales",
+        "low budget",
+        "tracking",
+        "creative",
+        "landing page",
+        "offer problem",
+        "burning cash",
+        "waste of money",
+        "small budgets",
+        "testing",
+        "ROI",
+        "bad strategy",
+        "spent 1200",
+        "message does not hit pain",
+        "CPA dropped after hook change",
+        "takes time and manpower to create creatives",
+        "need variations",
+        "save time and money"
+      ],
+      "offer_terms": [
+        "diagnostic",
+        "audit",
+        "creative analysis",
+        "landing page review",
+        "ROI diagnostic",
+        "campaign audit",
+        "offer audit",
+        "hook audit",
+        "message audit",
+        "offer rewrite",
+        "AI creative generator",
+        "high-converting creatives",
+        "ad variations"
+      ],
+      "scores": {
+        "overall": 65,
+        "market": 38,
+        "pain": 100,
+        "distribution": 22,
+        "mvp": 97,
+        "confidence": 90,
+        "meta_ads_fit": 92,
+        "decision": "RADAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-meta-reddit-001",
+          "type": "pain",
+          "source": "Reddit r/FacebookAds",
+          "strength": "high",
+          "title": "Spending $30/day on Meta ads, still no sales",
+          "url": "https://www.reddit.com/r/FacebookAds/comments/1nqvcot/spending_30day_on_meta_ads_still_no_sales_is_this/",
+          "metrics": {
+            "comments_context": "thread with multiple tactical replies",
+            "published": "2025-09-26"
+          }
+        },
+        {
+          "id": "sig-meta-reddit-002",
+          "type": "pain",
+          "source": "Reddit r/DigitalMarketing",
+          "strength": "high",
+          "title": "Are paid ads becoming a waste of money for small businesses?",
+          "url": "https://www.reddit.com/r/DigitalMarketing/comments/1r6xuqn/are_paid_ads_becoming_a_waste_of_money_for_small/",
+          "metrics": {
+            "published": "2026-02-17"
+          }
+        },
+        {
+          "id": "sig-meta-reddit-003",
+          "type": "pain",
+          "source": "Reddit r/smallbusinessUS",
+          "strength": "medium",
+          "title": "Spent $1,200 on ads and thought Meta was broken",
+          "url": "https://www.reddit.com/r/smallbusinessUS/comments/1suxzy5/spent_1200_on_ads_and_thought_meta_was_broken/",
+          "metrics": {
+            "spend_usd": 1200,
+            "published": "2026-04-25"
+          }
+        },
+        {
+          "id": "sig-meta-appsumo-004",
+          "type": "revenue",
+          "source": "AppSumo",
+          "strength": "medium",
+          "title": "AdCreative.ai sold as AI-powered ad creative generator",
+          "url": "https://appsumo.com/products/adcreative-ai/",
+          "metrics": {
+            "reviews": 238,
+            "rating": 4.5
+          }
+        }
+      ]
+    },
+    {
+      "cluster_key": "digital-refund-dispute-kit",
+      "title": "Kit Digital de Contestacao de Cobranças e Reembolsos de SaaS/Apps",
+      "solution_type": "template",
+      "offer_type": "template / guia / automacao leve",
+      "audience": "freelancers, pequenos negocios e compradores de SaaS que tiveram cobrança indevida, trial convertido ou reembolso travado",
+      "promise": "Gere em minutos uma contestacao organizada com timeline, provas e mensagens prontas para suporte, cartao e plataforma.",
+      "why_now": "Reviews recentes de ferramentas digitais mostram atrito com trials, cobranças e reembolsos; a entrega pode ser template/gerador, nao produto fisico.",
+      "mvp": [
+        "Formulario para timeline, comprovantes e politica de reembolso",
+        "Gerador de emails/mensagens para suporte e operadora",
+        "Checklist PDF de evidencias e proximos passos"
+      ],
+      "mvp_hours": 24,
+      "delivery_manual_possible": true,
+      "meta_ads_test": {
+        "budget": "R$200-R$500",
+        "creatives": 4,
+        "objective": "Venda direta R$17-R$47",
+        "kill_rule": "Matar se houver rejeicao por sensibilidade juridica/politica ou leads desqualificados",
+        "scale_rule": "Continuar se CPA permitir lucro e comentarios mostrarem dor real"
+      },
+      "red_team": [
+        "Risco legal: nao pode parecer assessoria juridica personalizada",
+        "Pode atrair consumidores problemáticos e suporte pesado",
+        "Ticket baixo exige automacao quase total"
+      ],
+      "next_actions": [
+        "Escrever disclaimers claros: organizador de informacoes, nao advogado",
+        "Testar promessa focada em organizacao de provas e comunicacao",
+        "Criar checkout barato e entrega automatica por email"
+      ],
+      "flags": [
+        "regulated_market"
+      ],
+      "tags": [
+        "saas",
+        "refund",
+        "template",
+        "digital_delivery",
+        "digital_products",
+        "consumer_rights",
+        "direct_response"
+      ],
+      "pain_terms": [
+        "unauthorized charges",
+        "trial converted",
+        "refund process",
+        "waiting months",
+        "subscription practices",
+        "deceptive billing",
+        "difficult cancellation",
+        "support issues",
+        "worst investment",
+        "online courses",
+        "underdeliver",
+        "expensive",
+        "pressure sales call"
+      ],
+      "offer_terms": [
+        "refund template",
+        "chargeback evidence checklist",
+        "support email generator",
+        "refund dispute kit",
+        "evidence organizer",
+        "refund evidence kit",
+        "purchase due diligence checklist"
+      ],
+      "scores": {
+        "overall": 48,
+        "market": 18,
+        "pain": 100,
+        "distribution": 22,
+        "mvp": 77,
+        "confidence": 55,
+        "meta_ads_fit": 63,
+        "decision": "DESCARTAR"
+      },
+      "evidence": [
+        {
+          "id": "sig-refund-trustpilot-001",
+          "type": "pain",
+          "source": "Trustpilot",
+          "strength": "medium",
+          "title": "AdCreative.ai Trustpilot reviews show billing/refund pain",
+          "url": "https://www.trustpilot.com/review/adcreative.ai",
+          "metrics": {
+            "reviews": 4150,
+            "rating": 3.2
+          }
+        },
+        {
+          "id": "sig-refund-appsumo-002",
+          "type": "pain",
+          "source": "AppSumo Reviews",
+          "strength": "medium",
+          "title": "AdCreative.ai AppSumo review complains about billing and cancellation",
+          "url": "https://appsumo.com/products/adcreative-ai/reviews/",
+          "metrics": {
+            "reviews": 238,
+            "rating": 4.5
+          }
+        },
+        {
+          "id": "sig-refund-news-003",
+          "type": "pain",
+          "source": "The Cut",
+          "strength": "low",
+          "title": "Online course buyers report expensive underdelivery",
+          "url": "https://www.thecut.com/article/online-business-development-courses-influencers.html",
+          "metrics": {
+            "published": "2025-09-18"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+.runtime/
+__pycache__/
+*.pyc
+data/raw/
+node_modules/
+package-lock.json
