@@ -2,11 +2,18 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-RUN pip install uv
+RUN pip install uv --quiet
 
-COPY pyproject.toml .
-RUN uv pip install --system -e .
+# Copia apenas o necessário para cachear o layer de dependências
+COPY pyproject.toml README.md ./
 
+# Instala só as deps (sem editable — não precisa de src code ainda)
+RUN uv pip install --system --no-build-isolation \
+    agno fastapi "uvicorn[standard]" pydantic pydantic-settings \
+    python-dotenv sqlalchemy "groq" "anthropic" "openai" \
+    "tavily-python" ddgs httpx beautifulsoup4 lxml feedparser
+
+# Copia o resto do código
 COPY . .
 
 EXPOSE 8000
