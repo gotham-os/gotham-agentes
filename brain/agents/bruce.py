@@ -296,7 +296,7 @@ def meta_ads_scale_scan(query: str, country: str = "BR") -> str:
         resp = httpx.post(
             f"{browser_url}/run",
             json={"task": task, "llm_provider": "nvidia", "max_steps": 25},
-            timeout=240,
+            timeout=600,
         )
         resp.raise_for_status()
         data = resp.json()
@@ -315,6 +315,89 @@ def meta_ads_scale_scan(query: str, country: str = "BR") -> str:
             "action": f"Consultar manualmente: {lib_url}",
             "error": str(exc),
         })
+
+
+def _scale_scan_task(query: str, country: str) -> str:
+    lib_url = (
+        f"https://www.facebook.com/ads/library/?active_status=active"
+        f"&ad_type=all&country={country}&q={quote(query)}"
+    )
+    return (
+        f"Go to {lib_url} (Meta Ads Library). Scroll down at least 6 times to load more results. "
+        f"For EACH distinct advertiser/Page you see, record its name and the number of active ads "
+        f"shown for that page (look for text like 'X anúncios'/'X ads' near the page name, or open "
+        f"'Ver detalhes do anúncio'/'See ad details' to find the total active ads for that page). "
+        f"Flag any advertiser with 100 or more active ads as HIGH PRIORITY. "
+        f"Also check if multiple DIFFERENT page names appear to be promoting the SAME product or "
+        f"offer (same product name, same creative/headline/image pattern) — group these together "
+        f"as a 'scaling cluster' and sum their ad counts. "
+        f"Return ONLY a JSON object, no extra text: "
+        f'{{"pages": [{{"name": str, "ads_count": int}}], '
+        f'"scaling_clusters": [{{"offer": str, "pages": [str], "total_ads": int}}]}}'
+    )
+
+
+@tool(
+    name="meta_ads_scale_scan_batch",
+    description=(
+        "Varre a Meta Ads Library EM PARALELO para múltiplas queries/países de uma vez. "
+        "Usa /run-batch do gotham-browser: cada scan roda em BrowserSession independente "
+        "com LLM provider diferente (nvidia/zen-free/gemini) para evitar rate limit. "
+        "Muito mais rápido que chamar meta_ads_scale_scan N vezes sequencialmente. "
+        "queries_countries: lista de objetos {query: str, country: str}. "
+        "Retorna lista de resultados na mesma ordem. "
+        "Critério de escala: Page única com 100+ ads OU cluster de Pages com mesma oferta somando 100+. "
+        "Source tier: 72."
+    ),
+)
+def meta_ads_scale_scan_batch(queries_countries: list[dict]) -> str:
+    browser_url = os.getenv("GOTHAM_BROWSER_URL", "http://gotham-browser:7893")
+    tasks = []
+    meta = []
+    for item in queries_countries:
+        q = item.get("query", "")
+        c = item.get("country", "BR")
+        lib_url = (
+            f"https://www.facebook.com/ads/library/?active_status=active"
+            f"&ad_type=all&country={c}&q={quote(q)}"
+        )
+        tasks.append({
+            "task": _scale_scan_task(q, c),
+            "max_steps": 25,
+            "id": f"{c}:{q}",
+        })
+        meta.append({"query": q, "country": c, "url": lib_url})
+
+    try:
+        resp = httpx.post(
+            f"{browser_url}/run-batch",
+            json={"tasks": tasks},
+            timeout=720,
+        )
+        resp.raise_for_status()
+        results = resp.json()
+        output = []
+        for i, (res, m) in enumerate(zip(results, meta)):
+            if res.get("ok"):
+                output.append({
+                    "source": "meta_ads_library",
+                    "country": m["country"],
+                    "query": m["query"],
+                    "url": m["url"],
+                    "llm_provider_used": res.get("llm_provider_used"),
+                    "result": res.get("result"),
+                })
+            else:
+                output.append({
+                    "source": "meta_ads_library",
+                    "country": m["country"],
+                    "query": m["query"],
+                    "url": m["url"],
+                    "error": res.get("error"),
+                })
+        return json.dumps(output, ensure_ascii=False)
+    except Exception as exc:
+        return json.dumps({"error": str(exc), "tip": "Verificar gotham-browser /health"})
 
 
 @tool(
@@ -415,6 +498,7 @@ bruce_agent = Agent(
         reclameaqui_search,
         meta_ads_search,
         meta_ads_scale_scan,
+        meta_ads_scale_scan_batch,
         tiktok_trends,
     ],
     db=SqliteDb(db_file=DB_PATH),
@@ -432,9 +516,12 @@ bruce_agent = Agent(
         "Para mercado EN: usar Reddit e Tavily para pesquisa em inglês.",
         "Quando o pedido for caça-escala (achar ofertas com 100+ anúncios ativos, "
         "única Page ou cluster de Pages diferentes promovendo a mesma oferta), use "
-        "meta_ads_scale_scan em vez de meta_ads_search, cobrindo BR/US/MX (ou ES tier-1) "
-        "em pelo menos 3 verticais. Só reporte achados com 100+ anúncios (Page única ou "
-        "soma de cluster) como 'escalando' — abaixo disso é só 'tem anúncio'.",
+        "meta_ads_scale_scan_batch com TODAS as queries+países de uma vez (uma única chamada) "
+        "em vez de chamar meta_ads_scale_scan individualmente N vezes. "
+        "meta_ads_scale_scan_batch roda todas em paralelo com BrowserSession independente por scan — "
+        "muito mais rápido e sem rate limit. "
+        "Só reporte achados com 100+ anúncios (Page única ou soma de cluster) como 'escalando' — "
+        "abaixo disso é só 'tem anúncio'.",
         "Entregar mínimo 5 oportunidades rankeadas por score quando há evidência suficiente.",
         "Salvar resultado final com save_opportunity_output.",
     ],
