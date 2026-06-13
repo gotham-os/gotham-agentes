@@ -20,8 +20,6 @@ services:
       context: ./brain
       dockerfile: Dockerfile
     container_name: gotham-brain
-    ports:
-      - "8000:8000"
     env_file:
       - ./brain/.env
     environment:
@@ -30,6 +28,19 @@ services:
       - PORT=8000
     volumes:
       - brain-data:/data
+    networks:
+      - default
+      - coolify
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gotham-brain-http.entryPoints=http"
+      - "traefik.http.routers.gotham-brain-http.middlewares=redirect-to-https"
+      - "traefik.http.routers.gotham-brain-http.rule=Host(`brain.bmilimitada.com`)"
+      - "traefik.http.routers.gotham-brain.entryPoints=https"
+      - "traefik.http.routers.gotham-brain.rule=Host(`brain.bmilimitada.com`)"
+      - "traefik.http.routers.gotham-brain.tls=true"
+      - "traefik.http.routers.gotham-brain.tls.certresolver=letsencrypt"
+      - "traefik.http.services.gotham-brain.loadbalancer.server.port=8000"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/agents')"]
@@ -58,3 +69,8 @@ services:
 volumes:
   brain-data:
     driver: local
+
+networks:
+  default:
+  coolify:
+    external: true
