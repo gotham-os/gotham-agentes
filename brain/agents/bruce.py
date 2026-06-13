@@ -263,6 +263,61 @@ def meta_ads_search(query: str, country: str = "BR") -> str:
 
 
 @tool(
+    name="meta_ads_scale_scan",
+    description=(
+        "Varre a Meta Ads Library (browser real, scroll profundo) procurando ofertas "
+        "JÁ ESCALANDO para a query dada — versão mais agressiva do meta_ads_search, "
+        "focada em achar Pages com 100+ anúncios ativos OU clusters de Pages diferentes "
+        "promovendo a MESMA oferta (escala distribuída). country: 'BR'|'US'|'MX'|'CO'|'ES' etc. "
+        "Flag HIGH PRIORITY = 100+ anúncios ativos (mesma Page ou soma do cluster). "
+        "Source tier: 72."
+    ),
+)
+def meta_ads_scale_scan(query: str, country: str = "BR") -> str:
+    browser_url = os.getenv("GOTHAM_BROWSER_URL", "http://gotham-browser:7893")
+    lib_url = (
+        f"https://www.facebook.com/ads/library/?active_status=active"
+        f"&ad_type=all&country={country}&q={quote(query)}"
+    )
+    task = (
+        f"Go to {lib_url} (Meta Ads Library). Scroll down at least 6 times to load more results. "
+        f"For EACH distinct advertiser/Page you see, record its name and the number of active ads "
+        f"shown for that page (look for text like 'X anúncios'/'X ads' near the page name, or open "
+        f"'Ver detalhes do anúncio'/'See ad details' to find the total active ads for that page). "
+        f"Flag any advertiser with 100 or more active ads as HIGH PRIORITY. "
+        f"Also check if multiple DIFFERENT page names appear to be promoting the SAME product or "
+        f"offer (same product name, same creative/headline/image pattern) — group these together "
+        f"as a 'scaling cluster' and sum their ad counts. "
+        f"Return ONLY a JSON object, no extra text: "
+        f'{{"pages": [{{"name": str, "ads_count": int}}], '
+        f'"scaling_clusters": [{{"offer": str, "pages": [str], "total_ads": int}}]}}'
+    )
+    try:
+        resp = httpx.post(
+            f"{browser_url}/run",
+            json={"task": task, "llm_provider": "nvidia", "max_steps": 25},
+            timeout=240,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if not data.get("ok"):
+            return json.dumps({"error": data.get("error"), "source": "meta_ads_library", "url": lib_url})
+        return json.dumps({
+            "source": "meta_ads_library",
+            "country": country,
+            "query": query,
+            "url": lib_url,
+            "result": data.get("result"),
+        }, ensure_ascii=False)
+    except Exception as exc:
+        return json.dumps({
+            "info": "gotham-browser indisponível.",
+            "action": f"Consultar manualmente: {lib_url}",
+            "error": str(exc),
+        })
+
+
+@tool(
     name="tiktok_trends",
     description=(
         "Busca hashtags em tendência no TikTok Creative Center. "
@@ -359,6 +414,7 @@ bruce_agent = Agent(
         reddit_search,
         reclameaqui_search,
         meta_ads_search,
+        meta_ads_scale_scan,
         tiktok_trends,
     ],
     db=SqliteDb(db_file=DB_PATH),
@@ -374,6 +430,11 @@ bruce_agent = Agent(
         "Para mercado ES (espanhol tier-1): focar em México, Colômbia, Espanha.",
         "Para mercado BR: usar ReclameAqui e Reddit BR para validar dores.",
         "Para mercado EN: usar Reddit e Tavily para pesquisa em inglês.",
+        "Quando o pedido for caça-escala (achar ofertas com 100+ anúncios ativos, "
+        "única Page ou cluster de Pages diferentes promovendo a mesma oferta), use "
+        "meta_ads_scale_scan em vez de meta_ads_search, cobrindo BR/US/MX (ou ES tier-1) "
+        "em pelo menos 3 verticais. Só reporte achados com 100+ anúncios (Page única ou "
+        "soma de cluster) como 'escalando' — abaixo disso é só 'tem anúncio'.",
         "Entregar mínimo 5 oportunidades rankeadas por score quando há evidência suficiente.",
         "Salvar resultado final com save_opportunity_output.",
     ],
