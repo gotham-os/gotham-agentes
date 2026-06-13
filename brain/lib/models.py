@@ -112,14 +112,22 @@ def _make_manifest_chat(manifest_key: str, manifest_url: str):
 
             return mr
 
+    import httpx
+
+    def _override_ua(request: httpx.Request) -> None:
+        request.headers["user-agent"] = "gotham-agent/1.0"
+        request.headers["accept"] = "*/*"
+
+    http_client = httpx.Client(
+        event_hooks={"request": [_override_ua]},
+        timeout=httpx.Timeout(120.0),
+    )
+
     return _ManifestChat(
         id="auto",
         api_key=manifest_key,
         base_url=manifest_url,
-        default_headers={
-            "User-Agent": "gotham-agent/1.0",
-            "Accept": "*/*",
-        },
+        http_client=http_client,
     )
 
 
