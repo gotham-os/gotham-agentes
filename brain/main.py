@@ -1,13 +1,14 @@
 """
 GOTHAM Brain — AgentOS server
 
-Expõe todos os agentes via FastAPI (AgentOS Agno v2).
+Expõe todos os agentes via FastAPI (AgentOS Agno v2.6.14+).
 Cada agente recebe sua rota REST + WebSocket para streaming.
 
 Endpoints gerados automaticamente pelo AgentOS:
-  GET  /v1/playground/agents            → lista agentes
-  POST /v1/playground/agents/{id}/runs  → chat / run
-  GET  /v1/playground/agents/{id}/sessions → histórico
+  GET  /agents                → lista agentes
+  POST /agents/{id}/runs       → chat / run
+  GET  /agents/{id}/sessions   → histórico
+  GET  /health                 → healthcheck
 
 Para rodar localmente:
   uvicorn main:app --reload --port 8000

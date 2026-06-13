@@ -1,6 +1,6 @@
 # gotham-agentes
 
-Plataforma pessoal de agentes de IA do GOTHAM OS. Chat + agentes especializados com memória persistente, deep research, RAG e acesso a browser — orquestrados pelo Felipe Murdock.
+Plataforma pessoal de agentes de IA do GOTHAM OS. Chat + agentes especializados com memória persistente, deep research e acesso a browser — orquestrados pelo Felipe Murdock.
 
 ---
 
@@ -10,11 +10,13 @@ Plataforma pessoal de agentes de IA do GOTHAM OS. Chat + agentes especializados 
 gotham-agentes/
 ├── brain/          → Servidor FastAPI + Agno AgentOS (porta 8000)
 │   ├── agents/
-│   │   ├── alfred.py       → Alfred: conselheiro estratégico geral
-│   │   ├── pesquisador.py  → Pesquisador: dados verificáveis + tabelas
-│   │   ├── copywriter.py   → Copywriter: copy de resposta direta (BR/ES/EN)
-│   │   └── minerador.py    → Minerador: garimpador de ofertas escaladas
-│   ├── main.py             → App FastAPIApp (AgentOS)
+│   │   ├── alfred.py   → 🎩 Alfred Pennyworth (COO) — orquestrador, conselheiro estratégico
+│   │   ├── ras.py      → ♟️ Ra's al Ghul (CLO) — pesquisa profunda, intel de mercado
+│   │   ├── selina.py   → 💎 Selina Kyle (CMO) — copy de resposta direta (BR/ES/EN)
+│   │   └── bruce.py    → 🏛️ Bruce Wayne (CEO) — garimpador de oportunidades escaladas
+│   ├── lib/
+│   │   └── models.py   → factory de modelo por Diretor — ManifestChat (httpx direto) ou Groq fallback
+│   ├── main.py         → App FastAPI (AgentOS + CORS override)
 │   ├── Dockerfile
 │   └── pyproject.toml
 │
@@ -24,10 +26,7 @@ gotham-agentes/
 │   └── next.config.ts
 │
 ├── agents/
-│   └── minerador/  → CLI standalone do minerador (legado Codex, base do agente Agno)
-│       ├── opportunity_researcher/  → coletores Reddit, Google Trends, Meta Ads
-│       ├── data/                    → rounds anteriores (histórico de oportunidades)
-│       └── prompts/                 → system prompts calibrados
+│   └── minerador/  → CLI standalone do minerador (legado Codex — base histórica do bruce_agent)
 │
 ├── docs/
 │   └── COOLIFY_DEPLOY.md  → guia passo a passo de deploy no Oracle ARM
@@ -41,13 +40,11 @@ gotham-agentes/
 
 | Camada | Tecnologia |
 |--------|-----------|
-| Agente Runtime | [Agno v2](https://docs.agno.com) — AgentOS/FastAPI |
-| LLM padrão | Groq (Llama-3.3-70b / Qwen-3-32b) |
-| LLM premium | Claude Sonnet 4.6 (quando `ANTHROPIC_API_KEY` definida) |
-| LLM Router | [Manifest](https://manifest.build) — controle de custos + fallback |
+| Agente Runtime | [Agno v2.6.14+](https://docs.agno.com) — AgentOS/FastAPI |
+| LLM padrão | Groq (Llama-3.3-70b-versatile / Qwen-qwq-32b) |
+| LLM Router | [Manifest](https://manifest.build) via gotham-roteador — controle de custos + fallback |
 | Chat UI | Next.js 15 + Tailwind + shadcn/ui (template oficial Agno) |
 | Memória | SQLite local (por agente, persistente via Docker volume) |
-| RAG | ChromaDB + Vertex AI embeddings (gotham-rag) |
 | Deep Research | Tavily + DuckDuckGo tools (nativas Agno) |
 | Browser | gotham-browser MCP (Playwright) — acesso a Meta Ads Library |
 | Infraestrutura | Oracle ARM 4/24 (152.67.44.141) + Coolify |
@@ -56,17 +53,17 @@ gotham-agentes/
 
 ## Agentes disponíveis
 
-### Alfred (`/alfred`)
-Conselheiro estratégico geral. Responde em PT-BR. Usa Tavily para pesquisa quando necessário. Memória de sessão.
+### 🎩 Alfred Pennyworth (`/alfred`)
+COO e orquestrador central. Responde em PT-BR. Roteia para os especialistas (Ra's, Selina, Bruce) quando necessário. Usa Tavily para pesquisa. Memória de sessão.
 
-### Pesquisador (`/pesquisador`)
-Pesquisa focada em dados verificáveis. Usa tabelas. Cita fontes. Modelo Qwen-3-32b (melhor custo/benefício para pesquisa).
+### ♟️ Ra's al Ghul (`/ras`)
+CLO (Chief Learning Officer). Pesquisa focada em dados verificáveis. Usa tabelas. Cita fontes. Modelo Qwen-qwq-32b (melhor custo/benefício para análise profunda).
 
-### Copywriter (`/copywriter`)
-Copy de resposta direta para tráfego pago. Sabe BR, ES (hispânico), EN. Faz headlines, hooks, VSL, quiz, anúncios.
+### 💎 Selina Kyle (`/selina`)
+CMO (Chief Marketing Officer). Copy de resposta direta para tráfego pago. Sabe BR, ES (hispânico), EN. Faz headlines, hooks, VSL, quiz, anúncios.
 
-### Minerador de Ofertas (`/minerador`)
-⭐ Agente principal. Garimpador de ofertas escaladas em BR, ES e EN.
+### 🏛️ Bruce Wayne (`/bruce`)
+CEO. Garimpador de oportunidades digitais escaladas em BR, ES e EN.
 
 **Fontes integradas:**
 - **Meta Ads Library** — quem está gastando e o quê (via browser MCP para login)
@@ -81,12 +78,39 @@ Copy de resposta direta para tráfego pago. Sabe BR, ES (hispânico), EN. Faz he
 
 ---
 
+## Em produção
+
+- **brain:** `https://brain.bmilimitada.com`
+- **UI:** `https://agents.bmilimitada.com`
+- **Deploy:** Coolify (app `gotham-agentes`, projeto GOTHAM-Agentes), Oracle ARM 4/24 — autodeploy via webhook GitHub no push em `main`
+- **LLM:** cada Diretor (Alfred/Ra's/Selina/Bruce) usa `ManifestChat` (`brain/lib/models.py`) — GPT-5.5 via `gotham-roteador` com chave própria por agente (`MANIFEST_KEY_<DIRETOR>`); sem chave configurada cai para Groq
+
+Rotas Agno v2.6.14+:
+```
+GET  /agents                       → lista agentes
+GET  /agents/{id}/runs             → histórico de runs
+POST /agents/{id}/runs             → chat / run
+GET  /health                       → healthcheck
+```
+
+> Agno 2.6.14 breaking change: rotas mudaram de `/v1/playground/agents` para `/agents`. A UI já usa o formato novo.
+
+---
+
+## Deploy no Coolify
+
+Um único app Coolify (`gotham-agentes`, build pack `dockercompose`, `docker_compose_location: /docker-compose.yml`) sobe `brain` + `ui` juntos, no projeto **GOTHAM-Agentes**. Env vars (Manifest keys, Groq, Tavily, etc.) são gerenciadas direto no Coolify e injetadas via `${VAR}` no compose — não existe `.env` commitado. Push em `main` aciona autodeploy via webhook do GitHub App `coolify-gotham-os`.
+
+Para detalhes (provisionamento inicial, troubleshooting), ver `docs/COOLIFY_DEPLOY.md`.
+
+---
+
 ## Como rodar local
 
 ```bash
 # 1. Copiar .env
 cp brain/.env.example brain/.env
-# Editar brain/.env com suas chaves (GROQ_API_KEY já está, adicionar ANTHROPIC se quiser)
+# Editar brain/.env com suas chaves (GROQ_API_KEY obrigatória)
 
 # 2. Subir stack
 docker compose up --build
@@ -115,7 +139,6 @@ O `gotham-roteador` roda o [Manifest](https://manifest.build) — roteador intel
 - Distribui queries entre providers (Anthropic, Groq, OpenAI) por complexidade
 - Controla gastos com limites por modelo
 - Faz fallback automático quando um provider falha
-- Tem painel web em `http://IP:2099`
 
 Para ativar: após subir o Manifest, coloque `MANIFEST_BASE_URL` e `MANIFEST_API_KEY` no `brain/.env`.
 
@@ -131,31 +154,6 @@ O `gotham-browser` é um servidor MCP que expõe Playwright para os agentes. Nec
 Repo: `GOTHAM_REPOS/gotham-browser`  
 Porta padrão: `3100`  
 Configurar `GOTHAM_BROWSER_URL=http://gotham-browser:3100` no `brain/.env`.
-
----
-
-## RAG (gotham-rag)
-
-Para os agentes consumirem conhecimento do vault (transcrições, playbooks):
-
-```bash
-# Indexar documentos
-python /mnt/c/GOTHAM_REPOS/gotham-rag/GOTHAM_RAG_SIMPLE.py index --source "caminho/para/docs"
-
-# Os agentes consultam o ChromaDB automaticamente quando ativado
-```
-
----
-
-## Deploy no Coolify
-
-Ver `docs/COOLIFY_DEPLOY.md` para guia completo passo a passo.
-
-**TL;DR:**
-1. Push para `gotham-os/gotham-agentes` no GitHub
-2. No Coolify: criar 3 apps (brain, ui, roteador)
-3. Configurar domínios e variáveis de ambiente
-4. Deploy
 
 ---
 
@@ -175,31 +173,11 @@ Exemplos de agentes futuros:
 
 ## Integração com Claude Code (terminal)
 
-Os agentes também podem ser chamados via CLI do Alfred diretamente:
-
 ```bash
-# Via terminal GOTHAM (WSL)
-alfred-claude   # Claude Code com contexto GOTHAM
-alfred-codex    # GPT-5.5 via Codex
-
-# Ou via API direta
-curl -X POST http://localhost:8000/v1/playground/agents/minerador/runs \
+# Via API direta (Agno v2.6.14+ usa /agents, não /v1/playground/agents)
+curl -X POST https://brain.bmilimitada.com/agents/bruce/runs \
   -H "Content-Type: application/json" \
   -d '{"message": "Mine ofertas escaladas em saúde masculina BR e ES"}'
-```
-
----
-
-## Histórico de rodadas (Minerador)
-
-Rodadas anteriores salvas em `agents/minerador/data/`:
-- `opportunities/` — resultados processados (JSON + score)
-- `reports/` — relatórios HTML (kanban + war room) e Markdown
-- `raw/` — dados brutos por fonte
-
-Para abrir o último relatório:
-```bash
-open agents/minerador/data/reports/$(ls agents/minerador/data/reports/*.html | tail -1)
 ```
 
 ---

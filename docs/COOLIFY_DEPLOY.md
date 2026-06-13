@@ -2,116 +2,65 @@
 
 ## Pré-requisitos
 
-- Coolify instalado e acessível no servidor
-- Repositório `gotham-agentes` na org `gotham-os` do GitHub
-- Acesso SSH: `ssh -i ~/.ssh/gotham_oracle.key ubuntu@152.67.44.141`
+- Coolify instalado e acessível no servidor (`https://coolify.useorcafacil.com`)
+- Repositório `gotham-os/gotham-agentes` no GitHub, conectado via GitHub App `coolify-gotham-os`
+- `gotham-roteador` (Manifest) já rodando em `roteador.bmilimitada.com` com agentes/keys configurados por Diretor
 
 ---
 
-## Serviços a criar no Coolify
+## Setup atual
 
-Criar **3 serviços** separados no mesmo projeto `GOTHAM-Agentes`:
-
-### 1. gotham-brain (FastAPI AgentOS)
+Um único app Coolify gerencia `brain` + `ui` juntos:
 
 | Campo | Valor |
 |-------|-------|
-| Tipo | Docker Compose / Dockerfile |
+| Projeto | `GOTHAM-Agentes` |
+| App | `gotham-agentes` |
+| Build pack | `dockercompose` |
+| Compose location | `/docker-compose.yml` |
 | Repo | `gotham-os/gotham-agentes` |
 | Branch | `main` |
-| Build Context | `./brain` |
-| Dockerfile | `./brain/Dockerfile` |
-| Porta | `8000` |
-| Domínio | `brain.SEU_DOMINIO.com` (ou IP:8000) |
+| Domínios | `brain.bmilimitada.com` (serviço `brain`, porta 8000) · `agents.bmilimitada.com` (serviço `ui`, porta 3000) |
 
-**Variáveis de ambiente (Secrets):**
+Domínios e roteamento são definidos via labels Traefik dentro do próprio `docker-compose.yml` (não na UI do Coolify).
+
+**Variáveis de ambiente** — configuradas em Coolify (app → Environment Variables), NÃO em `brain/.env` (não existe `.env` commitado nem em produção):
+
 ```
-GROQ_API_KEY=...
-ANTHROPIC_API_KEY=...
-OPENAI_API_KEY=...
+MANIFEST_BASE_URL=https://roteador.bmilimitada.com/v1
+MANIFEST_KEY_ALFRED=mnfst_...
+MANIFEST_KEY_RAS=mnfst_...
+MANIFEST_KEY_SELINA=mnfst_...
+MANIFEST_KEY_BRUCE=mnfst_...
+GROQ_API_KEY=...        # fallback quando MANIFEST_KEY_<DIRETOR> não está setada
 TAVILY_API_KEY=...
-GOTHAM_DB_PATH=/data/gotham_memory.db
+AGNO_API_KEY=...
+CORS_ORIGINS=https://agents.bmilimitada.com
+BRAIN_PUBLIC_URL=https://brain.bmilimitada.com   # usado como build-arg do ui
 ```
 
-**Volume:**
-```
-gotham-brain-data:/data
-```
+O `docker-compose.yml` injeta essas vars no serviço `brain` via `${VAR}` — o Coolify gera o `.env` correspondente no diretório de build automaticamente a partir do que está cadastrado no app.
+
+**Volume:** `brain-data:/data` (persistência do SQLite `gotham_memory.db`).
 
 ---
 
-### 2. gotham-ui (Next.js)
+## Autodeploy
 
-| Campo | Valor |
-|-------|-------|
-| Tipo | Dockerfile |
-| Repo | `gotham-os/gotham-agentes` |
-| Branch | `main` |
-| Build Context | `./ui` |
-| Dockerfile | `./ui/Dockerfile` |
-| Porta | `3000` |
-| Domínio | `agents.SEU_DOMINIO.com` (ou IP:3000) |
-
-**Build Args:**
-```
-NEXT_PUBLIC_AGNO_API_URL=https://brain.SEU_DOMINIO.com
-```
-
----
-
-### 3. gotham-roteador (Manifest LLM Router)
-
-O `gotham-roteador` tem seu próprio `docker-compose.yml` em `GOTHAM_REPOS/gotham-roteador/`.
-
-| Campo | Valor |
-|-------|-------|
-| Tipo | Docker Compose |
-| Repo | `gotham-os/gotham-roteador` |
-| Branch | `main` |
-| Porta | `2099` |
-| Domínio | `roteador.SEU_DOMINIO.com` (ou IP:2099) |
-
-Após subir o Manifest:
-1. Acesse `http://IP:2099`
-2. Crie conta admin
-3. Configure os providers (Anthropic, Groq, OpenAI)
-4. Pegue a API key do Manifest e coloque em `brain/.env`:
-   ```
-   MANIFEST_BASE_URL=https://roteador.SEU_DOMINIO.com/v1
-   MANIFEST_API_KEY=...
-   ```
-
----
-
-## Ordem de deploy
-
-1. `gotham-roteador` primeiro (providers de LLM)
-2. `gotham-brain` (depende de keys configuradas)
-3. `gotham-ui` (depende do brain estar UP)
+Push em `main` → webhook do GitHub App `coolify-gotham-os` → Coolify rebuilda e redeploya `gotham-agentes` automaticamente. Sem GitHub Actions, sem deploy manual via SSH.
 
 ---
 
 ## Verificar se está funcionando
 
 ```bash
-# brain health
-curl https://brain.SEU_DOMINIO.com/health
-curl https://brain.SEU_DOMINIO.com/agents
-
-# ui
-curl -I https://agents.SEU_DOMINIO.com
-
-# roteador
-curl https://roteador.SEU_DOMINIO.com/api/health
+curl https://brain.bmilimitada.com/health
+curl https://brain.bmilimitada.com/agents
+curl -I https://agents.bmilimitada.com
 ```
 
 ---
 
-## DNS (se tiver domínio)
+## gotham-roteador (Manifest)
 
-Apontar no seu DNS:
-- `brain.` → A record → 152.67.44.141
-- `agents.` → A record → 152.67.44.141  
-- `roteador.` → A record → 152.67.44.141
-
-Coolify gerencia SSL automaticamente (Let's Encrypt).
+Roda separado, em `roteador.bmilimitada.com`. Cada Diretor (Alfred/Ra's/Selina/Bruce) tem seu próprio Agent configurado no dashboard do Manifest com primary model + fallback chain. A chave correspondente vai em `MANIFEST_KEY_<DIRETOR>` no app `gotham-agentes`.
