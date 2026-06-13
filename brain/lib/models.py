@@ -99,6 +99,17 @@ def _make_manifest_chat(manifest_key: str, manifest_url: str):
                 for tc in tcs.values()
             ]
 
+        @staticmethod
+        def parse_tool_calls(tool_calls_data: list) -> list:
+            """
+            _build_tool_calls já entrega os dicts finais (id/type/function completos).
+            O parse_tool_calls padrão da OpenAIChat espera deltas brutos por chunk
+            (objetos com .index) e reagrega — incompatível com nosso formato já
+            agregado, e quebra com 'dict' object has no attribute 'index'.
+            Passthrough: nossos dicts já estão no formato que o método deveria retornar.
+            """
+            return tool_calls_data
+
         def _get_body(self, messages, compress_tool_results, **kwargs) -> dict:
             extra = self.get_request_params(**kwargs)
             return _build_body(
