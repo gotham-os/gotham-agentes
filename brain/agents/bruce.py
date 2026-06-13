@@ -1,6 +1,6 @@
 """
 Bruce Wayne — CEO / Minerador de Oportunidades Escaladas.
-Domínio: ROI, estratégia de mercado, radar de apostas assimétricas.
+Domínio: ROI, radar de apostas assimétricas, validação de mercado.
 
 Fontes cobertas:
 - Meta Ads Library (browser via MCP)
@@ -8,16 +8,25 @@ Fontes cobertas:
 - Reddit (API pública)
 - Google Trends RSS (BR, ES, EN)
 - ReclameAqui (scraping)
-- Google Scholar / ScienceDaily
 - Tavily deep research
+- DuckDuckGo
 
 Mercados: BR · ES (tier-1) · EN
+
+Pipeline obrigatório:
+  1. load_scoring_knowledge   — carrega rubrica + tiers + fórmulas
+  2. [ferramentas de coleta]  — Meta Ads, Reddit, Trends, etc.
+  3. calculate_opportunity_score — score determinístico por oportunidade
+  4. save_opportunity_output  — persiste resultado em /knowledge/bruce/outputs/
 """
 from __future__ import annotations
 
+import httpx
 import json
 import os
+from datetime import date
 from html import unescape
+from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 from urllib.request import Request, urlopen
@@ -26,18 +35,124 @@ from xml.etree import ElementTree
 from agno.agent import Agent
 from agno.models.groq import Groq
 from agno.tools import tool
-from agno.tools.tavily import TavilyTools
 from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.tavily import TavilyTools
 from agno.db.sqlite import SqliteDb
 
+from lib.scoring import score_opportunity
+
 DB_PATH = os.getenv("GOTHAM_DB_PATH", "./gotham_memory.db")
+_KNOWLEDGE = Path(os.getenv("GOTHAM_KNOWLEDGE_PATH", "./knowledge")) / "bruce"
+_OUTPUTS = Path(os.getenv("GOTHAM_OUTPUTS_PATH", "./outputs")) / "bruce"
 
-# ── Custom tools ──────────────────────────────────────────────────────────────
+_KNOWLEDGE_FILES = {
+    "rubric": "scoring_rubric.md",
+    "tiers": "source_tiers.md",
+    "formulas": "scoring_formulas.md",
+}
 
-@tool(name="google_trends", description="Busca tendências do Google Trends para um país (geo=BR|US|ES|MX etc)")
+# ── Knowledge tools ───────────────────────────────────────────────────────────
+
+@tool(
+    name="load_scoring_knowledge",
+    description=(
+        "SEMPRE chamar PRIMEIRO antes de pesquisar. "
+        "Carrega rubrica de decisão, tiers de fonte e fórmulas de scoring. "
+        "tipo: 'rubric'|'tiers'|'formulas'|'todos'"
+    ),
+)
+def load_scoring_knowledge(tipo: str = "todos") -> str:
+    _KNOWLEDGE.mkdir(parents=True, exist_ok=True)
+    if tipo == "todos":
+        files = list(_KNOWLEDGE_FILES.items())
+    else:
+        if tipo not in _KNOWLEDGE_FILES:
+            return f"Tipo inválido: {tipo}. Use: {list(_KNOWLEDGE_FILES.keys())} ou 'todos'."
+        files = [(tipo, _KNOWLEDGE_FILES[tipo])]
+
+    parts: list[str] = []
+    for name, fname in files:
+        path = _KNOWLEDGE / fname
+        if path.exists():
+            parts.append(f"## {name.upper()}\n{path.read_text(encoding='utf-8')}")
+        else:
+            parts.append(f"## {name.upper()}\n[arquivo não encontrado: {fname}]")
+    return "\n\n---\n\n".join(parts)
+
+
+@tool(
+    name="calculate_opportunity_score",
+    description=(
+        "Calcula score determinístico de uma oportunidade usando algoritmo calibrado. "
+        "Chamar após coletar evidências. Retorna score + decision + warnings. "
+        "Input: JSON string com título, sinais coletados e metadados do MVP."
+    ),
+)
+def calculate_opportunity_score(opportunity_json: str) -> str:
+    """
+    Input JSON schema:
+    {
+      "title": "Nome da oportunidade",
+      "signals": [
+        {
+          "source": "meta ads library",   // fonte: ver source_tiers.md
+          "evidence_type": "distribution", // revenue|pain|distribution|demand|trend|competitor|gap
+          "strength": "high",              // low|medium|high|verified
+          "has_url": true,                 // tem link auditável?
+          "has_metrics": true,             // tem dados numéricos (contagem, MRR, score)?
+          "relevant_count": 12,            // itens relevantes encontrados (anúncios, posts)
+          "notes": "12 anunciantes ativos com criativos de gestão de tráfego BR"
+        }
+      ],
+      "can_deliver_manually": true,
+      "mvp_hours": 48,
+      "is_digital": true,
+      "solution_type": "productized_service"
+    }
+    """
+    try:
+        data = json.loads(opportunity_json)
+    except json.JSONDecodeError as e:
+        return json.dumps({"error": f"JSON inválido: {e}"})
+
+    result = score_opportunity(data)
+    return json.dumps(result, ensure_ascii=False, indent=2)
+
+
+@tool(
+    name="save_opportunity_output",
+    description="Salva resultado de oportunidade pesquisada em arquivo markdown.",
+)
+def save_opportunity_output(titulo: str, conteudo: str) -> str:
+    _OUTPUTS.mkdir(parents=True, exist_ok=True)
+    slug = titulo.lower().replace(" ", "_").replace("/", "-")[:40]
+    filename = f"{date.today().isoformat()}-{slug}.md"
+    path = _OUTPUTS / filename
+    path.write_text(f"# {titulo}\n\n{conteudo}", encoding="utf-8")
+    return f"Salvo: {path}"
+
+
+@tool(
+    name="list_opportunity_outputs",
+    description="Lista oportunidades já pesquisadas e salvas.",
+)
+def list_opportunity_outputs() -> str:
+    _OUTPUTS.mkdir(parents=True, exist_ok=True)
+    files = sorted(_OUTPUTS.glob("*.md"), reverse=True)
+    if not files:
+        return "Nenhum output salvo ainda."
+    return "\n".join(f.name for f in files[:20])
+
+
+# ── Market research tools ─────────────────────────────────────────────────────
+
+@tool(
+    name="google_trends",
+    description="Busca tendências do Google Trends. geo=BR|US|ES|MX|CO. Source tier: 68.",
+)
 def google_trends(geo: str = "BR") -> str:
     url = f"https://trends.google.com/trending/rss?geo={quote(geo)}"
-    req = Request(url, headers={"User-Agent": "gotham-minerador/0.1"})
+    req = Request(url, headers={"User-Agent": "gotham-minerador/1.0"})
     try:
         with urlopen(req, timeout=20) as resp:
             root = ElementTree.fromstring(resp.read())
@@ -46,7 +161,8 @@ def google_trends(geo: str = "BR") -> str:
         ns = "https://trends.google.com/trending/rss"
         results = []
         for item in items[:15]:
-            title = (item.find("title") or type("", (), {"text": ""})()).text or ""
+            title_el = item.find("title")
+            title = (title_el.text or "") if title_el is not None else ""
             traffic_el = item.find(f"{{{ns}}}approx_traffic")
             traffic = traffic_el.text if traffic_el is not None else "N/A"
             news = [
@@ -59,10 +175,17 @@ def google_trends(geo: str = "BR") -> str:
         return json.dumps({"error": str(exc)})
 
 
-@tool(name="reddit_search", description="Busca posts no Reddit sobre um termo. Útil para encontrar dores reais de consumidores.")
+@tool(
+    name="reddit_search",
+    description=(
+        "Busca posts no Reddit sobre um termo. "
+        "Útil para dores reais de consumidores. Source tier: 58. "
+        "Inclua subreddit específico para melhor precisão: 'query subreddit:entrepreneur'."
+    ),
+)
 def reddit_search(query: str, limit: int = 10) -> str:
     url = f"https://www.reddit.com/search.json?q={quote(query)}&sort=top&t=month&limit={limit}"
-    req = Request(url, headers={"User-Agent": "gotham-minerador/0.1 by local-agent"})
+    req = Request(url, headers={"User-Agent": "gotham-minerador/1.0 by local-agent"})
     try:
         with urlopen(req, timeout=20) as resp:
             data = json.loads(resp.read())
@@ -73,18 +196,27 @@ def reddit_search(query: str, limit: int = 10) -> str:
                 "title": p.get("title", ""),
                 "subreddit": p.get("subreddit", ""),
                 "score": p.get("score", 0),
+                "num_comments": p.get("num_comments", 0),
                 "url": f"https://reddit.com{p.get('permalink', '')}",
-                "summary": (p.get("selftext") or "")[:200],
+                "summary": (p.get("selftext") or "")[:300],
             })
         return json.dumps(posts, ensure_ascii=False)
     except Exception as exc:
         return json.dumps({"error": str(exc)})
 
 
-@tool(name="reclameaqui_search", description="Busca reclamações no ReclameAqui sobre uma empresa ou produto. Excelente para mapear dores de mercado BR.")
+@tool(
+    name="reclameaqui_search",
+    description=(
+        "Busca reclamações no ReclameAqui sobre empresa ou produto. "
+        "Excelente para mapear dores de mercado BR. Source tier: 60."
+    ),
+)
 def reclameaqui_search(query: str) -> str:
-    import httpx
-    url = f"https://iosearch.reclameaqui.com.br/raichu-io-site-search-api/query/companyComplains/0/10?callback=false&q={quote(query)}"
+    url = (
+        f"https://iosearch.reclameaqui.com.br/raichu-io-site-search-api/query/"
+        f"companyComplains/0/10?callback=false&q={quote(query)}"
+    )
     try:
         resp = httpx.get(url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
         return resp.text[:2000]
@@ -92,38 +224,51 @@ def reclameaqui_search(query: str) -> str:
         return json.dumps({"error": str(exc)})
 
 
-@tool(name="meta_ads_search", description="Pesquisa na Meta Ads Library por anúncios ativos em um país. Retorna dados sobre anunciantes escalando.")
+@tool(
+    name="meta_ads_search",
+    description=(
+        "Pesquisa na Meta Ads Library por anúncios ativos. "
+        "API pública sem token retorna dados limitados — para dados completos, "
+        "use gotham-browser MCP. Source tier: 72."
+    ),
+)
 def meta_ads_search(query: str, country: str = "BR") -> str:
-    """
-    Usa a API pública da Meta Ads Library.
-    Para scraping com login usa gotham-browser (MCP).
-    """
-    # API pública (sem token) - retorna resultados limitados mas válidos
     url = (
         f"https://www.facebook.com/ads/library/api/?search_terms={quote(query)}"
         f"&ad_type=ALL&countries%5B%5D={country}&active_status=active&media_type=all"
     )
-    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; gotham-bot/0.1)"})
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; gotham-bot/1.0)"})
     try:
         with urlopen(req, timeout=20) as resp:
             data = json.loads(resp.read())
         return json.dumps(data, ensure_ascii=False)[:3000]
     except Exception as exc:
-        # API pública bloqueia sem token - retornar instrução para usar browser
         return json.dumps({
-            "info": "Meta Ads Library requer navegador com login para dados completos.",
-            "action": "Use gotham-browser MCP: acesse https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=" + quote(query),
+            "info": "Meta Ads Library requer browser com login para dados completos.",
+            "action": (
+                f"Use gotham-browser MCP: acesse "
+                f"https://www.facebook.com/ads/library/?active_status=active"
+                f"&ad_type=all&country={country}&q={quote(query)}"
+            ),
             "error": str(exc),
         })
 
 
-@tool(name="tiktok_trends", description="Busca hashtags e anúncios em tendência no TikTok Creative Center.")
+@tool(
+    name="tiktok_trends",
+    description=(
+        "Busca hashtags em tendência no TikTok Creative Center. "
+        "Source tier: 66."
+    ),
+)
 def tiktok_trends(country: str = "BR") -> str:
-    """TikTok Creative Center hashtag trends via API pública."""
-    url = f"https://ads.tiktok.com/creative-center/api/v1/hashtag/rank/list/?industry_id=&country_code={country}&period=7"
+    url = (
+        f"https://ads.tiktok.com/creative-center/api/v1/hashtag/rank/list/"
+        f"?industry_id=&country_code={country}&period=7"
+    )
     req = Request(url, headers={
         "User-Agent": "Mozilla/5.0",
-        "Referer": "https://ads.tiktok.com/creative-center/trends/hashtag/pad/en",
+        "Referer": "https://ads.tiktok.com/creative-center/trends/hashtag/",
     })
     try:
         with urlopen(req, timeout=20) as resp:
@@ -138,43 +283,55 @@ def tiktok_trends(country: str = "BR") -> str:
 
 # ── Agent definition ──────────────────────────────────────────────────────────
 
-SYSTEM_PROMPT = """Você é um analista frio de oportunidades digitais escaláveis.
-Seu trabalho não é gerar ideias bonitas; é encontrar apostas assimétricas que possam virar caixa rapidamente.
+SYSTEM_PROMPT = """Você é Bruce Wayne — CEO do GOTHAM OS e analista frio de oportunidades digitais escaláveis.
+Seu trabalho não é gerar ideias bonitas: é encontrar apostas assimétricas que possam virar caixa rapidamente.
 
-## Regras
-1. Aceite qualquer formato digital escalável: SaaS, micro-SaaS, automação, template, ebook, curso, comunidade, newsletter, API, serviço productizado digital.
+## Protocolo obrigatório (SEMPRE nesta ordem)
+
+1. **load_scoring_knowledge("todos")** — carregar rubrica + tiers + fórmulas ANTES de pesquisar
+2. **Pesquisar em mínimo 3 fontes independentes** usando as tools disponíveis
+3. **calculate_opportunity_score** — calcular score determinístico para CADA oportunidade
+4. **save_opportunity_output** — persistir o resultado final
+
+## Regras de coleta
+
+1. Aceite qualquer formato digital escalável: SaaS, micro-SaaS, automação, template, ebook, curso, comunidade, newsletter, API, serviço productizado.
 2. Rejeite produtos físicos, estoque, logística, operação presencial.
-3. Separe evidências de opiniões. Toda recomendação precisa ter links, fonte e tipo de evidência.
-4. Não confunda hype com oportunidade. Trend só importa se puder ser ligada a dor + comprador + promessa + teste.
+3. Separe evidências de opiniões. Toda evidência precisa de fonte + URL + métrica numérica.
+4. Não confunda hype com oportunidade. Trend só importa se ligada a dor + comprador + promessa + teste.
 5. Prefira entrega manual digital antes de construir software.
-6. Sempre inclua red team: por que a tese pode estar errada?
+6. Sempre red team: por que a tese pode estar errada?
 7. Sempre defina critério de matar e critério de escalar.
 
-## Famílias de evidência
-- Distribuição: Meta Ads Library, TikTok Creative Center, Google Ads → anúncios ativos = prova de caixa
-- Dor: Reddit, ReclameAqui, X.com, G2, Capterra → reclamações reais
-- Demanda: Google Trends, YouTube → interesse orgânico
-- Gap: existe fora, falta adaptação BR/LATAM ou versão simples
+## Famílias de evidência (em ordem de confiabilidade)
 
-## Para cada oportunidade encontrada, estruture assim:
+- **Revenue**: TrustMRR, Acquire, Flippa, AppSumo, Stripe → prova de caixa real
+- **Distribution**: Meta Ads Library, TikTok CC → anúncios ativos = alguém gasta nisto
+- **Pain**: Reddit, ReclameAqui, G2, Capterra → dores reais com volume
+- **Demand**: Google Trends, YouTube → interesse orgânico crescente
+- **Gap**: existe fora, falta versão BR/ES ou versão mais simples
+
+## Output por oportunidade (após calculate_opportunity_score)
+
 ```json
 {
   "title": "Nome",
   "mercados": ["BR", "ES", "EN"],
-  "decision": "TESTAR AGORA | DEEPDIVE | RADAR | DESCARTAR",
-  "score_geral": 0-100,
-  "comprador": "quem compra",
-  "dor": "dor urgente",
-  "promessa": "promessa testável",
-  "evidencias": ["fonte + resumo"],
-  "mvp": ["3 entregáveis máximos"],
-  "teste_meta_ads": {"budget": "R$300-R$700", "kill_rule": "...", "scale_rule": "..."},
-  "red_team": ["riscos reais"]
+  "decision": "[resultado do calculate_opportunity_score]",
+  "scores": "[resultado do calculate_opportunity_score]",
+  "comprador": "quem compra — específico",
+  "dor": "dor urgente e específica",
+  "promessa": "promessa testável em 1 frase",
+  "evidencias": [{"fonte": "...", "url": "...", "resumo": "..."}],
+  "mvp": ["máximo 3 entregáveis para validar"],
+  "meta_ads_test": {"budget": "R$300–R$700", "kill_rule": "...", "scale_rule": "..."},
+  "red_team": ["por que a tese pode estar errada"]
 }
 ```
 
 ## Frase-guia
-Não pergunte "essa ideia é interessante?". Pergunte: "isso merece 72h de execução e R$300-R$1000 de teste?"
+
+> "Não pergunte: 'essa ideia é interessante?'. Pergunte: 'isso merece 72h de execução e R$300–R$1.000 de teste?'"
 """
 
 bruce_agent = Agent(
@@ -182,6 +339,12 @@ bruce_agent = Agent(
     id="bruce",
     model=Groq(id="llama-3.3-70b-versatile"),
     tools=[
+        # Knowledge (sempre primeiro)
+        load_scoring_knowledge,
+        calculate_opportunity_score,
+        save_opportunity_output,
+        list_opportunity_outputs,
+        # Research
         TavilyTools(),
         DuckDuckGoTools(),
         google_trends,
@@ -194,16 +357,17 @@ bruce_agent = Agent(
     description=(
         "Bruce Wayne é o CEO do GOTHAM OS — domínio ROI, estratégia e oportunidades de mercado. "
         "Especialista em encontrar apostas assimétricas digitais escaláveis (BR, ES tier-1, EN). "
-        "Usa Meta Ads Library, TikTok, Reddit, ReclameAqui e Google Trends como fontes de evidência."
+        "Usa scoring algébrico calibrado (SOURCE_TIERS + fórmulas) para decisões determinísticas."
     ),
     instructions=[
-        "Sempre pesquise em pelo menos 3 fontes antes de concluir sobre uma oportunidade.",
-        "Para mercado ES (espanhol tier-1), foque em México, Colômbia, Espanha.",
-        "Para mercado BR, use ReclameAqui e Reddit BR para validar dores.",
-        "Para mercado EN, use Reddit e TrustPilot.",
-        "Use Tavily para pesquisa web profunda quando precisar de dados recentes.",
-        "Estruture a saída final em JSON seguindo o schema do sistema.",
-        "Mínimo 5 oportunidades por rodada quando há evidência suficiente.",
+        "PRIMEIRO: sempre chamar load_scoring_knowledge('todos') antes de qualquer pesquisa.",
+        "Pesquisar em mínimo 3 fontes independentes antes de concluir sobre uma oportunidade.",
+        "SEMPRE chamar calculate_opportunity_score após coletar evidências — nunca inventar score.",
+        "Para mercado ES (espanhol tier-1): focar em México, Colômbia, Espanha.",
+        "Para mercado BR: usar ReclameAqui e Reddit BR para validar dores.",
+        "Para mercado EN: usar Reddit e Tavily para pesquisa em inglês.",
+        "Entregar mínimo 5 oportunidades rankeadas por score quando há evidência suficiente.",
+        "Salvar resultado final com save_opportunity_output.",
     ],
     system_message=SYSTEM_PROMPT,
     markdown=True,
