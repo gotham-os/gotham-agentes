@@ -68,8 +68,18 @@ def _signal_quality(source: str, has_url: bool, strength: str, has_metrics: bool
 
 
 def _is_usable(quality: float) -> bool:
-    """Sinal só conta no score se quality >= 62 (gate anti-ruído)."""
-    return quality >= 62.0
+    """
+    Sinal só conta no score se quality >= 50 (gate anti-ruído).
+
+    Calibração: com multiplier 0.45 e bônus máximo +28, o gate antigo (62)
+    exigia tier >= 76 (TrustMRR/Acquire/Stripe/G2/AppSumo) — fontes para as
+    quais Bruce não tem nenhuma tool. Isso zerava distribution/confidence
+    sempre, mesmo com evidência real da Meta Ads Library (tier 72, máximo
+    teórico 60.4). Com 50, qualquer fonte tier >= 49 com URL + métricas +
+    strength alto/verificado (Meta Ads, TikTok, Trends, ReclameAqui, Reddit,
+    Tavily) passa — ruído sem URL/métricas continua filtrado.
+    """
+    return quality >= 50.0
 
 
 def score_opportunity(data: dict[str, Any]) -> dict[str, Any]:
