@@ -6,15 +6,15 @@ Prioridade:
   2. Groq direto como fallback
 
 ManifestChat: GPT-5.5 via ChatGPT OAuth bloqueia o User-Agent do OpenAI Python SDK.
-Solução: chamar a API diretamente via httpx, parsear SSE manualmente.
-Tanto invoke() (non-stream) quanto invoke_stream() (SSE via AgentOS HTTP) são
-sobrescritos — o AgentOS usa invoke_stream() mesmo com stream=false na request.
+Solução: httpx direto com UA customizado, parsear SSE manualmente.
+AgentOS HTTP server usa async (ainvoke/ainvoke_stream) — todos os 4 métodos
+são sobrescritos: invoke, invoke_stream, ainvoke, ainvoke_stream.
 """
 from __future__ import annotations
 
 import json
 import os
-from typing import Any, Iterator
+from typing import Any, AsyncIterator, Iterator
 
 
 def _make_manifest_chat(manifest_key: str, manifest_url: str):
@@ -24,198 +24,229 @@ def _make_manifest_chat(manifest_key: str, manifest_url: str):
 
     _key = manifest_key
     _url = manifest_url.rstrip("/")
+    _headers = {
+        "Authorization": f"Bearer {_key}",
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+        "User-Agent": "gotham-agent/1.0",
+    }
 
-    def _stream_manifest(
-        model_id: str,
-        formatted_messages: list,
-        extra_params: dict,
-    ) -> Iterator[tuple[list[str], dict, int, int]]:
-        """Faz a chamada SSE ao Manifest e yield (content_parts, tool_calls_map, in_tok, out_tok)."""
+    def _build_body(model_id: str, formatted_messages: list, extra: dict) -> dict:
         body: dict[str, Any] = {
             "model": model_id,
             "messages": formatted_messages,
             "stream": True,
             "stream_options": {"include_usage": True},
         }
-        ep = extra_params.copy()
-        ep.pop("stream", None)
-        ep.pop("stream_options", None)
+        ep = {k: v for k, v in extra.items() if k not in ("stream", "stream_options")}
         body.update(ep)
+        return body
 
-        content_parts: list[str] = []
-        tool_calls_map: dict[int, dict] = {}
-        input_tokens = 0
-        output_tokens = 0
+    def _parse_sse_chunks(state: dict, line: str) -> ModelResponse | None:
+        """Parse uma linha SSE e retorna ModelResponse se houver conteúdo novo."""
+        line = line.strip()
+        if not line or not line.startswith("data:"):
+            return None
+        data_str = line[5:].strip()
+        if data_str == "[DONE]":
+            return None
+        try:
+            chunk = json.loads(data_str)
+        except json.JSONDecodeError:
+            return None
 
-        with httpx.Client(timeout=httpx.Timeout(120.0)) as client:
-            with client.stream(
-                "POST",
-                f"{_url}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {_key}",
-                    "Content-Type": "application/json",
-                    "Accept": "*/*",
-                    "User-Agent": "gotham-agent/1.0",
-                },
-                content=json.dumps(body).encode(),
-                timeout=httpx.Timeout(120.0),
-            ) as resp:
-                if resp.status_code != 200:
-                    raise RuntimeError(
-                        f"Manifest HTTP {resp.status_code}: {resp.read().decode()}"
-                    )
-                for raw_line in resp.iter_lines():
-                    line = raw_line.strip()
-                    if not line or not line.startswith("data:"):
-                        continue
-                    data_str = line[5:].strip()
-                    if data_str == "[DONE]":
-                        break
-                    try:
-                        chunk = json.loads(data_str)
-                    except json.JSONDecodeError:
-                        continue
+        if "usage" in chunk and chunk["usage"]:
+            u = chunk["usage"]
+            state["in_tok"] = u.get("prompt_tokens", 0) or 0
+            state["out_tok"] = u.get("completion_tokens", 0) or 0
 
-                    if "usage" in chunk and chunk["usage"]:
-                        u = chunk["usage"]
-                        input_tokens = u.get("prompt_tokens", 0) or 0
-                        output_tokens = u.get("completion_tokens", 0) or 0
+        choices = chunk.get("choices", [])
+        if not choices:
+            return None
 
-                    choices = chunk.get("choices", [])
-                    if not choices:
-                        continue
+        delta = choices[0].get("delta", {})
+        new_content = delta.get("content", "")
 
-                    delta = choices[0].get("delta", {})
+        for tc in delta.get("tool_calls", []):
+            idx = tc.get("index", 0)
+            if idx not in state["tcs"]:
+                state["tcs"][idx] = {"id": "", "type": "function", "function": {"name": "", "arguments": ""}}
+            if tc.get("id"):
+                state["tcs"][idx]["id"] = tc["id"]
+            fn = tc.get("function", {})
+            if fn.get("name"):
+                state["tcs"][idx]["function"]["name"] += fn["name"]
+            if fn.get("arguments"):
+                state["tcs"][idx]["function"]["arguments"] += fn["arguments"]
 
-                    if delta.get("content"):
-                        content_parts.append(delta["content"])
-
-                    for tc in delta.get("tool_calls", []):
-                        idx = tc.get("index", 0)
-                        if idx not in tool_calls_map:
-                            tool_calls_map[idx] = {
-                                "id": tc.get("id") or "",
-                                "type": "function",
-                                "function": {"name": "", "arguments": ""},
-                            }
-                        if tc.get("id"):
-                            tool_calls_map[idx]["id"] = tc["id"]
-                        fn = tc.get("function", {})
-                        if fn.get("name"):
-                            tool_calls_map[idx]["function"]["name"] += fn["name"]
-                        if fn.get("arguments"):
-                            tool_calls_map[idx]["function"]["arguments"] += fn["arguments"]
-
-                    # yield parcial para invoke_stream poder fazer streaming real
-                    if delta.get("content"):
-                        yield (content_parts[:], tool_calls_map.copy(), input_tokens, output_tokens)
-
-        # yield final com dados completos
-        yield (content_parts, tool_calls_map, input_tokens, output_tokens)
+        if new_content:
+            mr = ModelResponse(content=new_content)
+            mr.input_tokens = state["in_tok"]
+            mr.output_tokens = state["out_tok"]
+            return mr
+        return None
 
     class _ManifestChat(OpenAIChat):
         """Chama Manifest via httpx direto — contorna bloqueio de UA do OpenAI SDK."""
 
-        def _build_tool_calls(self, tool_calls_map: dict) -> list:
+        def _build_tool_calls(self, tcs: dict) -> list:
             from agno.models.message import ToolCall
             return [
                 ToolCall(
                     id=tc["id"],
                     type="function",
-                    function={
-                        "name": tc["function"]["name"],
-                        "arguments": tc["function"]["arguments"],
-                    },
+                    function={"name": tc["function"]["name"], "arguments": tc["function"]["arguments"]},
                 )
-                for tc in tool_calls_map.values()
+                for tc in tcs.values()
             ]
+
+        def _get_body(self, messages, compress_tool_results, **kwargs) -> dict:
+            extra = self.get_request_params(**kwargs)
+            return _build_body(
+                self.id,
+                self._format_all_messages(messages, compress_tool_results),
+                extra,
+            )
+
+        # ── SYNC ──────────────────────────────────────────────────────────────
 
         def invoke(self, messages, assistant_message, response_format=None,
                    tools=None, tool_choice=None, run_response=None,
                    compress_tool_results=False):
             assistant_message.metrics.start_timer()
+            state = {"in_tok": 0, "out_tok": 0, "tcs": {}}
+            parts: list[str] = []
             try:
-                extra = self.get_request_params(
-                    response_format=response_format,
-                    tools=tools,
-                    tool_choice=tool_choice,
-                    run_response=run_response,
+                body = self._get_body(
+                    messages, compress_tool_results,
+                    response_format=response_format, tools=tools,
+                    tool_choice=tool_choice, run_response=run_response,
                 )
-                formatted = self._format_all_messages(messages, compress_tool_results)
-
-                content_parts, tool_calls_map, input_tokens, output_tokens = ([], {}, 0, 0)
-                for content_parts, tool_calls_map, input_tokens, output_tokens in _stream_manifest(
-                    self.id, formatted, extra
-                ):
-                    pass  # consumir até o final
-
+                with httpx.Client(timeout=httpx.Timeout(120.0)) as client:
+                    with client.stream("POST", f"{_url}/chat/completions",
+                                       headers=_headers, content=json.dumps(body).encode()) as resp:
+                        if resp.status_code != 200:
+                            raise RuntimeError(f"Manifest {resp.status_code}: {resp.read().decode()}")
+                        for line in resp.iter_lines():
+                            mr = _parse_sse_chunks(state, line)
+                            if mr and mr.content:
+                                parts.append(mr.content)
             except Exception as e:
                 from agno.exceptions import ModelProviderError
-                raise ModelProviderError(
-                    message=str(e), model_name=self.name, model_id=self.id
-                ) from e
+                raise ModelProviderError(message=str(e), model_name=self.name, model_id=self.id) from e
             finally:
                 assistant_message.metrics.stop_timer()
 
-            content = "".join(content_parts) if content_parts else None
-            mr = ModelResponse(content=content)
-            mr.input_tokens = input_tokens
-            mr.output_tokens = output_tokens
-            if tool_calls_map:
-                mr.tool_calls = self._build_tool_calls(tool_calls_map)
+            mr = ModelResponse(content="".join(parts) or None)
+            mr.input_tokens = state["in_tok"]
+            mr.output_tokens = state["out_tok"]
+            if state["tcs"]:
+                mr.tool_calls = self._build_tool_calls(state["tcs"])
             return mr
 
         def invoke_stream(self, messages, assistant_message, response_format=None,
                           tools=None, tool_choice=None, run_response=None,
-                          compress_tool_results=False):
+                          compress_tool_results=False) -> Iterator[ModelResponse]:
+            assistant_message.metrics.start_timer()
+            state = {"in_tok": 0, "out_tok": 0, "tcs": {}}
             try:
-                assistant_message.metrics.start_timer()
-                extra = self.get_request_params(
-                    response_format=response_format,
-                    tools=tools,
-                    tool_choice=tool_choice,
-                    run_response=run_response,
+                body = self._get_body(
+                    messages, compress_tool_results,
+                    response_format=response_format, tools=tools,
+                    tool_choice=tool_choice, run_response=run_response,
                 )
-                formatted = self._format_all_messages(messages, compress_tool_results)
+                with httpx.Client(timeout=httpx.Timeout(120.0)) as client:
+                    with client.stream("POST", f"{_url}/chat/completions",
+                                       headers=_headers, content=json.dumps(body).encode()) as resp:
+                        if resp.status_code != 200:
+                            raise RuntimeError(f"Manifest {resp.status_code}: {resp.read().decode()}")
+                        for line in resp.iter_lines():
+                            mr = _parse_sse_chunks(state, line)
+                            if mr:
+                                yield mr
 
-                prev_len = 0
-                final_tool_calls_map: dict = {}
-                final_in = 0
-                final_out = 0
-
-                for content_parts, tool_calls_map, in_tok, out_tok in _stream_manifest(
-                    self.id, formatted, extra
-                ):
-                    final_tool_calls_map = tool_calls_map
-                    final_in = in_tok
-                    final_out = out_tok
-
-                    # Emitir apenas o delta novo
-                    joined = "".join(content_parts)
-                    new_text = joined[prev_len:]
-                    prev_len = len(joined)
-
-                    if new_text:
-                        mr = ModelResponse(content=new_text)
-                        mr.input_tokens = in_tok
-                        mr.output_tokens = out_tok
-                        yield mr
-
-                # Emitir tool calls no final se houver
-                if final_tool_calls_map:
+                if state["tcs"]:
                     mr = ModelResponse(content=None)
-                    mr.tool_calls = self._build_tool_calls(final_tool_calls_map)
-                    mr.input_tokens = final_in
-                    mr.output_tokens = final_out
+                    mr.tool_calls = self._build_tool_calls(state["tcs"])
+                    mr.input_tokens = state["in_tok"]
+                    mr.output_tokens = state["out_tok"]
                     yield mr
 
                 assistant_message.metrics.stop_timer()
-
             except Exception as e:
                 from agno.exceptions import ModelProviderError
-                raise ModelProviderError(
-                    message=str(e), model_name=self.name, model_id=self.id
-                ) from e
+                raise ModelProviderError(message=str(e), model_name=self.name, model_id=self.id) from e
+
+        # ── ASYNC ─────────────────────────────────────────────────────────────
+
+        async def ainvoke(self, messages, assistant_message, response_format=None,
+                          tools=None, tool_choice=None, run_response=None,
+                          compress_tool_results=False):
+            import httpx as _httpx
+            assistant_message.metrics.start_timer()
+            state = {"in_tok": 0, "out_tok": 0, "tcs": {}}
+            parts: list[str] = []
+            try:
+                body = self._get_body(
+                    messages, compress_tool_results,
+                    response_format=response_format, tools=tools,
+                    tool_choice=tool_choice, run_response=run_response,
+                )
+                async with _httpx.AsyncClient(timeout=_httpx.Timeout(120.0)) as client:
+                    async with client.stream("POST", f"{_url}/chat/completions",
+                                              headers=_headers, content=json.dumps(body).encode()) as resp:
+                        if resp.status_code != 200:
+                            raise RuntimeError(f"Manifest {resp.status_code}: {await resp.aread()}")
+                        async for line in resp.aiter_lines():
+                            mr = _parse_sse_chunks(state, line)
+                            if mr and mr.content:
+                                parts.append(mr.content)
+            except Exception as e:
+                from agno.exceptions import ModelProviderError
+                raise ModelProviderError(message=str(e), model_name=self.name, model_id=self.id) from e
+            finally:
+                assistant_message.metrics.stop_timer()
+
+            mr = ModelResponse(content="".join(parts) or None)
+            mr.input_tokens = state["in_tok"]
+            mr.output_tokens = state["out_tok"]
+            if state["tcs"]:
+                mr.tool_calls = self._build_tool_calls(state["tcs"])
+            return mr
+
+        async def ainvoke_stream(self, messages, assistant_message, response_format=None,
+                                  tools=None, tool_choice=None, run_response=None,
+                                  compress_tool_results=False) -> AsyncIterator[ModelResponse]:
+            import httpx as _httpx
+            assistant_message.metrics.start_timer()
+            state = {"in_tok": 0, "out_tok": 0, "tcs": {}}
+            try:
+                body = self._get_body(
+                    messages, compress_tool_results,
+                    response_format=response_format, tools=tools,
+                    tool_choice=tool_choice, run_response=run_response,
+                )
+                async with _httpx.AsyncClient(timeout=_httpx.Timeout(120.0)) as client:
+                    async with client.stream("POST", f"{_url}/chat/completions",
+                                              headers=_headers, content=json.dumps(body).encode()) as resp:
+                        if resp.status_code != 200:
+                            raise RuntimeError(f"Manifest {resp.status_code}: {await resp.aread()}")
+                        async for line in resp.aiter_lines():
+                            mr = _parse_sse_chunks(state, line)
+                            if mr:
+                                yield mr
+
+                if state["tcs"]:
+                    mr = ModelResponse(content=None)
+                    mr.tool_calls = self._build_tool_calls(state["tcs"])
+                    mr.input_tokens = state["in_tok"]
+                    mr.output_tokens = state["out_tok"]
+                    yield mr
+
+                assistant_message.metrics.stop_timer()
+            except Exception as e:
+                from agno.exceptions import ModelProviderError
+                raise ModelProviderError(message=str(e), model_name=self.name, model_id=self.id) from e
 
     return _ManifestChat(
         id="auto",
