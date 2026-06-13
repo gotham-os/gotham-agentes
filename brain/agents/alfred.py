@@ -1,16 +1,16 @@
 import os
 from agno.agent import Agent
-from agno.models.groq import Groq
 from agno.tools.tavily import TavilyTools
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.db.sqlite import SqliteDb
+from lib.models import get_model
 
 DB_PATH = os.getenv("GOTHAM_DB_PATH", "./gotham_memory.db")
 
 alfred_agent = Agent(
     name="🎩 Alfred Pennyworth",
     id="alfred",
-    model=Groq(id="llama-3.3-70b-versatile"),
+    model=get_model("alfred", "llama-3.3-70b-versatile"),
     tools=[TavilyTools(), DuckDuckGoTools()],
     db=SqliteDb(db_file=DB_PATH),
     description=(

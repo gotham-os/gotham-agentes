@@ -33,8 +33,8 @@ from urllib.request import Request, urlopen
 from xml.etree import ElementTree
 
 from agno.agent import Agent
-from agno.models.groq import Groq
 from agno.tools import tool
+from lib.models import get_model
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.tavily import TavilyTools
 from agno.db.sqlite import SqliteDb
@@ -337,7 +337,7 @@ Seu trabalho não é gerar ideias bonitas: é encontrar apostas assimétricas qu
 bruce_agent = Agent(
     name="🏛️ Bruce Wayne",
     id="bruce",
-    model=Groq(id="llama-3.3-70b-versatile"),
+    model=get_model("bruce", "llama-3.3-70b-versatile"),
     tools=[
         # Knowledge (sempre primeiro)
         load_scoring_knowledge,
