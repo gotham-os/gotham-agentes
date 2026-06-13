@@ -23,7 +23,7 @@ load_dotenv()
 
 from fastapi.middleware.cors import CORSMiddleware
 from agno.os.app import AgentOS
-from agents import alfred_agent, ras_agent, selina_agent, bruce_agent
+from agents import alfred_agent, ras_agent, selina_agent, bruce_agent, batman_agent
 
 _cors_origins = os.getenv("CORS_ORIGINS", "https://agents.bmilimitada.com").split(",")
 
@@ -34,6 +34,7 @@ app = AgentOS(
         ras_agent,
         selina_agent,
         bruce_agent,
+        batman_agent,
     ],
 ).get_app()
 
