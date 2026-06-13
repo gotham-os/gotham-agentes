@@ -112,10 +112,21 @@ def _make_manifest_chat(manifest_key: str, manifest_url: str):
 
             return mr
 
+    import httpx
+
+    http_client = httpx.Client(
+        headers={
+            "User-Agent": "gotham-agent/1.0",
+            "Accept": "*/*",
+        },
+        timeout=httpx.Timeout(120.0),
+    )
+
     return _ManifestChat(
         id="auto",
         api_key=manifest_key,
         base_url=manifest_url,
+        http_client=http_client,
     )
 
 
