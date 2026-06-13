@@ -90,13 +90,12 @@ def _make_manifest_chat(manifest_key: str, manifest_url: str):
         """Chama Manifest via httpx direto — contorna bloqueio de UA do OpenAI SDK."""
 
         def _build_tool_calls(self, tcs: dict) -> list:
-            from agno.models.message import ToolCall
             return [
-                ToolCall(
-                    id=tc["id"],
-                    type="function",
-                    function={"name": tc["function"]["name"], "arguments": tc["function"]["arguments"]},
-                )
+                {
+                    "id": tc["id"],
+                    "type": "function",
+                    "function": {"name": tc["function"]["name"], "arguments": tc["function"]["arguments"]},
+                }
                 for tc in tcs.values()
             ]
 
