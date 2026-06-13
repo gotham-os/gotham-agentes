@@ -32,7 +32,6 @@ def get_model(director: str, groq_model: str):
             id="auto",
             api_key=manifest_key,
             base_url=manifest_url,
-            stream=True,
         )
 
     # Fallback: Groq direto
