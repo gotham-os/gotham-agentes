@@ -209,7 +209,7 @@ parecer produtivo.
 batman_agent = Agent(
     name="🦇 Batman",
     id="batman",
-    model=get_model("batman", "llama-3.3-70b-versatile"),
+    model=get_model("batman", "openai/gpt-oss-120b"),
     tools=[
         meta_ads_scale_scan,
         calculate_opportunity_score,
