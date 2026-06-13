@@ -227,29 +227,37 @@ def reclameaqui_search(query: str) -> str:
 @tool(
     name="meta_ads_search",
     description=(
-        "Pesquisa na Meta Ads Library por anúncios ativos. "
-        "API pública sem token retorna dados limitados — para dados completos, "
-        "use gotham-browser MCP. Source tier: 72."
+        "Pesquisa anúncios ATIVOS na Meta Ads Library via browser real (gotham-browser). "
+        "Retorna lista de anunciantes e quantidade de anúncios ativos para a query — "
+        "prova de distribuição/escala. Source tier: 72."
     ),
 )
 def meta_ads_search(query: str, country: str = "BR") -> str:
-    url = (
-        f"https://www.facebook.com/ads/library/api/?search_terms={quote(query)}"
-        f"&ad_type=ALL&countries%5B%5D={country}&active_status=active&media_type=all"
+    browser_url = os.getenv("GOTHAM_BROWSER_URL", "http://gotham-browser:7893")
+    lib_url = (
+        f"https://www.facebook.com/ads/library/?active_status=active"
+        f"&ad_type=all&country={country}&q={quote(query)}"
     )
-    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; gotham-bot/1.0)"})
+    task = (
+        f"Go to {lib_url} and extract the names of up to 10 advertisers shown "
+        f"and how many active ads each has. Return as a JSON list of "
+        f'{{"advertiser": str, "ads": int}}.'
+    )
     try:
-        with urlopen(req, timeout=20) as resp:
-            data = json.loads(resp.read())
-        return json.dumps(data, ensure_ascii=False)[:3000]
+        resp = httpx.post(
+            f"{browser_url}/run",
+            json={"task": task, "llm_provider": "nvidia", "max_steps": 15},
+            timeout=180,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if not data.get("ok"):
+            return json.dumps({"error": data.get("error"), "source": "meta_ads_library", "url": lib_url})
+        return json.dumps({"source": "meta_ads_library", "url": lib_url, "result": data.get("result")}, ensure_ascii=False)
     except Exception as exc:
         return json.dumps({
-            "info": "Meta Ads Library requer browser com login para dados completos.",
-            "action": (
-                f"Use gotham-browser MCP: acesse "
-                f"https://www.facebook.com/ads/library/?active_status=active"
-                f"&ad_type=all&country={country}&q={quote(query)}"
-            ),
+            "info": "gotham-browser indisponível.",
+            "action": f"Consultar manualmente: {lib_url}",
             "error": str(exc),
         })
 
